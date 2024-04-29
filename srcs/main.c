@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/29 04:21:53 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:22:23 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,42 @@ void    parse_colors(char *line, int color[3])
 	color[2] = ft_atoi(colors[2]);
 }
 
+int double_pointer_len(char **ptr)
+{
+	int len;
+
+	len = 0;
+	while (ptr[len])
+		len++;
+	return (len);
+}
+
+void    parse_map(char *line, t_cube_data *cube_data)
+{
+	int     map_size;
+	char    **tmp;
+	int     idx;
+
+	if (cube_data->map != NULL)
+		map_size = double_pointer_len(cube_data->map);
+	else
+		map_size = 0;
+
+	tmp = ft_calloc(sizeof(char *), (map_size + 2));
+	idx = -1;
+	while (++idx < map_size)
+		tmp[idx] = cube_data->map[idx];
+	tmp[idx] = ft_strdup(line);
+	free(cube_data->map);
+	cube_data->map = tmp;
+}
+
 int parse_line(char *line, t_cube_data *cube_data)
 {
 	if (!line)
-		return (0);
+		return (1);
 	if (ft_strncmp("NO", line, 2) == 0)
-	{
-		printf("NO: %s\n", line);
 		cube_data->north_texture = clean_line(line);
-	}
 	else if (ft_strncmp("SO", line, 2) == 0)
 		cube_data->south_texture = clean_line(line);
 	else if (ft_strncmp("WE", line, 2) == 0)
@@ -76,7 +103,7 @@ int parse_line(char *line, t_cube_data *cube_data)
 	else if (ft_strncmp("C", line, 1) == 0)
 		parse_colors(line + 1, cube_data->ceiling_color);
 	else
-		return (ft_printf("Parse the map\n"));
+		parse_map(line, cube_data);
 	return (0);
 }
 int read_file(char *file, t_cube_data *cube_data)
@@ -103,6 +130,36 @@ int read_file(char *file, t_cube_data *cube_data)
 	return (0);
 }
 
+void replace_tabs_with_spaces(char ***map)
+{
+    int idx;
+    int idx2;
+    char *new_line;
+    char *tmp;
+	char *to_append;
+
+    idx = -1;
+    while ((*map)[++idx])
+    {
+        new_line = ft_strdup("");
+        idx2 = -1;
+        while ((*map)[idx][++idx2])
+        {
+            if ((*map)[idx][idx2] == '\t')
+				to_append = ft_strdup("    ");
+            else
+				to_append = ft_sprintf("%c", (*map)[idx][idx2]);
+			tmp = ft_strdup(new_line);
+			free(new_line);
+			new_line = ft_sprintf("%s%s", tmp, to_append);
+			free(tmp);
+			free(to_append);
+        }
+        free((*map)[idx]);
+        (*map)[idx] = new_line;
+    }
+}
+
 int	main(int argc, char **argv)
 {
 	t_cube_data	cube_data;
@@ -116,11 +173,19 @@ int	main(int argc, char **argv)
 	// TODO: IMPROVE THE PARSING WITH MORE EDGE CASES FOR INPUT ERRORS
 	// THIS IS JUST A "IS WORKING" EXAMPLE
 	read_file(argv[1], &cube_data);
+	replace_tabs_with_spaces(&cube_data.map); // this is a way to "justify" the map and avoid spacing issues
+
+	// PRINT THE STRUCTURE
 	printf("\nNO: %s", cube_data.north_texture);
 	printf("SO: %s", cube_data.south_texture);
 	printf("WE: %s", cube_data.west_texture);
 	printf("EA: %s", cube_data.east_texture);
 	printf("F: %d, %d, %d\n", cube_data.floor_color[0], cube_data.floor_color[1], cube_data.floor_color[2]);
 	printf("C: %d, %d, %d\n", cube_data.ceiling_color[0], cube_data.ceiling_color[1], cube_data.ceiling_color[2]);
+	int idx = -1;
+	while (cube_data.map[++idx])
+		printf("%s", cube_data.map[idx]);
+
+	// TODO: FREE THE MEMORY
 	return (0);
 }

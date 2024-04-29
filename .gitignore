@@ -1,7 +1,10 @@
 .DS_Store
 .idea
 *.o
+*.a
 *.out
 parse_cube
 *.cub
 *dSYM
+
+wrong.cubiculo

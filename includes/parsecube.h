@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/29 03:38:50 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:01:04 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,11 @@ typedef struct s_cube_data {
 	int     ceiling_color[3]; // C
 	char    **map; // MAP
 }   t_cube_data;
+
+typedef struct s_start_position {
+	int     x;
+	int     y;
+	char    orientation;
+}   t_start_position;
 
 # endif

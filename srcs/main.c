@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/29 16:22:23 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:24:56 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,20 +160,110 @@ void replace_tabs_with_spaces(char ***map)
     }
 }
 
+int validate_file(t_cube_data *cube_data)
+{
+	if (!cube_data->north_texture || !cube_data->south_texture || !cube_data->west_texture || !cube_data->east_texture)
+		return (ft_printf("Missing texture\n"), 1);
+	if (cube_data->floor_color[0] < 0 || cube_data->floor_color[1] < 0 || cube_data->floor_color[2] < 0)
+		return (ft_printf("Invalid floor color\n"), 1);
+	if (cube_data->ceiling_color[0] < 0 || cube_data->ceiling_color[1] < 0 || cube_data->ceiling_color[2] < 0)
+		return (ft_printf("Invalid ceiling color\n"), 1);
+	if (!cube_data->map)
+		return (ft_printf("Missing map\n"), 1);
+	return (0);
+}
+
+int validate_top_bottom(char *line)
+{
+	int idx;
+
+	idx = -1;
+	while (line[++idx] && line[idx] != '\n')
+	{
+		if (!(line[idx] == ' ' || line[idx] == '1'))
+			return (ft_printf("Invalid map top || bottom:\n\t%s\n", line), 1);
+	}
+	return (0);
+}
+
+void    set_initial_position(t_start_position *start_position, int x, int y, char orientation)
+{
+	start_position->x = x;
+	start_position->y = y;
+	start_position->orientation = orientation;
+	printf("Start position: %d, %d, %c\n", start_position->x, start_position->y, start_position->orientation);
+}
+
+int validate_line(char **map, int y, t_start_position *start_position)
+{
+	int idx;
+	char *line;
+
+	idx = -1;
+	line = map[y];
+	while (line[++idx] && ft_isspace(line[idx]))
+		;
+	if (line[idx] != '1' || line[ft_strlen(line) - 2] != '1')
+		return (ft_printf("Invalid map line:\n\t%s\n", line), 1);
+	while (line[++idx] && line[idx] != '\n')
+	{
+		if (!ft_strchr(" 01", line[idx]))
+		{
+			if (ft_strchr("NSWE", line[idx]))
+			{
+				if (start_position->orientation)
+					return (ft_printf("Multiple start positions\n"), 1);
+				set_initial_position(start_position, idx, y, line[idx]);
+			}
+			else
+				return (ft_printf("Invalid map line:\n\t%s\n", line), 1);
+		}
+	}
+	return (0);
+}
+
+int validate_map(t_cube_data *cube_data, t_start_position *start_position)
+{
+	int idx;
+	int max_y;
+
+	max_y = double_pointer_len(cube_data->map);
+	idx = -1;
+	if (max_y <= 0)
+		return (ft_printf("Invalid map y\n"), 1);
+	while (cube_data->map[++idx])
+	{
+		if (ft_strlen(cube_data->map[idx]) <= 0)
+			return (ft_printf("Invalid map x\n"), 1);
+		if ((idx == 0 || idx == max_y - 1) && validate_top_bottom(cube_data->map[idx]))
+			return (1);
+		if (validate_line(cube_data->map, idx, start_position))
+			return (1);
+
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
-	t_cube_data	cube_data;
+	t_cube_data         cube_data;
+	t_start_position    start_position;
 
 	if (argc != 2)
 		return (ft_printf("Invalid number of arguments\n"), 1);
 	if (validate_extension(argv[1]))
 		return (1);
 	ft_memset(&cube_data, 0, sizeof(t_cube_data));
+	ft_memset(&start_position, 0, sizeof(t_start_position));
 
 	// TODO: IMPROVE THE PARSING WITH MORE EDGE CASES FOR INPUT ERRORS
 	// THIS IS JUST A "IS WORKING" EXAMPLE
 	read_file(argv[1], &cube_data);
 	replace_tabs_with_spaces(&cube_data.map); // this is a way to "justify" the map and avoid spacing issues
+	if (validate_file(&cube_data))
+		return (printf("Invalid input. Cleanup and exit\n"), 1);
+	if (validate_map(&cube_data, &start_position))
+		return (printf("Invalid map. Cleanup and exit\n"), 1);
 
 	// PRINT THE STRUCTURE
 	printf("\nNO: %s", cube_data.north_texture);

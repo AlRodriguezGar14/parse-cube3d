@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/30 18:24:56 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/01 03:12:36 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void    parse_map(char *line, t_cube_data *cube_data)
 	idx = -1;
 	while (++idx < map_size)
 		tmp[idx] = cube_data->map[idx];
-	tmp[idx] = ft_strdup(line);
+	tmp[idx] = ft_strtrim(line, "\n");
 	free(cube_data->map);
 	cube_data->map = tmp;
 }
@@ -194,30 +194,48 @@ void    set_initial_position(t_start_position *start_position, int x, int y, cha
 	printf("Start position: %d, %d, %c\n", start_position->x, start_position->y, start_position->orientation);
 }
 
+int validate_neighbors(char **map, int x, int y)
+{
+	if (map[y][x] && ft_strchr("0NSWE", map[y][x]))
+	{
+		if (map[y-1][x] && map[y-1][x] == ' ')
+			return (ft_printf("Invalid map line. Not closed:\n\t%s\n\t%s <-\n", map[y - 1], map[y]), 1);
+		if (map[y][x-1] && map[y][x-1] == ' ')
+		return (ft_printf("Invalid map line. Not closed:\n\t%s\n", map[y]), 1);
+		if (map[y+1][x] && map[y+1][x] == ' ')
+			return (ft_printf("Invalid map line. Not closed:\n\t%s <-\n\t%s\n", map[y], map[y+1]), 1);
+		if (map[y][x+1] && map[y][x+1] == ' ')
+			return (ft_printf("Invalid map line: %s\n", map[y]), 1);
+	}
+	return (0);
+}
+
 int validate_line(char **map, int y, t_start_position *start_position)
 {
-	int idx;
+	int x;
 	char *line;
 
-	idx = -1;
+	x = -1;
 	line = map[y];
-	while (line[++idx] && ft_isspace(line[idx]))
+	while (line[++x] && ft_isspace(line[x]))
 		;
-	if (line[idx] != '1' || line[ft_strlen(line) - 2] != '1')
+	if (line[x] != '1' || line[ft_strlen(line) - 1] != '1')
 		return (ft_printf("Invalid map line:\n\t%s\n", line), 1);
-	while (line[++idx] && line[idx] != '\n')
+	while (line[++x])
 	{
-		if (!ft_strchr(" 01", line[idx]))
+		if (!ft_strchr(" 01", line[x]))
 		{
-			if (ft_strchr("NSWE", line[idx]))
+			if (ft_strchr("NSWE", line[x]))
 			{
 				if (start_position->orientation)
 					return (ft_printf("Multiple start positions\n"), 1);
-				set_initial_position(start_position, idx, y, line[idx]);
+				set_initial_position(start_position, x, y, line[x]);
 			}
 			else
 				return (ft_printf("Invalid map line:\n\t%s\n", line), 1);
 		}
+		if (validate_neighbors(map, x, y))
+			return (1);
 	}
 	return (0);
 }
@@ -258,6 +276,7 @@ int	main(int argc, char **argv)
 
 	// TODO: IMPROVE THE PARSING WITH MORE EDGE CASES FOR INPUT ERRORS
 	// THIS IS JUST A "IS WORKING" EXAMPLE
+
 	read_file(argv[1], &cube_data);
 	replace_tabs_with_spaces(&cube_data.map); // this is a way to "justify" the map and avoid spacing issues
 	if (validate_file(&cube_data))
@@ -274,7 +293,7 @@ int	main(int argc, char **argv)
 	printf("C: %d, %d, %d\n", cube_data.ceiling_color[0], cube_data.ceiling_color[1], cube_data.ceiling_color[2]);
 	int idx = -1;
 	while (cube_data.map[++idx])
-		printf("%s", cube_data.map[idx]);
+		printf("%s\n", cube_data.map[idx]);
 
 	// TODO: FREE THE MEMORY
 	return (0);

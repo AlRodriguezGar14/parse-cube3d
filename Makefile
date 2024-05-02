@@ -14,15 +14,18 @@ CFILES	= $(addsuffix .c, $(FILES))
 OBJS	= $(addsuffix .o, $(FILES))
 HEADERS	= includes/
 LIBFT_DIR	= srcs/libft
+MINILIBX_DIR = .mlx/
+MINILIBX = $(MINILIBX_DIR)libmlx.a
 
-all: $(NAME)
+all: $(NAME) $(MINILIBX)
 
 .c.o: $(CFILES)
 	$(CC) $(CFLAGS) -I $(HEADERS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	make -C $(LIBFT_DIR)
-		$(CC) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft $(LDFLAGS)
+	make -C $(MINILIBX_DIR)
+		$(CC) $(CFLAGS) -o $@ $^  -L $(MINILIBX_DIR) -lmlx -L $(LIBFT_DIR) -lft $(LDFLAGS) -framework OpenGL -framework AppKit
 
 fsanitize:
 	$(eval CFLAGS +=-fsanitize=address -g3)

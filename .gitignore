@@ -1,10 +1,11 @@
 .DS_Store
 .idea
+.mlx
+.vscode
 *.o
 *.a
 *.out
 parse_cube
 *.cub
 *dSYM
-
 wrong.cubiculo

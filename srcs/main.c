@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/02 05:18:30 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/03 01:35:18 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,32 @@ void    print_map(t_cube_data cube_data)
 
 }
 
+void	print_game_terminal(t_cube_data cube_data)
+{
+	printf("\e[1;1H\e[2J");
+	printf("NO: %s\n", cube_data.north_texture);
+}
+
+
+void	init_mlx(t_mlx *mlx)
+{
+	mlx->mlx = mlx_init();
+	mlx->win = mlx_new_window(mlx->mlx, 800, 600, "Cub3D");
+	mlx->img = mlx_new_image(mlx->mlx, 800, 600);
+	mlx->img_addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endian);
+}
 
 int	main(int argc, char **argv)
 {
 	t_cube_data         cube_data;
-	t_start_position    start_position;
+	t_start_position	start_position;
+	t_mlx				mlx;
 
 	if (argc != 2 || validate_extension(argv[1]))
 		return (1);
 	ft_memset(&cube_data, 0, sizeof(t_cube_data));
 	ft_memset(&start_position, 0, sizeof(t_start_position));
+	ft_memset(&mlx, 0, sizeof(t_mlx));
 
 	// TODO: IMPROVE THE PARSING WITH MORE EDGE CASES FOR INPUT ERRORS
 	read_file(argv[1], &cube_data);
@@ -48,7 +64,12 @@ int	main(int argc, char **argv)
 		return (printf("Invalid map. Cleanup and exit\n"), 1);
 
 	print_map(cube_data);
+	init_mlx(&mlx);
+	mlx_loop(mlx.mlx);
+
+	// print_game_terminal(cube_data);
 
 	// TODO: FREE THE MEMORY
+
 	return (0);
 }

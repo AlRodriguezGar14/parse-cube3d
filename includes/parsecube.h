@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecube.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/02 05:10:19 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/03 01:33:35 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 # define PARSECUBE_H
 
 # include "libft.h"
+# include "../.mlx/mlx.h"
+
+typedef struct s_mlx {
+	void    *mlx;
+	void    *win;
+	void	*img;
+	char	*img_addr;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
+}   t_mlx;
 
 typedef struct s_cube_data {
 	char    *north_texture; // NO

@@ -3,6 +3,11 @@ CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g3
 
 FILES	=	srcs/main \
+			srcs/validators/validate_file \
+			srcs/validators/validate_map \
+			srcs/parser/parsers \
+			srcs/parser/parsing_utils \
+			srcs/utils
 
 
 CFILES	= $(addsuffix .c, $(FILES))

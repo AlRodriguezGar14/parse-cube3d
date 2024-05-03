@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/03 06:03:24 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:19:45 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	key_hook(int keycode, t_cube_data *cube_data)
 	int max_x;
 	char *keycode_str[14];
 
+	if (keycode != LEFT && keycode != RIGHT && keycode != UP && keycode != DOWN)
+		return (0);
 	max_y = cube_data->max_y;
 	max_x = ft_strlen(cube_data->map[player_position->y]);	
 	if (keycode == LEFT)

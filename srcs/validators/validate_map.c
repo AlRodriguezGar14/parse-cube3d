@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 04:52:25 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/03 05:51:42 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:27:31 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,33 @@ void    set_initial_position(t_player_position *player_position, int x, int y, c
 
 int validate_neighbors(char **map, int x, int y)
 {
+	int map_len = double_pointer_len(map);
+	int line_len = (int)ft_strlen(map[y]);
+
+	// if (x == 0 || x == line_len - 1 || y == 0 || y == map_len - 1)
+	// 	return (0);
+	printf("Checking neighbors: %d, %d || x len: %d\n", x, y, line_len);
 	if (map[y][x] && ft_strchr("0NSWE", map[y][x]))
 	{
-		if (map[y-1][x] && map[y-1][x] == ' ')
-			return (ft_printf("Invalid map line. Not closed:\n\t%s\n\t%s <-\n", map[y - 1], map[y]), 1);
-		if (map[y][x-1] && map[y][x-1] == ' ')
-			return (ft_printf("Invalid map line. Not closed:\n\t%s\n", map[y]), 1);
-		if (map[y+1][x] && map[y+1][x] == ' ')
-			return (ft_printf("Invalid map line. Not closed:\n\t%s <-\n\t%s\n", map[y], map[y+1]), 1);
-		if (map[y][x+1] && map[y][x+1] == ' ')
-			return (ft_printf("Invalid map line: %s\n", map[y]), 1);
+		if (y > 0 && (int)ft_strlen(map[y-1]) - 1 < x)
+			return (printf("Invalid map line. Not closed:\n\t%s\n\t%s <-\n", map[y - 1], map[y]), 1);
+		if (x > 0 && map[y][x-1] == '\0')
+			return (printf("Invalid map line. Not closed:\n\t%s\n", map[y]), 1);
+		if (y < map_len - 1 && (int)ft_strlen(map[y+1]) - 1 < x)
+			return (printf("Invalid map line. Not closed:\n\t%s <-\n\t%s\n", map[y], map[y+1]), 1);
+		if (x < line_len - 1 && map[y][x+1] == '\0')
+			return (printf("Invalid map line: %s\n", map[y]), 1);
+		if (y > 0 && map[y-1][x] && map[y-1][x] == ' ')
+			return (printf("Invalid map line. Not closed:\n\t%s\n\t%s <-\n", map[y - 1], map[y]), 1);
+		if (x > 0 && map[y][x-1] && map[y][x-1] == ' ')
+			return (printf("Invalid map line. Not closed:\n\t%s\n", map[y]), 1);
+		if (y < map_len - 1 && map[y+1][x] && map[y+1][x] == ' ')
+			return (printf("Invalid map line. Not closed:\n\t%s <-\n\t%s\n", map[y], map[y+1]), 1);
+		if (x < line_len - 1 && map[y][x+1] && map[y][x+1] == ' ')
+			return (printf("Invalid map line: %s\n", map[y]), 1);
 	}
 	return (0);
 }
-
 int validate_line(char **map, int y, t_player_position *player_position)
 {
 	int x;

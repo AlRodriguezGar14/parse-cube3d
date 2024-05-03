@@ -14,7 +14,7 @@ CFILES	= $(addsuffix .c, $(FILES))
 OBJS	= $(addsuffix .o, $(FILES))
 HEADERS	= includes/
 LIBFT_DIR	= srcs/libft
-MINILIBX_DIR = .mlx/
+MINILIBX_DIR = mlx/
 MINILIBX = $(MINILIBX_DIR)libmlx.a
 
 all: $(NAME) $(MINILIBX)

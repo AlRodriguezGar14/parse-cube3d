@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/03 02:41:52 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/03 06:03:24 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,9 @@ int	key_hook(int keycode, t_cube_data *cube_data)
 	t_player_position *player_position = cube_data->player_position;
 	int max_y;
 	int max_x;
+	char *keycode_str[14];
 
-	int idx = -1;
-	while (cube_data->map[++idx])
-		;
-	max_y = idx;
+	max_y = cube_data->max_y;
 	max_x = ft_strlen(cube_data->map[player_position->y]);	
 	if (keycode == LEFT)
 	{
@@ -114,7 +112,15 @@ int	key_hook(int keycode, t_cube_data *cube_data)
 		move_down(player_position);
 	}
 
+	ft_memset(keycode_str, 0, 14);
+	keycode_str[0] = "LEFT";
+	keycode_str[2] = "RIGHT";
+	keycode_str[13] = "UP";
+	keycode_str[1] = "DOWN";
+	
 	print_game_terminal(cube_data);
+	printf("Movement: %s\n", keycode_str[keycode]);
+	printf("Player position: %d, %d\n", player_position->x, player_position->y);
 	printf("\n");
 	print_map(cube_data);
 	return (0);
@@ -126,6 +132,7 @@ int	main(int argc, char **argv)
 	t_player_position	player_position;
 	t_mlx				mlx;
 
+	printf("\e[1;1H\e[2J");
 	if (argc != 2 || validate_extension(argv[1]))
 		return (1);
 	ft_memset(&cube_data, 0, sizeof(t_cube_data));
@@ -141,6 +148,7 @@ int	main(int argc, char **argv)
 		return (printf("Invalid map. Cleanup and exit\n"), 1);
 
 	cube_data.player_position = &player_position;
+	cube_data.mlx = &mlx;
 	print_map(&cube_data);
 	init_mlx(&mlx);
 	mlx_key_hook(mlx.win, key_hook, &cube_data);

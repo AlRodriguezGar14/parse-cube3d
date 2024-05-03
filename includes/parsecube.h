@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/03 02:11:45 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/03 06:04:10 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ typedef struct s_cube_data {
 	int     floor_color[3]; // F
 	int     ceiling_color[3]; // C
 	char    **map; // MAP
+	int		max_y;
 	t_player_position *player_position;
+	t_mlx   *mlx;
 }   t_cube_data;
 
 

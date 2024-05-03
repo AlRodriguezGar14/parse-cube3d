@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 04:52:25 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/03 02:11:45 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/03 05:51:42 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int validate_map(t_cube_data *cube_data, t_player_position *player_position)
 			return (1);
 		if (validate_line(cube_data->map, idx, player_position))
 			return (1);
-
 	}
 	return (0);
 }

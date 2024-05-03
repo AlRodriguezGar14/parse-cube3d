@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:08:15 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/03 01:38:39 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/03 06:06:18 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void    parse_map(char *line, t_cube_data *cube_data)
 	else
 		map_size = 0;
 
+	cube_data->max_y = map_size;
 	tmp = ft_calloc(sizeof(char *), (map_size + 2));
 	idx = -1;
 	while (++idx < map_size)
@@ -86,5 +87,6 @@ int parse_line(char *line, t_cube_data *cube_data)
 		parse_colors(line + 1, cube_data->ceiling_color);
 	else
 		parse_map(line, cube_data);
+	// TODO: CHECK IF THE PATHS ARE VALID
 	return (0);
 }

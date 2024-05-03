@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/03 01:33:35 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/03 02:11:45 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include "libft.h"
 # include "../.mlx/mlx.h"
+
+# define LEFT 0 
+# define RIGHT 2 
+# define UP  13
+# define DOWN 1 
 
 typedef struct s_mlx {
 	void    *mlx;
@@ -26,6 +31,12 @@ typedef struct s_mlx {
 	int		endian;
 }   t_mlx;
 
+typedef struct s_player_position {
+	int     x;
+	int     y;
+	char    orientation;
+}   t_player_position;
+
 typedef struct s_cube_data {
 	char    *north_texture; // NO
 	char    *south_texture; // SO
@@ -34,18 +45,14 @@ typedef struct s_cube_data {
 	int     floor_color[3]; // F
 	int     ceiling_color[3]; // C
 	char    **map; // MAP
+	t_player_position *player_position;
 }   t_cube_data;
 
-typedef struct s_start_position {
-	int     x;
-	int     y;
-	char    orientation;
-}   t_start_position;
 
 # endif
 
 // Path: validate_map.c
-int validate_map(t_cube_data *cube_data, t_start_position *start_position);
+int validate_map(t_cube_data *cube_data, t_player_position *player_position);
 
 // Path: validate_file.c
 int validate_file(t_cube_data *cube_data);

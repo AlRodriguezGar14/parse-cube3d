@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:06:20 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/04 20:27:48 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/04 20:50:01 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int read_file(char *file, t_cube_data *cube_data)
 		if (!line)
 			break;
 		if (line[0] == '\n' || line[0] == '\0')
+		{
+			free(line);
 			continue;
+		}
 		parse_line(line, cube_data);
 		free(line);
 	}

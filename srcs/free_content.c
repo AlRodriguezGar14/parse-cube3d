@@ -6,11 +6,19 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 19:51:07 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/04 20:11:34 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/04 20:43:40 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsecube.h"
+
+void    free_mlx(t_mlx *mlx)
+{
+	mlx_destroy_image(mlx->mlx, mlx->img);
+	mlx_destroy_window(mlx->mlx, mlx->win);
+	mlx_destroy_display(mlx->mlx);
+	free(mlx->mlx);
+}
 
 void	free_content(t_cube_data *cube_data)
 {

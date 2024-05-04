@@ -6,13 +6,14 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 02:10:15 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/04 19:57:44 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/04 20:44:17 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsecube.h"
 
 // TODO: CHECK IF MAINTAIN IT OR NOT / INTEGRATE IT WITH THE MAIN GAME
+
 int	key_hook_terminal(int keycode, t_cube_data *cube_data)
 {
 	t_player_position *player_position = cube_data->player_position;
@@ -23,6 +24,7 @@ int	key_hook_terminal(int keycode, t_cube_data *cube_data)
 	{
 		// TODO: FREE EVERYTHING, INCLUDING THE MLX
 		free_content(cube_data);
+		free_mlx(cube_data->mlx);
 		exit(0);
 	}
 	// TODO: Build a hashmap or use a better logic

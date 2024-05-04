@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/04 20:14:15 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/04 20:44:04 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,3 +97,4 @@ void	print_game_terminal(t_cube_data *cube_data);
 
 // Path: free_content.c
 void	free_content(t_cube_data *cube_data);
+void    free_mlx(t_mlx *mlx);

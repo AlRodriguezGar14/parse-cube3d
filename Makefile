@@ -1,6 +1,7 @@
 NAME	= parse_cube
-CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g3
+CC		= gcc
+# CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS	= -Wall -Wextra -Werror
 
 FILES	=	srcs/main \
 			srcs/validators/validate_file \
@@ -8,6 +9,7 @@ FILES	=	srcs/main \
 			srcs/parser/parsers \
 			srcs/parser/parsing_utils \
 			srcs/utils \
+			srcs/free_content \
 			srcs/key_hooks_terminal/movements \
 			srcs/key_hooks_terminal/key_hook_terminal \
 
@@ -27,7 +29,9 @@ all: $(NAME) $(MINILIBX)
 $(NAME): $(OBJS)
 	make -C $(LIBFT_DIR)
 	make -C $(MINILIBX_DIR)
-		$(CC) $(CFLAGS) -o $@ $^  -L $(MINILIBX_DIR) -lmlx -L $(LIBFT_DIR) -lft $(LDFLAGS) -framework OpenGL -framework AppKit
+		$(CC) $(CFLAGS) -o $@ $^  -L $(MINILIBX_DIR) -lmlx -lXext -lX11 -L $(LIBFT_DIR) -lft $(LDFLAGS)
+		# $(CC) $(CFLAGS) -o $@ $^ $(CFLAGS) $(MINILIBX) -I $(INCLUDES) -lmlx -lXext -lX11
+		# $(CC) $(CFLAGS) -o $@ $^  -L $(MINILIBX_DIR) -lmlx -L $(LIBFT_DIR) -lft $(LDFLAGS) -framework OpenGL -framework AppKit
 
 fsanitize:
 	$(eval CFLAGS +=-fsanitize=address -g3)

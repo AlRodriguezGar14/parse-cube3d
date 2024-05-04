@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/04 19:58:39 by alberrod          #+#    #+#             */
+/*   Updated: 2024/05/04 20:36:10 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsers.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:08:15 by alberrod          #+#    #+#             */
@@ -12,7 +24,7 @@
 
 #include "parsecube.h"
 
-void    parse_colors(char *line, int color[3])
+int    parse_colors(char *line, int color[3])
 {
 	char *tmp;
 	char **colors;
@@ -24,28 +36,20 @@ void    parse_colors(char *line, int color[3])
 	free(tmp);
 	if (double_pointer_len(colors) != 3)
 	{
-		idx = -1;
-		while (colors[++idx])
-			free(colors[idx]);
-		free(colors);
-		return ;
+		free_double_pointer(colors);
+		return (1);
 	}
 	color[0] = ft_atoi(colors[0]);
 	color[1] = ft_atoi(colors[1]);
 	color[2] = ft_atoi(colors[2]);
 	idx = -1;
-	while (colors[++idx])
+	while (color[++idx])
 	{
 		if (color[idx] < 0 || color[idx] > 255)
-		{
-			free(tmp);
-			idx = -1;
-			while (colors[++idx])
-				free(colors[idx]);
-			free(colors);
-			return ;
-		}
+			return (free_double_pointer(colors), 1);
 	}
+	free_double_pointer(colors);
+	return (0);
 }
 
 void    parse_map(char *line, t_cube_data *cube_data)
@@ -71,22 +75,32 @@ void    parse_map(char *line, t_cube_data *cube_data)
 
 int parse_line(char *line, t_cube_data *cube_data)
 {
+	int error;
+
+	error = 0;
 	if (!line)
 		return (1);
-	if (ft_strncmp("NO ", line, 3) == 0)
+	if (!error && ft_strncmp("NO ", line, 3) == 0)
 		cube_data->north_texture = line_content(line);
-	else if (ft_strncmp("SO ", line, 3) == 0)
+	else if (!error && ft_strncmp("SO ", line, 3) == 0)
 		cube_data->south_texture = line_content(line);
-	else if (ft_strncmp("WE ", line, 3) == 0)
+	else if (!error && ft_strncmp("WE ", line, 3) == 0)
 		cube_data->west_texture = line_content(line);
-	else if (ft_strncmp("EA ", line, 3) == 0)
+	else if (!error && ft_strncmp("EA ", line, 3) == 0)
 		cube_data->east_texture = line_content(line);
-	else if (ft_strncmp("F ", line, 2) == 0)
-		parse_colors(line + 1, cube_data->floor_color);
-	else if (ft_strncmp("C ", line, 2) == 0)
-		parse_colors(line + 1, cube_data->ceiling_color);
+	else if (!error && ft_strncmp("F ", line, 2) == 0)
+		error = parse_colors(line + 1, cube_data->floor_color);
+	else if (!error && ft_strncmp("C ", line, 2) == 0)
+		error = parse_colors(line + 1, cube_data->ceiling_color);
 	else
 		parse_map(line, cube_data);
+	if (error)
+	{
+		printf("Error parsing; wrong content\n");
+		free(line);
+		free_content(cube_data);
+		exit(1);
+	}
 	// TODO: CHECK IF THE PATHS ARE VALID
 	return (0);
 }

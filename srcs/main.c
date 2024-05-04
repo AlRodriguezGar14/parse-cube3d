@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/04 02:14:03 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/04 19:41:10 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,14 @@ int	main(int argc, char **argv)
 	printf("\e[1;1H\e[2J");
 	if (argc != 2 || validate_extension(argv[1]))
 		return (1);
+	printf("Parsing the file...\n");
 	ft_memset(&cube_data, 0, sizeof(t_cube_data));
 	ft_memset(&player_position, 0, sizeof(t_player_position));
 	ft_memset(&mlx, 0, sizeof(t_mlx));
 
 	// TODO: IMPROVE THE PARSING WITH MORE EDGE CASES FOR INPUT ERRORS
-	read_file(argv[1], &cube_data);
+	if (read_file(argv[1], &cube_data))
+		return (1);
 	replace_tabs_with_spaces(&cube_data.map); // this is a way to "justify" the map and avoid spacing issues
 	if (validate_file(&cube_data))
 		return (printf("Invalid input. Cleanup and exit\n"), 1);

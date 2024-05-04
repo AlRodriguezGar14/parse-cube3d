@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:06:20 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/02 05:07:11 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/04 20:27:48 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,21 @@ int read_file(char *file, t_cube_data *cube_data)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (ft_printf("Can't read the file\n"), 1);
+	line = get_next_line(fd);
+	if (!line)
+		return (ft_printf("File is empty\n"), 1);
+	parse_line(line, cube_data);
+	free(line);
 	while (42)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break;
-//		ft_printf("%s", line);
 		if (line[0] == '\n' || line[0] == '\0')
 			continue;
 		parse_line(line, cube_data);
 		free(line);
 	}
-//	free(line);
 	close(fd);
 	return (0);
 }
@@ -81,3 +84,12 @@ void replace_tabs_with_spaces(char ***map)
 	}
 }
 
+void    free_double_pointer(char **ptr)
+{
+	int idx;
+
+	idx = -1;
+	while (ptr[++idx])
+		free(ptr[idx]);
+	free(ptr);
+}

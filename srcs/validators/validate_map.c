@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 04:52:25 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/03 19:27:31 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/04 02:23:31 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ int validate_neighbors(char **map, int x, int y)
 	int map_len = double_pointer_len(map);
 	int line_len = (int)ft_strlen(map[y]);
 
-	// if (x == 0 || x == line_len - 1 || y == 0 || y == map_len - 1)
-	// 	return (0);
-	printf("Checking neighbors: %d, %d || x len: %d\n", x, y, line_len);
 	if (map[y][x] && ft_strchr("0NSWE", map[y][x]))
 	{
 		if (y > 0 && (int)ft_strlen(map[y-1]) - 1 < x)

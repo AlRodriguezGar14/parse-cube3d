@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/03 18:55:19 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/04 02:16:23 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,3 +74,16 @@ char    *line_content(char *line);
 int parse_line(char *line, t_cube_data *cube_data);
 void    parse_map(char *line, t_cube_data *cube_data);
 void    parse_colors(char *line, int color[3]);
+
+// Path: movements.c
+void	move_left(t_player_position *player_position);
+void	move_right(t_player_position *player_position);
+void	move_down(t_player_position *player_position);
+void	move_up(t_player_position *player_position);
+
+// PATH key_hook_terminal.c
+int	key_hook_terminal(int keycode, t_cube_data *cube_data);
+
+// Path: main.c
+void    print_map(t_cube_data *cube_data);
+void	print_game_terminal(t_cube_data *cube_data);

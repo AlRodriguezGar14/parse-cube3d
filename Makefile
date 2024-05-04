@@ -7,7 +7,9 @@ FILES	=	srcs/main \
 			srcs/validators/validate_map \
 			srcs/parser/parsers \
 			srcs/parser/parsing_utils \
-			srcs/utils
+			srcs/utils \
+			srcs/key_hooks_terminal/movements \
+			srcs/key_hooks_terminal/key_hook_terminal \
 
 
 CFILES	= $(addsuffix .c, $(FILES))

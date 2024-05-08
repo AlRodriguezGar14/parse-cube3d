@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecube.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/04 20:44:04 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:54:05 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # define DOWN 115 // linux
 
 # define ESC 65307 // linux
+# define SIZE_X 800
+# define SIZE_Y 600
+# define TILE_SIZE 32
+# define FOV 60
+# define ROTATION_SPEED 0.045
+# define PLAYER_SPEED 4
 
 typedef struct s_mlx {
 	void    *mlx;
@@ -98,3 +104,8 @@ void	print_game_terminal(t_cube_data *cube_data);
 // Path: free_content.c
 void	free_content(t_cube_data *cube_data);
 void    free_mlx(t_mlx *mlx);
+//run_game.c
+void charge_map(t_cube_data *cube_data);
+int exit_game(t_cube_data *cube_data);
+void charge_map(t_cube_data *cube_data);
+void load_textures(t_cube_data *cube_data);

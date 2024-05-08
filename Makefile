@@ -12,6 +12,7 @@ FILES	=	srcs/main \
 			srcs/free_content \
 			srcs/key_hooks_terminal/movements \
 			srcs/key_hooks_terminal/key_hook_terminal \
+			srcs/game/run_game\
 
 
 CFILES	= $(addsuffix .c, $(FILES))

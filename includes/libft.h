@@ -31,6 +31,7 @@
 # define HEXL "0123456789abcdef"
 # define HEXU "0123456789ABCDEF"
 
+
 typedef struct s_list
 {
 	void			*content;

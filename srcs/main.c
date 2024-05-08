@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/04 19:41:10 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:53:43 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,26 @@ int	main(int argc, char **argv)
 	ft_memset(&mlx, 0, sizeof(t_mlx));
 
 	// TODO: IMPROVE THE PARSING WITH MORE EDGE CASES FOR INPUT ERRORS
-	if (read_file(argv[1], &cube_data))
+	/* if (read_file(argv[1], &cube_data))
 		return (1);
 	replace_tabs_with_spaces(&cube_data.map); // this is a way to "justify" the map and avoid spacing issues
 	if (validate_file(&cube_data))
 		return (printf("Invalid input. Cleanup and exit\n"), 1);
 	if (validate_map(&cube_data, &player_position))
-		return (printf("Invalid map. Cleanup and exit\n"), 1);
+		return (printf("Invalid map. Cleanup and exit\n"), 1); */
 
 	cube_data.player_position = &player_position;
 	cube_data.mlx = &mlx;
 	// print_map(&cube_data);
 	init_mlx(&mlx);
+	// TODO: FUNCION QUE HAY QUE BORRAR CUANDO CONSIGA CARGAR EL MAPA
+	charge_map(&cube_data);
+	load_textures(&cube_data);
+	
 	mlx_key_hook(mlx.win, key_hook_terminal, &cube_data);
+	mlx_hook(mlx.win, 17, 0, exit_game, &cube_data);
 	mlx_loop(mlx.mlx);
+	
 
 
 	// TODO: FREE THE MEMORY

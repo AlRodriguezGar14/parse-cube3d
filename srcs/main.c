@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/04 19:41:10 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/09 05:14:56 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	main(int argc, char **argv)
 	// TODO: IMPROVE THE PARSING WITH MORE EDGE CASES FOR INPUT ERRORS
 	if (read_file(argv[1], &cube_data))
 		return (1);
+	print_map(&cube_data);
 	replace_tabs_with_spaces(&cube_data.map); // this is a way to "justify" the map and avoid spacing issues
 	if (validate_file(&cube_data))
 		return (printf("Invalid input. Cleanup and exit\n"), 1);
@@ -88,7 +89,6 @@ int	main(int argc, char **argv)
 
 	cube_data.player_position = &player_position;
 	cube_data.mlx = &mlx;
-	// print_map(&cube_data);
 	init_mlx(&mlx);
 	mlx_key_hook(mlx.win, key_hook_terminal, &cube_data);
 	mlx_loop(mlx.mlx);

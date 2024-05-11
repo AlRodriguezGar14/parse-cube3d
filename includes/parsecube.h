@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/11 03:23:53 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/11 10:33:09 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "../mlx/mlx.h"
 # include <math.h>
-
+# include <stdbool.h>
 
 
 //# define LEFT 0 // macos

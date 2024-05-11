@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/11 03:35:08 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/11 10:55:11 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,15 @@ int	main(int argc, char **argv)
 		return (printf("Invalid input. Cleanup and exit\n"), 1);
 	if (validate_map(&cube_data, &player_position))
 		return (printf("Invalid map. Cleanup and exit\n"), 1);
-
+ 	 cube_data.textures=(t_image_info *)ft_calloc(sizeof(t_image_info),5);
+    if(!cube_data.textures)
+        exit(0);
 	cube_data.player_position = &player_position;
 	cube_data.mlx = &mlx;
-	cube_data.textures = (t_image_info *)ft_calloc(sizeof(t_image_info),5);
+
 	printf("no peta");
-	load_textures(&cube_data);
 	init_mlx(&mlx);
+	load_textures(&cube_data);
 	init_player(&cube_data);
 	//mlx_loop_hook(cube_data.mlx->mlx,&loop_game,&cube_data);
 	mlx_key_hook(mlx.win, key_hook_terminal, &cube_data);

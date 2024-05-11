@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecube.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/04 20:44:04 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/11 03:23:53 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,30 @@
 
 # include "libft.h"
 # include "../mlx/mlx.h"
+# include <math.h>
+
+
 
 //# define LEFT 0 // macos
-# define LEFT 97 // linux
+# define LEFT 			97 // linux
 //# define RIGHT 2 // macos
-# define RIGHT 100 // linux
+# define RIGHT 			100 // linux
 //# define UP  13 // macos
-# define UP  119 // linux
+# define UP  			119 // linux
 //# define DOWN 1 // macos
-# define DOWN 115 // linux
-
-# define ESC 65307 // linux
+# define DOWN 			115 // linux
+# define ESC 			65307 // linux
+# define TILE_SIZE 		32
+# define FOV 			60
+# define ROTATION_SPEED 0.045
+# define PLAYER_SPEED	4
+# define M_PI			3.14159265358979323846
 
 typedef struct s_mlx {
 	void    *mlx;
 	void    *win;
 	void	*img;
-	char	*img_addr;
+	void 	*img_addr;
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
@@ -40,20 +47,36 @@ typedef struct s_mlx {
 typedef struct s_player_position {
 	int     x;
 	int     y;
+	int 	pos_x;
+	int		pos_y;
 	char    orientation;
+	double	angle;
+	float 	fov;
 }   t_player_position;
+
+typedef struct s_image_info
+{
+	void	*image_charge;
+	char 	*addres;
+	int		bpp;
+	int		line_s;
+	int		endian;
+	
+	
+} t_image_info;
 
 typedef struct s_cube_data {
 	char    *north_texture; // no
 	char    *south_texture; // so
 	char    *west_texture; // we
-	char    *east_texture; // ea
+	char    *east_texture; // e
 	int     floor_color[3]; // f
 	int     ceiling_color[3]; // c
 	char    **map; // map
 	int		max_y;
 	t_player_position *player_position;
 	t_mlx   *mlx;
+	t_image_info *textures;
 }   t_cube_data;
 
 
@@ -69,6 +92,7 @@ int validate_extension(char *file);
 // Path: utils.c
 int ft_isspace(char c);
 int double_pointer_len(char **ptr);
+void load_textures(t_cube_data *data);
 
 // Path: parsing_utils.c
 void replace_tabs_with_spaces(char ***map);
@@ -98,3 +122,10 @@ void	print_game_terminal(t_cube_data *cube_data);
 // Path: free_content.c
 void	free_content(t_cube_data *cube_data);
 void    free_mlx(t_mlx *mlx);
+
+// Path: game.c
+
+void	init_player(t_cube_data *data);
+void	loop_game(void *mlx);
+
+

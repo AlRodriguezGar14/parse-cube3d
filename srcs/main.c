@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/09 12:06:16 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/11 03:35:08 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,9 @@ int	main(int argc, char **argv)
 	if (argc != 2 || validate_extension(argv[1]))
 		return (1);
 	printf("Parsing the file...\n");
-	ft_memset(&cube_data, 0, sizeof(t_cube_data));
-	ft_memset(&player_position, 0, sizeof(t_player_position));
-	ft_memset(&mlx, 0, sizeof(t_mlx));
-
+	ft_bzero(&cube_data, sizeof(t_cube_data));
+	ft_bzero(&player_position, sizeof(t_player_position));
+	ft_bzero(&mlx, sizeof(t_mlx));
 	// TODO: IMPROVE THE PARSING WITH MORE EDGE CASES FOR INPUT ERRORS
 	if (read_file(argv[1], &cube_data))
 		return (1);
@@ -89,7 +88,12 @@ int	main(int argc, char **argv)
 
 	cube_data.player_position = &player_position;
 	cube_data.mlx = &mlx;
+	cube_data.textures = (t_image_info *)ft_calloc(sizeof(t_image_info),5);
+	printf("no peta");
+	load_textures(&cube_data);
 	init_mlx(&mlx);
+	init_player(&cube_data);
+	//mlx_loop_hook(cube_data.mlx->mlx,&loop_game,&cube_data);
 	mlx_key_hook(mlx.win, key_hook_terminal, &cube_data);
 	mlx_loop(mlx.mlx);
 

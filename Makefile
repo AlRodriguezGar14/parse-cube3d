@@ -1,7 +1,7 @@
 #Comandos
 DEL			=	rm -f
 CC			=	gcc
-CCFLAGS		=	-Wall -Wextra -Werror
+CCFLAGS		=	-Wall -Wextra -Werror #-fsanitize=address -g3
 #MLX			=	-framework OpenGL -framework AppKit
 MLX			=	-lXext -lX11 -lm -lbsd 
 # -g3 -fsanitize=address
@@ -19,6 +19,8 @@ SRC_FILES	= main \
 			key_hooks_terminal/key_hook_terminal \
 			validators/validate_file \
 			validators/validate_map \
+			game/game \
+	
 
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -46,6 +48,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)/parser
 	@mkdir -p $(OBJ_DIR)/validators
 	@mkdir -p $(OBJ_DIR)/key_hooks_terminal
+	@mkdir -p $(OBJ_DIR)/game
 	@echo "$(YELLOW)Compiling: $<$(NC)"
 	@$(CC) $(CFLAGS) -o $@ -c $< 
 	@echo "$(YELLOW)Compiled!$(NC)"
@@ -77,7 +80,7 @@ fclean_libft:
 
 # Eliminar temporales
 clean:
-	@$(RM) -r $(OBJ_DIR)
+	@$(RM) -rf $(OBJ_DIR)
 	@echo "$(RED)OBJS AND DIRECTORY CLEANED!$(NC)"
 
 

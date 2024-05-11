@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:04:08 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/11 12:51:12 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/11 12:52:33 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void get_addres_helper(t_cube_data *data,int i)
 }
 bool load_textures_helper(t_cube_data *data, char *path, int i)
 {
+	//TODO : ft_strtrim from path because \n its not clean
 	int width;
 	int height;
 	void *ic;

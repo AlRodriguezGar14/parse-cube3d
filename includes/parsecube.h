@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecube.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/19 03:08:02 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/19 06:02:50 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ typedef struct s_ray
 	double	cam_x;
 	int		m_X;
 	int 	m_Y;
+	int 	step_x;
+	int 	step_y;
 	double	c_x;
 	double	v_y;
 	double 	p_X;

@@ -3,16 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:02:40 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/05/19 03:08:45 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/19 06:05:37 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsecube.h"
 
-
+void calculat_step(t_ray *r)
+{
+    if (r->rdx < 0)
+	{
+        r->step_x = -1;
+        r->side_x = (r->p_X - r->m_X) * r->h_x;
+    }
+    else
+    {
+        r->step_x = 1;
+        r->side_x = (r->m_X + 1.0 - r->p_X) * r->h_x;
+    }
+    if (r->rdy < 0)
+    {
+        r->step_y = -1;
+        r->side_y = (r->p_Y - r->m_Y) * r->h_y;
+    }
+    else
+    {
+        r->step_y = 1;
+        r->side_y = (r->m_Y + 1.0 - r->p_Y) * r->h_y;
+    }
+}
 void raycasting(t_cube_data *data)
 {
     t_ray *r;
@@ -26,12 +48,6 @@ void raycasting(t_cube_data *data)
     r = data->r;
     int x;
     x = -1;
-    /*
-        primer rayo ahora a checkear todos los demas 
-        necesito  un bucle para cada rayo
-        donde obtengo la horizontal para x 
-        y calcular la horizontar para y;
-    */
     r->r_angl = data->player_position->angle - (data->player_position->fov / 2); 
     
     while(++x > W)
@@ -39,9 +55,17 @@ void raycasting(t_cube_data *data)
         r->cam_x = 2 * x / (double)W -1;
         r->rdx = dir_X + r->p_X * r->cam_x;
         r->rdy = dir_y + r->p_Y * r->cam_x;
-        r->m_X = 
+        r->m_X = (int)data->player_position->pos_x;
+        r->m_Y = (int)data->player_position->pos_y;
+        r->h_x = fabs(1 / r->rdx);
+        r->h_y = fabs(1 / r->rdy);
+        if(1/r->h_x == 0)
+            r->h_x = 1e30;
+        if(1/r->h_y == 0)
+            r->h_y = 1e30;
+        calculate_step(r);
         
-        
+
     }
 }
 void init_player(t_cube_data *data)

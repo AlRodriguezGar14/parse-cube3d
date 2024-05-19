@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/11 10:33:09 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/19 03:08:02 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define ROTATION_SPEED 0.045
 # define PLAYER_SPEED	4
 # define M_PI			3.14159265358979323846
+# define W 800
+# define H 600
 
 typedef struct s_mlx {
 	void    *mlx;
@@ -61,9 +63,30 @@ typedef struct s_image_info
 	int		bpp;
 	int		line_s;
 	int		endian;
+	int		pxlc;
+	int		pxlf;
 	
 	
 } t_image_info;
+
+typedef struct s_ray
+{
+	int		idx;
+	double	r_angl;
+	double	h_x;
+	double	h_y;
+	double	cam_x;
+	int		m_X;
+	int 	m_Y;
+	double	c_x;
+	double	v_y;
+	double 	p_X;
+	double	p_Y;
+	double	rdx;
+	double	rdy;
+	double	dst;
+	int		hit;
+}	t_ray;
 
 typedef struct s_cube_data {
 	char    *north_texture; // no
@@ -77,6 +100,7 @@ typedef struct s_cube_data {
 	t_player_position *player_position;
 	t_mlx   *mlx;
 	t_image_info *textures;
+	t_ray *r;
 }   t_cube_data;
 
 
@@ -126,6 +150,10 @@ void    free_mlx(t_mlx *mlx);
 // Path: game.c
 
 void	init_player(t_cube_data *data);
-void	loop_game(void *mlx);
+void	raycasting(t_cube_data *data);
+// textures.c
+int	rgb(int r, int g, int b);
+void print_c_f(t_cube_data *data);
+void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
 
 

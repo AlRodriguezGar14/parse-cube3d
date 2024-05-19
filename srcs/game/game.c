@@ -6,25 +6,52 @@
 /*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:02:40 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/05/11 01:35:00 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/19 03:08:45 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsecube.h"
 
-/* void  loop_game(void *mlx)
+
+void raycasting(t_cube_data *data)
 {
-    t_cube_data *data;
-    data = mlx;
-    mlx_destroy_image(data->mlx->mlx,)
-     
-} */
+    t_ray *r;
+    double y_inter;
+    double x_inter;
+    double dir_X;
+    double dir_y;
+    
+    dir_X = -1;
+    dir_y = 0;
+    r = data->r;
+    int x;
+    x = -1;
+    /*
+        primer rayo ahora a checkear todos los demas 
+        necesito  un bucle para cada rayo
+        donde obtengo la horizontal para x 
+        y calcular la horizontar para y;
+    */
+    r->r_angl = data->player_position->angle - (data->player_position->fov / 2); 
+    
+    while(++x > W)
+    {
+        r->cam_x = 2 * x / (double)W -1;
+        r->rdx = dir_X + r->p_X * r->cam_x;
+        r->rdy = dir_y + r->p_Y * r->cam_x;
+        r->m_X = 
+        
+        
+    }
+}
 void init_player(t_cube_data *data)
 {
     char c ;
     int p_x;
     int p_y;
     
+    data->r->p_X = 0;
+    data->r->p_Y = 0.66;
     c = data->player_position->orientation;
     p_x = data->player_position->x;
     p_y = data->player_position->y;

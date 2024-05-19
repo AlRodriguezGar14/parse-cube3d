@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/11 10:55:11 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/15 10:18:46 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ int	main(int argc, char **argv)
 	init_mlx(&mlx);
 	load_textures(&cube_data);
 	init_player(&cube_data);
+	print_c_f(&cube_data);
+	raycasting(&cube_data);
+	
 	//mlx_loop_hook(cube_data.mlx->mlx,&loop_game,&cube_data);
 	mlx_key_hook(mlx.win, key_hook_terminal, &cube_data);
 	mlx_loop(mlx.mlx);

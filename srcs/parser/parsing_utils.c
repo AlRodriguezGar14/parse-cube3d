@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:06:20 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/09 12:09:37 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:10:05 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ int read_file(char *file, t_cube_data *cube_data)
 
 void replace_tabs_with_spaces(char ***map)
 {
-	int idx;
-	int idx2;
-	char *new_line;
-	char *tmp;
-	char *to_append;
+	int 	idx;
+	int 	idx2;
+	char 	*new_line;
+	char 	*tmp;
+	char 	*to_append;
 
 	idx = -1;
 	while ((*map)[++idx])

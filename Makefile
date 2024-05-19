@@ -20,6 +20,7 @@ SRC_FILES	= main \
 			validators/validate_file \
 			validators/validate_map \
 			game/game \
+			game/textures
 	
 
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))

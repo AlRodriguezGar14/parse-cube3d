@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/19 06:02:50 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/19 20:31:34 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 //# define DOWN 1 // macos
 # define DOWN 			115 // linux
 # define ESC 			65307 // linux
-# define TILE_SIZE 		32
+# define TILE_SIZE 		300
 # define FOV 			60
 # define ROTATION_SPEED 0.045
 # define PLAYER_SPEED	4
@@ -76,10 +76,16 @@ typedef struct s_ray
 	double	h_x;
 	double	h_y;
 	double	cam_x;
+	double	tex_pos;
+	int		tesx_x;
 	int		m_X;
 	int 	m_Y;
 	int 	step_x;
 	int 	step_y;
+	int 	step;
+	double	p_wall_dist;
+	double	s_x;
+	double	s_y;
 	double	c_x;
 	double	v_y;
 	double 	p_X;
@@ -128,9 +134,9 @@ void    free_double_pointer(char **ptr);
 
 
 // Path: parsers.c
-int parse_line(char *line, t_cube_data *cube_data);
+int		parse_line(char *line, t_cube_data *cube_data);
 void    parse_map(char *line, t_cube_data *cube_data);
-int    parse_colors(char *line, int color[3]);
+int		parse_colors(char *line, int color[3]);
 
 // Path: movements.c
 void	move_left(t_player_position *player_position);
@@ -153,9 +159,11 @@ void    free_mlx(t_mlx *mlx);
 
 void	init_player(t_cube_data *data);
 void	raycasting(t_cube_data *data);
+// Path: game_2.c
+void	print_ray(t_cube_data *data, int draw[2], int x, int side);
 // textures.c
-int	rgb(int r, int g, int b);
-void print_c_f(t_cube_data *data);
+int		rgb(int r, int g, int b);
+void	print_c_f(t_cube_data *data);
 void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
 
 

@@ -6,33 +6,77 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:02:40 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/05/19 06:05:37 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/19 23:02:00 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsecube.h"
+void wall_distance(t_cube_data *data, t_ray *r, int side, int x)
+{
+    int l_size;
+    int draw[2];
+    if (side == 0)
+        r->p_wall_dist = (r->m_X - r->p_X + (1 - r->step_x) / 2) / r->rdx;
+    else
+        r->p_wall_dist = (r->m_Y - r->p_Y + (1 - r->step_y) / 2) / r->rdy;
+    l_size = (int)(H / r->p_wall_dist);
+    draw[0] = -l_size / 2 + H / 2;
+    draw[1] = l_size / 2 + H / 2;
+    if (draw[0] < 0)
+        draw[0] = 0;
+    if (draw[1] >= H)
+        draw[1] = H - 1;
+    r->step = 1.0 * l_size / W;
+    r->tex_pos = (draw[0] - H / 2 + l_size / 2) * r->step;
+    print_ray(data, draw, x, side);
+    
+}
 
-void calculat_step(t_ray *r)
+int hit_wall(char **map, t_ray *r)
+{
+    int hit;
+    hit = 0;
+    while (hit == 0)
+    {
+        if (r->s_x < r->s_y)
+        {
+            r->s_x += r->h_x;
+            r->m_X += r->step_x;
+            hit = 0;
+        }
+        else
+        {
+            r->s_y += r->h_y;
+            r->m_Y += r->step_y;
+            hit = 1;
+        }
+        if (map[r->m_Y][r->m_X] == '1')
+            hit = 1;
+    }
+    return hit;
+}
+
+void   calculate_step(t_ray *r)
 {
     if (r->rdx < 0)
 	{
         r->step_x = -1;
-        r->side_x = (r->p_X - r->m_X) * r->h_x;
+        r->s_x = (r->p_X - r->m_X) * r->h_x;
     }
     else
     {
         r->step_x = 1;
-        r->side_x = (r->m_X + 1.0 - r->p_X) * r->h_x;
+        r->s_x = (r->m_X + 1.0 - r->p_X) * r->h_x;
     }
     if (r->rdy < 0)
     {
         r->step_y = -1;
-        r->side_y = (r->p_Y - r->m_Y) * r->h_y;
+        r->s_y = (r->p_Y - r->m_Y) * r->h_y;
     }
     else
     {
         r->step_y = 1;
-        r->side_y = (r->m_Y + 1.0 - r->p_Y) * r->h_y;
+        r->s_y = (r->m_Y + 1.0 - r->p_Y) * r->h_y;
     }
 }
 void raycasting(t_cube_data *data)
@@ -42,7 +86,7 @@ void raycasting(t_cube_data *data)
     double x_inter;
     double dir_X;
     double dir_y;
-    
+    int side;
     dir_X = -1;
     dir_y = 0;
     r = data->r;
@@ -64,7 +108,8 @@ void raycasting(t_cube_data *data)
         if(1/r->h_y == 0)
             r->h_y = 1e30;
         calculate_step(r);
-        
+        side = hit_wall(data->map, r);
+        wall_distance(data, r, side, x);
 
     }
 }

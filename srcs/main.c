@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/15 10:18:46 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/19 23:06:04 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	main(int argc, char **argv)
 	load_textures(&cube_data);
 	init_player(&cube_data);
 	print_c_f(&cube_data);
-	raycasting(&cube_data);
+	//raycasting(&cube_data);
 	
 	//mlx_loop_hook(cube_data.mlx->mlx,&loop_game,&cube_data);
 	mlx_key_hook(mlx.win, key_hook_terminal, &cube_data);

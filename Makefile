@@ -1,7 +1,7 @@
 #Comandos
 DEL			=	rm -f
-CC			=	gcc
-CCFLAGS		=	-Wall -Wextra -Werror #-fsanitize=address -g3
+CC			=	gcc -g3
+CCFLAGS		=	-Wall -Wextra -Werror -g3 #-fsanitize=address -g3
 #MLX			=	-framework OpenGL -framework AppKit
 MLX			=	-lXext -lX11 -lm -lbsd 
 # -g3 -fsanitize=address
@@ -21,7 +21,11 @@ SRC_FILES	= main \
 			validators/validate_map \
 			game/game \
 			game/game_2 \
-			game/textures
+			game/game_3 \
+			game/get_inter \
+			game/keys \
+			game/textures \
+			game/minimap \
 	
 
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -42,7 +46,7 @@ all:	minilibx libft $(NAME)
 
 #Compilar 
 $(NAME):$(OBJ)
-		@$(CC) $(OBJ) $(LIBS) -o $(NAME)
+		$(CC) $(OBJ) $(LIBS) -o $(NAME)
 		@echo "$(GREEN)CUB3D HAS BEEN COMPILED!$(NC)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
@@ -51,6 +55,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)/validators
 	@mkdir -p $(OBJ_DIR)/key_hooks_terminal
 	@mkdir -p $(OBJ_DIR)/game
+	
 	@echo "$(YELLOW)Compiling: $<$(NC)"
 	@$(CC) $(CFLAGS) -o $@ -c $< 
 	@echo "$(YELLOW)Compiled!$(NC)"

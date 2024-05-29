@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 03:17:42 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/05/19 23:03:52 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/25 01:25:40 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	aux_p(t_image_info *img, int x, int y, int color)
 {
 	int	z;
 
-	z = H / 2;
-	if (y >= H / 2)
-		z = H;
-	while (x++ < W)
+	z = H_S / 2;
+	if (y >= H_S / 2)
+		z = H_S;
+	while (x++ < W_S)
 	{
 		my_mlx_pixel_put(img, x, y, color);
-		if (x == W)
+		if (x == W_S)
 		{
 			if (++y == z)
 				break ;

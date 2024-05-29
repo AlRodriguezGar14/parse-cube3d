@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/19 23:06:04 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:41:41 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    print_map(t_cube_data *cube_data)
 	printf("EA: %s", cube_data->east_texture);
 	printf("F: %d, %d, %d\n", cube_data->floor_color[0], cube_data->floor_color[1], cube_data->floor_color[2]);
 	printf("C: %d, %d, %d\n", cube_data->ceiling_color[0], cube_data->ceiling_color[1], cube_data->ceiling_color[2]);
-	int idx = -1;
+	int idx = 0;
 	while (cube_data->map[++idx])
 		printf("%s\n", cube_data->map[idx]);
 
@@ -53,12 +53,13 @@ void	print_game_terminal(t_cube_data *cube_data)
 }
 
 
-void	init_mlx(t_mlx *mlx)
+void	init_mlx(t_mlx *mlx ,t_cube_data *cube_data)
 {
 	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, 800, 600, "Cub3D");
-	mlx->img = mlx_new_image(mlx->mlx, 800, 600);
-	mlx->img_addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endian);
+	ft_strlen_map(cube_data->map,cube_data);
+	printf("x%i y%i\n",cube_data->max_x,cube_data->max_y);
+	mlx->win = mlx_new_window(mlx->mlx, cube_data->max_x * TILE_SIZE, cube_data->max_y * TILE_SIZE, "Cub3D");
+	
 }
 
 
@@ -86,20 +87,22 @@ int	main(int argc, char **argv)
 	if (validate_map(&cube_data, &player_position))
 		return (printf("Invalid map. Cleanup and exit\n"), 1);
  	 cube_data.textures=(t_image_info *)ft_calloc(sizeof(t_image_info),5);
+	 cube_data.r=ft_calloc(sizeof(t_ray),1);
     if(!cube_data.textures)
         exit(0);
 	cube_data.player_position = &player_position;
 	cube_data.mlx = &mlx;
 
-	printf("no peta");
-	init_mlx(&mlx);
+	init_mlx(&mlx, &cube_data);
 	load_textures(&cube_data);
 	init_player(&cube_data);
-	print_c_f(&cube_data);
-	//raycasting(&cube_data);
-	
-	//mlx_loop_hook(cube_data.mlx->mlx,&loop_game,&cube_data);
-	mlx_key_hook(mlx.win, key_hook_terminal, &cube_data);
+	//init_ray(&cube_data);
+	paint_map(&cube_data);
+	ray(&cube_data);
+	//print_c_f(&cube_data);
+//	raycasting(&cube_data);
+	//mlx_hook(mlx.win,2,1,key_pressed,&cube_data);
+	//mlx_loop_hook(cube_data.mlx->mlx,&routine,&cube_data);
 	mlx_loop(mlx.mlx);
 
 

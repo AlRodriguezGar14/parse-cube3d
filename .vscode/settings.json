@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"parsecube.h": "c"
+		"parsecube.h": "c",
+		"compare": "c"
 	}
 }

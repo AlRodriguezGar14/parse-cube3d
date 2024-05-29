@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:04:08 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/14 19:20:31 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:55:37 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ bool load_textures_helper(t_cube_data *data, char *path, int i)
 	
 	if(!path)
 	{
-		data->textures[i].image_charge = mlx_new_image(data->mlx->mlx,W + 1,H +1);
-		printf("hola amigo e i vale %d",i);
+		data->textures[i].image_charge = mlx_new_image(data->mlx->mlx,data->max_x * TILE_SIZE,data->max_y * TILE_SIZE);
 		return (false);
 	}
 	data->textures[i].image_charge = mlx_xpm_file_to_image(data->mlx->mlx,ft_strtrim(path,"\n"),&(width), &(height));

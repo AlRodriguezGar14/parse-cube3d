@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/19 20:31:34 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:41:24 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # include <stdbool.h>
 
 
+#define A 65
+#define D 68
+#define W 87
+#define S 83
 //# define LEFT 0 // macos
 # define LEFT 			97 // linux
 //# define RIGHT 2 // macos
@@ -28,13 +32,13 @@
 //# define DOWN 1 // macos
 # define DOWN 			115 // linux
 # define ESC 			65307 // linux
-# define TILE_SIZE 		300
+# define TILE_SIZE 		100
 # define FOV 			60
 # define ROTATION_SPEED 0.045
 # define PLAYER_SPEED	4
 # define M_PI			3.14159265358979323846
-# define W 800
-# define H 600
+# define W_S 800
+# define H_S 600
 
 typedef struct s_mlx {
 	void    *mlx;
@@ -51,9 +55,13 @@ typedef struct s_player_position {
 	int     y;
 	int 	pos_x;
 	int		pos_y;
+	
+	int 	rotation;
 	char    orientation;
 	double	angle;
 	float 	fov;
+	int left;
+	int up;
 }   t_player_position;
 
 typedef struct s_image_info
@@ -71,29 +79,14 @@ typedef struct s_image_info
 
 typedef struct s_ray
 {
-	int		idx;
-	double	r_angl;
-	double	h_x;
-	double	h_y;
-	double	cam_x;
-	double	tex_pos;
-	int		tesx_x;
-	int		m_X;
-	int 	m_Y;
-	int 	step_x;
-	int 	step_y;
-	int 	step;
-	double	p_wall_dist;
-	double	s_x;
-	double	s_y;
-	double	c_x;
-	double	v_y;
-	double 	p_X;
-	double	p_Y;
-	double	rdx;
-	double	rdy;
-	double	dst;
-	int		hit;
+	int		index;
+	double	ray_ngl;
+	double	horiz_x;
+	double	horiz_y;
+	double	vert_x;
+	double	vert_y;
+	double	distance;
+	int		flag;
 }	t_ray;
 
 typedef struct s_cube_data {
@@ -105,6 +98,7 @@ typedef struct s_cube_data {
 	int     ceiling_color[3]; // c
 	char    **map; // map
 	int		max_y;
+	int		max_x;
 	t_player_position *player_position;
 	t_mlx   *mlx;
 	t_image_info *textures;
@@ -158,12 +152,27 @@ void    free_mlx(t_mlx *mlx);
 // Path: game.c
 
 void	init_player(t_cube_data *data);
-void	raycasting(t_cube_data *data);
+void	ray(t_cube_data *data);
+int 	routine(void *d);
 // Path: game_2.c
 void	print_ray(t_cube_data *data, int draw[2], int x, int side);
+void	init_ray(t_cube_data *data);
+// Path: game_3.c
+int get_pixel_color(int x, int y, t_image_info *img);
+double	get_pixel_pos(t_image_info	*texture, t_cube_data *data);
 // textures.c
 int		rgb(int r, int g, int b);
 void	print_c_f(t_cube_data *data);
 void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
 
+// Key pressed
+int key_pressed( int keycode ,void *param);
+int key_release( int keycode ,void *param);
 
+//get inter
+float get_y_inter(t_cube_data *data, float ang);
+float get_x_inter(t_cube_data *data, float ang);
+
+//mini map
+void paint_map(t_cube_data *data);
+void ft_strlen_map(char **map , t_cube_data *data );

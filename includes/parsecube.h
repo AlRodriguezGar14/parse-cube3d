@@ -59,7 +59,7 @@ typedef struct s_player_position {
 	int 	rotation;
 	char    orientation;
 	double	angle;
-	float 	fov;
+	double 	fov;
 	int left;
 	int up;
 }   t_player_position;

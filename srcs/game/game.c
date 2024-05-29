@@ -12,6 +12,13 @@
 
 #include "../../includes/parsecube.h"
 
+double ft_fabs(double x)
+{
+    if (x < 0)
+        return (-x);
+    return (x);
+}
+
 void ray(t_cube_data *data)
 {
     double end_x;
@@ -23,38 +30,48 @@ void ray(t_cube_data *data)
 
     p_x = data->player_position->pos_x;
     p_y = data->player_position->pos_y;
+
+    double base_x = p_x;
+    double base_y = p_y;
     img = &data->textures[4];
-    //color en rojo 
     color = rgb(255, 0, 0);
     double step = 1.0;
 
-    end_x= p_x +cos(data->player_position->fov) * 100;
-    end_y=p_y +sin(data->player_position->fov) * 100;
-    
-    printf("angle%f\n",data->player_position->angle);
-    printf("end_x %f end_y %f\n",end_x,end_y);
-    printf("p_x %f p_y %f\n",p_x,p_y);
-    
-    while (end_x != p_x || end_y != p_y)
+    double min_angle = data->player_position->angle - FOV * M_PI / 180;
+    double max_angle = data->player_position->angle + FOV * M_PI / 180;
+
+    double increment = 1 * M_PI / 180;
+    double i = min_angle;
+    while (i < max_angle)
     {
-        //printf("p_x%fp_y%f\n",p_x,p_y);
-        
-         my_mlx_pixel_put(img, p_x, p_y, color);
+        double ray_dir_x = cos(i);
+        double ray_dir_y = sin(i);
+
+        end_x = p_x + ray_dir_x * 350;
+        end_y = p_y + ray_dir_y * 350;
+        if (end_x < 0) end_x = 0;
+        if (end_y < 0) end_y = 0;
+        if (end_x >= TILE_SIZE * data->max_x) end_x = TILE_SIZE * data->max_x -1;
+        if (end_y >= TILE_SIZE * data->max_y) end_y = TILE_SIZE * data->max_y -1;
+
+
         double dx = end_x - p_x;
         double dy = end_y - p_y;
         double d = sqrt(dx * dx + dy * dy);
         double step_x = step * (dx / d);
         double step_y = step * (dy / d);
-        
-        p_x+=step_x;
-        p_y+=step_y;
+
+        while (fabs(end_x - p_x) > 0.1 || fabs(end_y - p_y) > 0.1)
+        {
+            my_mlx_pixel_put(img, p_x, p_y, color);
+            p_x += step_x;
+            p_y += step_y;
+        }
+        p_x = base_x;
+        p_y = base_y;
+        i += increment;
     }
-    
-    
-    
-
 }
-
 void init_player(t_cube_data *data)
 {
     char c ;
@@ -74,7 +91,7 @@ void init_player(t_cube_data *data)
         data->player_position->angle = M_PI;
     data->player_position->pos_x = (p_x *TILE_SIZE) + TILE_SIZE / 2;
     data->player_position->pos_y = (p_y *TILE_SIZE) + TILE_SIZE / 2;
-    data->player_position->fov = (-30 *M_PI/180);
+    data->player_position->fov = (FOV *M_PI/180);
     
     
 }

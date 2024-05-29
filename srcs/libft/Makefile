@@ -6,13 +6,13 @@
 #    By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/13 18:30:09 by alberrod          #+#    #+#              #
-#    Updated: 2024/05/25 02:23:06 by dgomez-m         ###   ########.fr        #
+#    Updated: 2024/05/29 20:23:09 by alberrod         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC       = cc
 HEADERS_DIR = .
-CFLAGS   = -Wall -Wextra -Werror -fPIE -g3 -I $(HEADERS_DIR)
+CFLAGS   = -Wall -Wextra -Werror -g3 -I $(HEADERS_DIR)
 NAME     = libft.a
 RM       = rm -rf
 

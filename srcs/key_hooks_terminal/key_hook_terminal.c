@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook_terminal.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 02:10:15 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/04 20:44:17 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/09 12:14:33 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsecube.h"
+#include "../../includes/parsecube.h"
+
 
 // TODO: CHECK IF MAINTAIN IT OR NOT / INTEGRATE IT WITH THE MAIN GAME
 

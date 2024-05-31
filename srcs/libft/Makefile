@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+         #
+#    By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/13 18:30:09 by alberrod          #+#    #+#              #
-#    Updated: 2024/01/28 00:00:58 by alberrod         ###   ########.fr        #
+#    Updated: 2024/05/29 20:23:09 by alberrod         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC       = cc
 HEADERS_DIR = .
-CFLAGS   = -Wall -Wextra -Werror -I $(HEADERS_DIR)
+CFLAGS   = -Wall -Wextra -Werror -g3 -I $(HEADERS_DIR)
 NAME     = libft.a
 RM       = rm -rf
 

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   free_content.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 19:51:07 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/04 20:43:40 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/09 12:14:03 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsecube.h"
+#include "../includes/parsecube.h"
+
 
 void    free_mlx(t_mlx *mlx)
 {

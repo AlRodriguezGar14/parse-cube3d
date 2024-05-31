@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   validate_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 04:55:32 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/02 04:55:57 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/05/09 12:09:52 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsecube.h"
+#include "../../includes/parsecube.h"
 
 int validate_extension(char *file)
 {

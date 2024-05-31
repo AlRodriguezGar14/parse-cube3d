@@ -99,6 +99,10 @@ int	main(int argc, char **argv)
 	//init_ray(&cube_data);
 	paint_map(&cube_data);
 	ray(&cube_data);
+
+	t_image_info *img;
+	img = &cube_data.textures[4];
+	mlx_put_image_to_window(mlx.mlx, mlx.win, img->image_charge, 0, 0);
 	//print_c_f(&cube_data);
 //	raycasting(&cube_data);
 	//mlx_hook(mlx.win,2,1,key_pressed,&cube_data);

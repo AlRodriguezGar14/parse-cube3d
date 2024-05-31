@@ -23,55 +23,114 @@ void ray(t_cube_data *data)
 {
     double end_x;
     double end_y;
-    double p_x;
-    double p_y;
+    double pos_x;
+    double pos_y;
     int color;
     t_image_info *img;
 
-    p_x = data->player_position->pos_x;
-    p_y = data->player_position->pos_y;
 
-    double base_x = p_x;
-    double base_y = p_y;
+    int size = TILE_SIZE;
+    int width = size * data->max_x -1;
+    int height = size * data->max_y -1;
+
+    pos_x = data->player_position->pos_x / size;
+    pos_y = data->player_position->pos_y / size;
+    double angle = data->player_position->angle;
+    double dir_x = cos(angle); 
+    double dir_y = sin(angle); 
+
+    // Shortest distance from the view to hit the wall
+    double plane_x = -0.66 * dir_y;
+    double plane_y = 0.66 * dir_x;
+
     img = &data->textures[4];
-    color = rgb(255, 0, 0);
-    double step = 1.0;
+    color = rgb(255, 0, 255);
 
-    double min_angle = data->player_position->angle - FOV * M_PI / 180;
-    double max_angle = data->player_position->angle + FOV * M_PI / 180;
-
-    double increment = 1 * M_PI / 180;
-    double i = min_angle;
-    while (i < max_angle)
+    int x = -1;
+    int i = 0;
+    while (++x < width)
     {
-        double ray_dir_x = cos(i);
-        double ray_dir_y = sin(i);
+        // ray position
+        double camera_x = 2 * x / (double)width - 1;
+        //ray direction
+        double ray_dir_x = dir_x + plane_x * camera_x;
+        double ray_dir_y = dir_y + plane_y * camera_x;
 
-        end_x = p_x + ray_dir_x * 350;
-        end_y = p_y + ray_dir_y * 350;
-        if (end_x < 0) end_x = 0;
-        if (end_y < 0) end_y = 0;
-        if (end_x >= TILE_SIZE * data->max_x) end_x = TILE_SIZE * data->max_x -1;
-        if (end_y >= TILE_SIZE * data->max_y) end_y = TILE_SIZE * data->max_y -1;
+        double delta_dist_x_operation = sqrt(1 + (ray_dir_y * ray_dir_y) / (ray_dir_x * ray_dir_x));
+        double delta_dist_y_operation = sqrt(1 + (ray_dir_x * ray_dir_x) / (ray_dir_y * ray_dir_y));
 
+        // current map position
+        int map_x = (int)pos_x;
+        int map_y = (int)pos_y;
 
-        double dx = end_x - p_x;
-        double dy = end_y - p_y;
-        double d = sqrt(dx * dx + dy * dy);
-        double step_x = step * (dx / d);
-        double step_y = step * (dy / d);
+        // length of the ray from current position to the next x or y side
+        double side_dist_x;
+        double side_dist_y;
 
-        while (fabs(end_x - p_x) > 0.1 || fabs(end_y - p_y) > 0.1)
+        // length of the ray from one x or y side to the next one
+        // 1e30 is an absurd high value to avoid dividing anything by 0
+        double delta_dist_x = (ray_dir_x == 0) ? 1e30 : delta_dist_x_operation;
+        double delta_dist_y = (ray_dir_y == 0) ? 1e30 : delta_dist_y_operation;
+        double perp_wall_dist;
+
+        // what direction to step (+1 or -1)
+        int step_x;
+        int step_y;
+
+        bool hit = false;
+        int side; // NS or EW
+
+        // Determine step and sidedist
+        if (ray_dir_x < 0)
         {
-            my_mlx_pixel_put(img, p_x, p_y, color);
-            p_x += step_x;
-            p_y += step_y;
+            step_x = -1;
+            side_dist_x = (pos_x - map_x) * delta_dist_x;
         }
-        p_x = base_x;
-        p_y = base_y;
-        i += increment;
+        else 
+        {
+            step_x = 1;
+            side_dist_x = (pos_x + 1 - map_x) * delta_dist_x;
+        }
+        if (ray_dir_y < 0)
+        {
+            step_y = -1;
+            side_dist_y = (pos_y - map_y) * delta_dist_y;
+        }
+        else 
+        {
+            step_y = 1;
+            side_dist_y = (pos_y + 1 - map_y) * delta_dist_y;
+        }
+
+        i = 0;
+        while (hit == false)
+        {
+            if (side_dist_x < side_dist_y)
+            {
+                side_dist_x += delta_dist_x;
+                map_x += step_x;
+                side = 0;
+            }
+            else
+            {
+                side_dist_y += delta_dist_y;
+                map_y += step_y;
+                side = 1;
+            }
+            // printf("player position: y-%d x-%d\n", data->player_position->y, data->player_position->x);
+            // printf("Map y[%d]x[%d] = %c\n", map_y, map_x, data->map[map_y][map_x]);
+            if (data->map[map_y][map_x] == '1')
+                hit = true;
+            for (int yy = data->player_position->pos_y; yy != map_y * TILE_SIZE; --yy)
+                my_mlx_pixel_put(img, data->player_position->pos_x, yy, color);
+            ++i;
+        }
+        my_mlx_pixel_put(img, x, map_y * TILE_SIZE, color);
     }
+    printf("end of loop\n");
+
 }
+
 void init_player(t_cube_data *data)
 {
     char c ;

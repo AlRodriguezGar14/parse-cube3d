@@ -80,6 +80,6 @@ void	paint_map(t_cube_data *data)
 				my_mlx_pixel_put(img, x, y, rgb(255, 127, 0)); 
 		}
 		
-}
-	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, img->image_charge, 0, 0);
+	}
+	// mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, img->image_charge, 0, 0);
 }

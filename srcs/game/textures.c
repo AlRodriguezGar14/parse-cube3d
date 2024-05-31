@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/parsecube.h"
+
 void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color)
 {
 	char	*dst;
@@ -18,10 +19,12 @@ void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color)
 	dst = data->addres + (y * data->line_s + x * (data->bpp / 8));
 	*((unsigned int *)dst) = color;
 }
+
 int	rgb(int r, int g, int b)
 {
 		return (r << 16 | g << 8 | b);
 }
+
 int	aux_p(t_image_info *img, int x, int y, int color)
 {
 	int	z;

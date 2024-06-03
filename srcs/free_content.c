@@ -17,7 +17,7 @@ void    free_mlx(t_mlx *mlx)
 {
 	mlx_destroy_image(mlx->mlx, mlx->img);
 	mlx_destroy_window(mlx->mlx, mlx->win);
-	mlx_destroy_display(mlx->mlx);
+	// mlx_destroy_display(mlx->mlx);
 	free(mlx->mlx);
 }
 

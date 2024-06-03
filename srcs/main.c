@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/29 18:41:41 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/02 23:44:36 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ void	print_game_terminal(t_cube_data *cube_data)
 void	init_mlx(t_mlx *mlx ,t_cube_data *cube_data)
 {
 	mlx->mlx = mlx_init();
+	// TODO: Update max_x to a fixed value
 	ft_strlen_map(cube_data->map,cube_data);
 	printf("x%i y%i\n",cube_data->max_x,cube_data->max_y);
 	mlx->win = mlx_new_window(mlx->mlx, cube_data->max_x * TILE_SIZE, cube_data->max_y * TILE_SIZE, "Cub3D");
+	// mlx->win = mlx_new_window(mlx->mlx, 640, 320, "Cub3D");
 	
 }
 

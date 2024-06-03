@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecube.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/29 18:41:24 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/03 01:42:10 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@
 //# define DOWN 1 // macos
 # define DOWN 			115 // linux
 # define ESC 			65307 // linux
-# define TILE_SIZE 		100
-# define FOV 			60
+// # define TILE_SIZE 		100
+# define TILE_SIZE 		64
+# define FOV 			66
 # define ROTATION_SPEED 0.045
 # define PLAYER_SPEED	4
+#ifndef M_PI
 # define M_PI			3.14159265358979323846
+#endif
 # define W_S 800
 # define H_S 600
 

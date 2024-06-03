@@ -2,8 +2,8 @@
 DEL			=	rm -f
 CC			=	gcc -g3
 CCFLAGS		=	-Wall -Wextra -Werror -g3 -fsanitize=address -g3
-#MLX			=	-framework OpenGL -framework AppKit
-MLX			=	-lXext -lX11 -lm -lbsd 
+MLX			=	-framework OpenGL -framework AppKit
+# MLX			=	-lXext -lX11 -lm -lbsd 
 # -g3 -fsanitize=address
 
 #Nombre ejecutable

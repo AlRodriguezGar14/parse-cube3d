@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:26:11 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/04 14:52:35 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:39:38 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ int	move(t_cube_data *d)
 
 	if(d->move.mright)
 		move_right(d, movespeed);
-	if(d->player_position->rleft)
+	if(d->move.mleft)
 		ft_move_left(d, movespeed);
-	if(d->player_position->mup)
+	if(d->move.mup)
 		ft_move_up(d, movespeed);
-	if(d->player_position->mback)
+	if(d->move.mback)
 		ft_move_back(d, movespeed);
-	if(d->player_position->rleft)
-		ft_lrotate(d, rotspeed); */
-	
-
+	if(d->move.rright)
+		ft_lrotate(d, rotspeed); 
+	if (d->move.rleft)
+		ft_rrotate(d, rotspeed);
 
 	return (0);
 }

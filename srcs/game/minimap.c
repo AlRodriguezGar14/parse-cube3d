@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 03:23:16 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/05/29 17:43:34 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:24:31 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@ void get_plyr_pos(t_cube_data *data)
 {
 	data->player_position->pos_x = data->player_position->x * TILE_SIZE + TILE_SIZE / 2;
 	data->player_position->pos_y = data->player_position->y * TILE_SIZE  - TILE_SIZE / 2;
+	moves(data);
 	printf("x%i y%i\n",data->player_position->pos_x,data->player_position->pos_y);
 }
 

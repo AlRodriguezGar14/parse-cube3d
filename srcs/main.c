@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/04 13:47:36 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:22:54 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	main(int argc, char **argv)
 	if (validate_map(&cube_data, &player_position))
 		return (printf("Invalid map. Cleanup and exit\n"), 1);
  	 cube_data.textures=(t_image_info *)ft_calloc(sizeof(t_image_info),5);
-	 cube_data.r=ft_calloc(sizeof(t_ray),1);
+	// cube_data.r=ft_calloc(sizeof(t_ray),1);
     if(!cube_data.textures)
         exit(0);
 	cube_data.player_position = &player_position;
@@ -106,17 +106,18 @@ int	main(int argc, char **argv)
 	load_textures(&cube_data);
 	init_player(&cube_data);
 	//init_ray(&cube_data);
+	get_plyr_pos(&cube_data);
+
 	paint_map(&cube_data);
 	ray(&cube_data);
 
 	t_image_info *img;
-	img = &cube_data.textures[4];
-	mlx_put_image_to_window(mlx.mlx, mlx.win, img->image_charge, 0, 0);
+/* 	img = &cube_data.textures[4];
+	mlx_put_image_to_window(mlx.mlx, mlx.win, img->image_charge, 0, 0); */
 	//print_c_f(&cube_data);
 //	raycasting(&cube_data);
-	//mlx_hook(mlx.win,2,1,key_pressed,&cube_data);
-	//mlx_loop_hook(cube_data.mlx->mlx,&routine,&cube_data);
 	hooks(&cube_data);
+	mlx_loop_hook(cube_data.mlx->mlx,ray,&cube_data);
 	mlx_loop(mlx.mlx);
 
 

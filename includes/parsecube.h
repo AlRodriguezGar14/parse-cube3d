@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/04 15:20:25 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:14:04 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ int validate_extension(char *file);
 int ft_isspace(char c);
 int double_pointer_len(char **ptr);
 void load_textures(t_cube_data *data);
+bool load_textures_helper(t_cube_data *data, char *path, int i);
+void get_addres_helper(t_cube_data *data,int i);
 
 // Path: parsing_utils.c
 void replace_tabs_with_spaces(char ***map);
@@ -143,9 +145,10 @@ int		parse_colors(char *line, int color[3]);
 
 // Path: movements.c
 void	move_left(t_player_position *player_position);
-void	move_right(t_player_position *player_position);
+
 void	move_down(t_player_position *player_position);
 void	move_up(t_player_position *player_position);
+int	moves(t_cube_data *d);
 
 // PATH key_hook_terminal.c
 int	key_hook_terminal(int keycode, t_cube_data *cube_data);
@@ -161,8 +164,9 @@ void    free_mlx(t_mlx *mlx);
 // Path: game.c
 
 void	init_player(t_cube_data *data);
-void	ray(t_cube_data *data);
+int 	ray(void *arg);
 int 	routine(void *d);
+void	get_plyr_pos(t_cube_data *data);
 // Path: game_2.c
 void	print_ray(t_cube_data *data, int draw[2], int x, int side);
 void	init_ray(t_cube_data *data);
@@ -173,6 +177,7 @@ double	get_pixel_pos(t_image_info	*texture, t_cube_data *data);
 int		rgb(int r, int g, int b);
 void	print_c_f(t_cube_data *data);
 void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
+t_image_info *renew_image(t_cube_data *data);
 
 // Key pressed
 int key_pressed( int keycode ,void *param);

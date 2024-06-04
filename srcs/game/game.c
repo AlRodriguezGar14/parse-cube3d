@@ -12,20 +12,26 @@
 
 #include "../../includes/parsecube.h"
 
-void ray(t_cube_data *data)
+int ray(void *arg)
 {
+    
+    t_cube_data *data;
+    data = (t_cube_data *)arg;
+    moves(data);
+    int size = TILE_SIZE;
+    int width = size * data->max_x -1;
+    int height = size * data->max_y -1;
+    t_image_info *img;
+
+    img = renew_image(data);
     // Variables for the end and start position of the ray, the color of the ray and the image where the ray is drawn.
     double end_x;
     double end_y;
     //double pos_x;
     //double pos_y;
     int color;
-    t_image_info *img;
 
     // The size of a tile in the game, the width and height of the game screen.
-    int size = TILE_SIZE;
-    int width = size * data->max_x -1;
-    int height = size * data->max_y -1;
 
     // The position of the player and the direction of the player.
     data->r.pos_x = data->player_position->pos_x / size;
@@ -40,7 +46,6 @@ void ray(t_cube_data *data)
     double plane_y = 0.66 * dir_x;
 
     // The image where the ray is drawn and the color of the ray.
-    img = &data->textures[4];
     color = rgb(255, 0, 255);
 
     // The main loop where the raycasting happens.
@@ -176,9 +181,11 @@ void ray(t_cube_data *data)
         while (--bottom != -1)
             my_mlx_pixel_put(img, x, bottom, rgb(255, 0, 255));
     }
+    mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, img->image_charge, 0, 0);
+   mlx_destroy_image(data->mlx->mlx, img->image_charge);
 
     // Print a message to the console to indicate that the image has been rendered.
-    printf("image rendered\n");
+   // printf("image rendered\n");
 }
 
 void init_player(t_cube_data *data)

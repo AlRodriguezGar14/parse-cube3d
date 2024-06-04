@@ -20,12 +20,12 @@ SRC_FILES	= main \
 			validators/validate_file \
 			validators/validate_map \
 			game/game \
-			game/game_2 \
 			game/game_3 \
 			game/get_inter \
 			game/keys \
 			game/textures \
 			game/minimap \
+			game/move 
 	
 
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))

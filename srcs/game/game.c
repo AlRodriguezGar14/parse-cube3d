@@ -17,8 +17,8 @@ void ray(t_cube_data *data)
     // Variables for the end and start position of the ray, the color of the ray and the image where the ray is drawn.
     double end_x;
     double end_y;
-    double pos_x;
-    double pos_y;
+    //double pos_x;
+    //double pos_y;
     int color;
     t_image_info *img;
 
@@ -28,8 +28,9 @@ void ray(t_cube_data *data)
     int height = size * data->max_y -1;
 
     // The position of the player and the direction of the player.
-    pos_x = data->player_position->pos_x / size;
-    pos_y = data->player_position->pos_y / size;
+    data->r.pos_x = data->player_position->pos_x / size;
+    data->r.pos_y = data->player_position->pos_y / size;
+
     double angle = data->player_position->angle;
     double dir_x = cos(angle); 
     double dir_y = sin(angle); 
@@ -53,8 +54,8 @@ void ray(t_cube_data *data)
         double ray_dir_y = dir_y + plane_y * camera_x;
 
         // The map square the ray is in.
-        int map_x = (int)pos_x;
-        int map_y = (int)pos_y;
+        int map_x = (int)data->r.pos_x;
+        int map_y = (int)data->r.pos_y;
 
         // The length of the ray from one x or y-side to the next x or y-side.
         double side_dist_x;
@@ -81,22 +82,22 @@ void ray(t_cube_data *data)
         if (ray_dir_x < 0)
         {
             step_x = -1;
-            side_dist_x = (pos_x - map_x) * delta_dist_x;
+            side_dist_x = (data->r.pos_x - map_x) * delta_dist_x;
         }
         else 
         {
             step_x = 1;
-            side_dist_x = (pos_x + 1 - map_x) * delta_dist_x;
+            side_dist_x = (data->r.pos_x + 1 - map_x) * delta_dist_x;
         }
         if (ray_dir_y < 0)
         {
             step_y = -1;
-            side_dist_y = (pos_y - map_y) * delta_dist_y;
+            side_dist_y = (data->r.pos_y - map_y) * delta_dist_y;
         }
         else 
         {
             step_y = 1;
-            side_dist_y = (pos_y + 1 - map_y) * delta_dist_y;
+            side_dist_y = (data->r.pos_y + 1 - map_y) * delta_dist_y;
         }
 
         // Perform DDA (Digital Differential Analysis) to find where the ray hits a wall.
@@ -130,10 +131,10 @@ void ray(t_cube_data *data)
             // - Add half of the step size in the x-direction ((1 - step_x) / 2)
             //   This is to adjust for the fact that the ray may have hit the wall anywhere between the start and end of the wall square, not just at the exact center.
             // - Divide by the x-component of the ray direction (ray_dir_x) to convert the distance from map units to world units.
-            perp_wall_dist = (map_x - pos_x + (1 - step_x) / 2) / ray_dir_x;
+            perp_wall_dist = (map_x - data->r.pos_x + (1 - step_x) / 2) / ray_dir_x;
         // Otherwise, we moved in the y-direction, so calculate using y-coordinates
         else
-            perp_wall_dist = (map_y - pos_y + (1 - step_y) / 2) / ray_dir_y;
+            perp_wall_dist = (map_y - data->r.pos_y + (1 - step_y) / 2) / ray_dir_y;
 
         // Calculate the height of the wall slice.
         // This is inversely proportional to the distance to the wall, to create the perspective effect

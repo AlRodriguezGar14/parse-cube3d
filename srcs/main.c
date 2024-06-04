@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/02 23:44:36 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:47:36 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsecube.h"
+
+void hooks(t_cube_data *game)
+{
+	mlx_hook(game->mlx->win, 2, 1L << 0, key_pressed, game);
+	mlx_hook(game->mlx->win, 3, 1L << 1, key_release, game);
+	mlx_hook(game->mlx->win, 17, 1L << 17, destroy_window, game);
+}
 
 // TODO: REMOVE WHEN IT'S NOT NEEDED ANYMORE
 void    print_map(t_cube_data *cube_data)
@@ -94,7 +101,7 @@ int	main(int argc, char **argv)
         exit(0);
 	cube_data.player_position = &player_position;
 	cube_data.mlx = &mlx;
-
+	ft_bzero(&cube_data.move, sizeof(t_move));
 	init_mlx(&mlx, &cube_data);
 	load_textures(&cube_data);
 	init_player(&cube_data);
@@ -109,6 +116,7 @@ int	main(int argc, char **argv)
 //	raycasting(&cube_data);
 	//mlx_hook(mlx.win,2,1,key_pressed,&cube_data);
 	//mlx_loop_hook(cube_data.mlx->mlx,&routine,&cube_data);
+	hooks(&cube_data);
 	mlx_loop(mlx.mlx);
 
 

@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/04 18:14:04 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/04 21:57:20 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 // # define TILE_SIZE 		100
 # define TILE_SIZE 		64
 # define FOV 			66
-# define ROTATION_SPEED 0.045
-# define PLAYER_SPEED	4
+# define ROTATION_SPEED 0.020
+# define PLAYER_SPEED	0.5
 #ifndef M_PI
 # define M_PI			3.14159265358979323846
 #endif

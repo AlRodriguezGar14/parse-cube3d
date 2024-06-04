@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 02:25:12 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/04 13:57:51 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/04 19:27:47 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,16 @@ int key_pressed( int keycode ,void *param)
 	if (keycode == D)
 		cube_data->move.mright = 1;
 	if (keycode == A)
-		cube_data->move.mleft= -1;
+		cube_data->move.mleft= 1;
 	if (keycode == W)
 		cube_data->move.mup = 1;
 	if (keycode == S)
 		cube_data->move.mback = 1;
 	if (keycode == LEFT)
-		cube_data->move.rright = -1;
+		cube_data->move.rright = 1;
 	if (keycode == RIGHT)
 		cube_data->move.rleft = 1;
+	
 
 	printf("mright %d\n", cube_data->move.mright);
 	printf("mleft %d\n", cube_data->move.mleft);
@@ -76,6 +77,5 @@ int key_pressed( int keycode ,void *param)
 	printf("mback %d\n", cube_data->move.mback);
 	printf("rright %d\n", cube_data->move.rright);
 	printf("rleft %d\n", cube_data->move.rleft);
-
 	return (0);
 }

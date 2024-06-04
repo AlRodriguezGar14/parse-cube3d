@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/04 18:22:54 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/04 21:32:29 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,12 @@ int	main(int argc, char **argv)
 	ft_bzero(&cube_data.move, sizeof(t_move));
 	init_mlx(&mlx, &cube_data);
 	load_textures(&cube_data);
+	print_game_terminal(&cube_data);
 	init_player(&cube_data);
 	//init_ray(&cube_data);
 	get_plyr_pos(&cube_data);
 
-	paint_map(&cube_data);
+	//paint_map(&cube_data);
 	ray(&cube_data);
 
 	t_image_info *img;

@@ -69,7 +69,7 @@ int ray(void *arg)
         // The length of the ray from the current position to the next x or y-side.
         double delta_dist_x = fabs(1 / ray_dir_x);
         double delta_dist_y = fabs(1 / ray_dir_y);
-
+         
         // The perpendicular distance to the wall (this is what will be used to compute the height of the wall slice).
         double perp_wall_dist;
 

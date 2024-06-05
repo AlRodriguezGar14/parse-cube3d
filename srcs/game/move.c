@@ -32,11 +32,12 @@ void	move_player(t_cube_data *mlx, double move_x, double move_y)
 {
 	int		map_grid_y;
 	int		map_grid_x;
-	int		new_x;
-	int		new_y;
+	double		new_x;
+	double		new_y;
 
-	new_x = floor(mlx->player_position->pos_x + move_x);
-	new_y = floor(mlx->player_position->pos_y + move_y);
+	printf("LA POSICION DEL JUGADOR ES: y = [%f] x = [%f]\n",mlx->r.pos_y,mlx->r.pos_y);
+	new_x = floor(mlx->r.pos_x + move_x);
+	new_y = floor(mlx->r.pos_y + move_y);
 	map_grid_x = (new_x / TILE_SIZE);
 	map_grid_y = (new_y / TILE_SIZE);
 	if (map_grid_x < 0 || map_grid_x >= mlx->max_x || \
@@ -45,10 +46,10 @@ void	move_player(t_cube_data *mlx, double move_x, double move_y)
 	if (mlx->map[map_grid_y][map_grid_x] != '1' )
 	{
 
-		printf("new_x: %d, new_y: %d\n", new_x, new_y);
+		printf("new_x: %f, new_y: %f\n", new_x, new_y);
 		printf("map_grid_x: %d, map_grid_y: %d\n", map_grid_x, map_grid_y);
-		mlx->player_position->pos_x = new_x;
-		mlx->player_position->pos_y = new_y;
+		mlx->r.pos_x = new_x;
+		mlx->r.pos_y = new_y;
 	}
 }
 

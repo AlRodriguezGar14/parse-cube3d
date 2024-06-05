@@ -47,8 +47,11 @@ int ray(void *arg)
     // The size of a tile in the game, the width and height of the game screen.
 
     // The position of the player and the direction of the player.
+    if(!data->r.pos_x && !data->r.pos_y)
+    {
     data->r.pos_x = data->player_position->pos_x / size;
     data->r.pos_y = data->player_position->pos_y / size;
+    }
 
     double angle = data->player_position->angle;
     double dir_x = cos(angle); 

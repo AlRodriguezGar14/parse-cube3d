@@ -49,7 +49,7 @@ bool load_textures_helper(t_cube_data *data, char *path, int i)
 	
 	if(!path)
 	{
-		data->textures[i].image_charge = mlx_new_image(data->mlx->mlx,data->max_x * TILE_SIZE,data->max_y * TILE_SIZE);
+		data->textures[i].image_charge = mlx_new_image(data->mlx->mlx,WIDTH,HEIGHT);
 		return (false);
 	}
 	data->textures[i].image_charge = mlx_xpm_file_to_image(data->mlx->mlx,ft_strtrim(path,"\n"),&(width), &(height));

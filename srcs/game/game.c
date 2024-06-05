@@ -32,8 +32,8 @@ int ray(void *arg)
     moves(data);
 //	printf("ray start\n");
     int size = TILE_SIZE;
-    int width = size * data->max_x -1;
-    int height = size * data->max_y -1;
+    int width = WIDTH;
+    int height = HEIGHT;
     t_image_info *img;
 
     img = renew_image(data);

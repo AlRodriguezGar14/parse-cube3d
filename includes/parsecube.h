@@ -19,8 +19,8 @@
 # include <stdbool.h>
 
 
-#define HEIGHT 600
-#define WIDTH 800
+#define HEIGHT 1080
+#define WIDTH 1920
 #define A 97
 #define D 100
 #define W 119

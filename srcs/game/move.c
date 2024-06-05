@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:26:11 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/04 21:45:53 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/05 01:47:02 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	move_player(t_cube_data *mlx, double move_x, double move_y)
 	int		new_x;
 	int		new_y;
 
-	new_x = roundf(mlx->player_position->pos_x + move_x);
-	new_y = roundf(mlx->player_position->pos_y + move_y);
+	new_x = floor(mlx->player_position->pos_x + move_x);
+	new_y = floor(mlx->player_position->pos_y + move_y);
 	map_grid_x = (new_x / TILE_SIZE);
 	map_grid_y = (new_y / TILE_SIZE);
 	if (map_grid_x < 0 || map_grid_x >= mlx->max_x || \
@@ -44,7 +44,7 @@ void	move_player(t_cube_data *mlx, double move_x, double move_y)
 		return ;
 	if (mlx->map[map_grid_y][map_grid_x] != '1' )
 	{
-		
+
 		printf("new_x: %d, new_y: %d\n", new_x, new_y);
 		printf("map_grid_x: %d, map_grid_y: %d\n", map_grid_x, map_grid_y);
 		mlx->player_position->pos_x = new_x;

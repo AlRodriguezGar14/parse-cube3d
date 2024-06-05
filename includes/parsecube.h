@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/04 21:57:20 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/05 02:27:49 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdbool.h>
 
 
+#define HEIGHT 600
+#define WIDTH 800
 #define A 97
 #define D 100
 #define W 119
@@ -33,10 +35,10 @@
 # define DOWN 			65364 // linux
 # define ESC 			65307 // linux
 // # define TILE_SIZE 		100
-# define TILE_SIZE 		64
+# define TILE_SIZE 		66
 # define FOV 			66
 # define ROTATION_SPEED 0.020
-# define PLAYER_SPEED	0.5
+# define PLAYER_SPEED	10
 #ifndef M_PI
 # define M_PI			3.14159265358979323846
 #endif
@@ -145,7 +147,7 @@ int		parse_colors(char *line, int color[3]);
 
 // Path: movements.c
 void	move_left(t_player_position *player_position);
-
+void	move_right(t_player_position *player_position);
 void	move_down(t_player_position *player_position);
 void	move_up(t_player_position *player_position);
 int	moves(t_cube_data *d);
@@ -176,7 +178,8 @@ double	get_pixel_pos(t_image_info	*texture, t_cube_data *data);
 // textures.c
 int		rgb(int r, int g, int b);
 void	print_c_f(t_cube_data *data);
-void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
+//void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color, int width, int height);
 t_image_info *renew_image(t_cube_data *data);
 
 // Key pressed

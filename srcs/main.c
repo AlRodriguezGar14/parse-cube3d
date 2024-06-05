@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/04 21:32:29 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/05 01:38:56 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,10 @@ void	init_mlx(t_mlx *mlx ,t_cube_data *cube_data)
 	// TODO: Update max_x to a fixed value
 	ft_strlen_map(cube_data->map,cube_data);
 	printf("x%i y%i\n",cube_data->max_x,cube_data->max_y);
-	mlx->win = mlx_new_window(mlx->mlx, cube_data->max_x * TILE_SIZE, cube_data->max_y * TILE_SIZE, "Cub3D");
+	mlx->win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "Cub3D");
 	// mlx->win = mlx_new_window(mlx->mlx, 640, 320, "Cub3D");
 	
 }
-
 
 
 int	main(int argc, char **argv)

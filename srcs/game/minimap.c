@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 03:23:16 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/04 16:24:31 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/05 01:33:23 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,39 +48,39 @@ void ft_strlen_map(char **map , t_cube_data *data )
 	
 }
 
-void	paint_map(t_cube_data *data)
-{
-	float	x;
-	float	y;
-	int	xs;
-	int	ys;
-	int	color;
-	char c;
-	t_image_info *img;
-	t_player_position *p;
-	
-	p= data->player_position;
-	get_plyr_pos(data);
-	img = &data->textures[4];
-	
-	y = 0;
-	
-	while(++y < TILE_SIZE * data->max_y)
-	{
-		x = -1;
-		while (++x < TILE_SIZE * data->max_x)
-		{
-			
-			 xs = x / TILE_SIZE;
-			 ys = y / TILE_SIZE + 1;
-			//ft_strlen_map(data->map, data);
-			 c = data->map[ys][xs];
-			color = choose_color(c);
-			my_mlx_pixel_put(img, x, y, color);
-			if((((x - p->pos_x) * (x - p->pos_x)) + ((y - p->pos_y) * (y - p->pos_y))) <= 100)
-				my_mlx_pixel_put(img, x, y, rgb(255, 127, 0)); 
-		}
-		
-	}
-	// mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, img->image_charge, 0, 0);
-}
+//void	paint_map(t_cube_data *data)
+//{
+//	float	x;
+//	float	y;
+//	int	xs;
+//	int	ys;
+//	int	color;
+//	char c;
+//	t_image_info *img;
+//	t_player_position *p;
+//
+//	p= data->player_position;
+//	get_plyr_pos(data);
+//	img = &data->textures[4];
+//
+//	y = 0;
+//
+//	while(++y < TILE_SIZE * data->max_y)
+//	{
+//		x = -1;
+//		while (++x < TILE_SIZE * data->max_x)
+//		{
+//
+//			 xs = x / TILE_SIZE;
+//			 ys = y / TILE_SIZE + 1;
+//			//ft_strlen_map(data->map, data);
+//			 c = data->map[ys][xs];
+//			color = choose_color(c);
+//			my_mlx_pixel_put(img, x, y, color);
+//			if((((x - p->pos_x) * (x - p->pos_x)) + ((y - p->pos_y) * (y - p->pos_y))) <= 100)
+//				my_mlx_pixel_put(img, x, y, rgb(255, 127, 0));
+//		}
+//
+//	}
+//	// mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, img->image_charge, 0, 0);
+//}

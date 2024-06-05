@@ -2,8 +2,8 @@
 DEL			=	rm -f
 CC			=	gcc -g3
 CCFLAGS		=	-Wall -Wextra -Werror -g3 -fsanitize=address -g3
-MLX			=	-framework OpenGL -framework AppKit
-# MLX			=	-lXext -lX11 -lm -lbsd 
+#MLX			=	-framework OpenGL -framework AppKit
+ MLX			=	-lXext -lX11 -lm -lbsd 
 # -g3 -fsanitize=address
 
 #Nombre ejecutable
@@ -20,12 +20,12 @@ SRC_FILES	= main \
 			validators/validate_file \
 			validators/validate_map \
 			game/game \
-			game/game_2 \
 			game/game_3 \
 			game/get_inter \
 			game/keys \
 			game/textures \
 			game/minimap \
+			game/move 
 	
 
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecube.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/03 01:42:10 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/05 02:27:49 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,26 @@
 # include <stdbool.h>
 
 
-#define A 65
-#define D 68
-#define W 87
-#define S 83
+#define HEIGHT 600
+#define WIDTH 800
+#define A 97
+#define D 100
+#define W 119
+#define S 115
 //# define LEFT 0 // macos
-# define LEFT 			97 // linux
+# define LEFT 			65361 // linux
 //# define RIGHT 2 // macos
-# define RIGHT 			100 // linux
+# define RIGHT 			65363 // linux
 //# define UP  13 // macos
-# define UP  			119 // linux
+# define UP  			65362 // linux
 //# define DOWN 1 // macos
-# define DOWN 			115 // linux
+# define DOWN 			65364 // linux
 # define ESC 			65307 // linux
 // # define TILE_SIZE 		100
-# define TILE_SIZE 		64
+# define TILE_SIZE 		66
 # define FOV 			66
-# define ROTATION_SPEED 0.045
-# define PLAYER_SPEED	4
+# define ROTATION_SPEED 0.020
+# define PLAYER_SPEED	10
 #ifndef M_PI
 # define M_PI			3.14159265358979323846
 #endif
@@ -63,9 +65,18 @@ typedef struct s_player_position {
 	char    orientation;
 	double	angle;
 	double 	fov;
-	int left;
-	int up;
+	
 }   t_player_position;
+
+typedef struct s_move
+{
+	int		mright;
+	int		mleft;
+	int		mup;
+	int		mback;
+	int		rright;
+	int		rleft;
+}	t_move;
 
 typedef struct s_image_info
 {
@@ -82,14 +93,10 @@ typedef struct s_image_info
 
 typedef struct s_ray
 {
-	int		index;
-	double	ray_ngl;
-	double	horiz_x;
-	double	horiz_y;
-	double	vert_x;
-	double	vert_y;
-	double	distance;
-	int		flag;
+	double pos_x;
+	double pos_y;
+	double dir_x;
+	double dir_y;
 }	t_ray;
 
 typedef struct s_cube_data {
@@ -105,7 +112,8 @@ typedef struct s_cube_data {
 	t_player_position *player_position;
 	t_mlx   *mlx;
 	t_image_info *textures;
-	t_ray *r;
+	t_ray 	r;
+	t_move move;
 }   t_cube_data;
 
 
@@ -122,6 +130,8 @@ int validate_extension(char *file);
 int ft_isspace(char c);
 int double_pointer_len(char **ptr);
 void load_textures(t_cube_data *data);
+bool load_textures_helper(t_cube_data *data, char *path, int i);
+void get_addres_helper(t_cube_data *data,int i);
 
 // Path: parsing_utils.c
 void replace_tabs_with_spaces(char ***map);
@@ -140,6 +150,7 @@ void	move_left(t_player_position *player_position);
 void	move_right(t_player_position *player_position);
 void	move_down(t_player_position *player_position);
 void	move_up(t_player_position *player_position);
+int	moves(t_cube_data *d);
 
 // PATH key_hook_terminal.c
 int	key_hook_terminal(int keycode, t_cube_data *cube_data);
@@ -155,8 +166,9 @@ void    free_mlx(t_mlx *mlx);
 // Path: game.c
 
 void	init_player(t_cube_data *data);
-void	ray(t_cube_data *data);
+int 	ray(void *arg);
 int 	routine(void *d);
+void	get_plyr_pos(t_cube_data *data);
 // Path: game_2.c
 void	print_ray(t_cube_data *data, int draw[2], int x, int side);
 void	init_ray(t_cube_data *data);
@@ -166,11 +178,14 @@ double	get_pixel_pos(t_image_info	*texture, t_cube_data *data);
 // textures.c
 int		rgb(int r, int g, int b);
 void	print_c_f(t_cube_data *data);
-void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
+//void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color, int width, int height);
+t_image_info *renew_image(t_cube_data *data);
 
 // Key pressed
 int key_pressed( int keycode ,void *param);
 int key_release( int keycode ,void *param);
+int destroy_window(void *param);
 
 //get inter
 float get_y_inter(t_cube_data *data, float ang);

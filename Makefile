@@ -20,6 +20,7 @@ SRC_FILES	= main \
 			validators/validate_file \
 			validators/validate_map \
 			game/game \
+			game/game_2 \
 			game/game_3 \
 			game/get_inter \
 			game/keys \

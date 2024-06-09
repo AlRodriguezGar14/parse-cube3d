@@ -119,36 +119,36 @@ int ray(void *arg)
         if (perp_wall_dist == 0.0)
             perp_wall_dist = 0.1;
 
-        int line_height = (int)(HEIGHT / perp_wall_dist);
+         data->wall.line_h = (int)(HEIGHT / perp_wall_dist);
 
-        int draw_start = -line_height / 2 + HEIGHT / 2;
-        if (draw_start < 0) draw_start = 0;
+         data->wall.draw_start = -data->wall.line_h / 2 + HEIGHT / 2;
+        if (data->wall.draw_start < 0) data->wall.draw_start = 0;
 
-        int draw_end = line_height / 2 + HEIGHT / 2;
-        if (draw_end >= HEIGHT) draw_end = HEIGHT - 1;
+        data->wall.draw_end = data->wall.line_h / 2 + HEIGHT / 2;
+        if (data->wall.draw_end >= HEIGHT) data->wall.draw_end = HEIGHT - 1;
 
         t_image_info *texture;
         
         texture = get_texture(data, side);
 
 
-        int base = draw_start;
+        int base = data->wall.draw_start;
         
         
-        while (++base != draw_end)
+        while (++base != data->wall.draw_end)
         {
             if (x < width && base < height && base > 0 && x > 0)
             {
-                funcion_que_sirve_para_saber_que_pixel_coger();
+                //funcion_que_sirve_para_saber_que_pixel_coger();
                 color = get_texture_color(texture, data->wall.tex_x, data->wall.tex_num);
                 my_mlx_pixel_put(img, x, base, color, width, height);
             }
         }
 
-        int top = draw_end - 1;
+        int top = data->wall.draw_end - 1;
         while (++top != HEIGHT)
             my_mlx_pixel_put(img, x, top, rgb(255, 255, 0), width, height);
-        int bottom = draw_start + 1;
+        int bottom = data->wall.draw_start + 1;
         while (--bottom != -1)
             my_mlx_pixel_put(img, x, bottom, rgb(255, 0, 255), width, height);
     }

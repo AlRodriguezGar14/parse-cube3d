@@ -104,12 +104,12 @@ typedef struct s_ray
 
 typedef struct s_wall
 {
-	int x;
+	int side;
 	int draw_start;
 	int draw_end;
 	int tex_x;
 	int tex_num;
-	int lineheight;
+	int line_h;
 	double wallx;
 	double step;
 	double texpos;

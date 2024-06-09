@@ -6,13 +6,10 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:12:58 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/08 12:11:21 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/09 00:01:14 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-#include "../../includes/parsecube.h"
 
 #include "../../includes/parsecube.h"
 
@@ -130,16 +127,22 @@ int ray(void *arg)
         int draw_end = line_height / 2 + HEIGHT / 2;
         if (draw_end >= HEIGHT) draw_end = HEIGHT - 1;
 
-        if (side == 1)
-            color = rgb(0, 255 * (1.0 / perp_wall_dist), 0);
-        else
-            color = rgb(0, 0, 255 * (1.0 / perp_wall_dist));
+        t_image_info *texture;
+        
+        texture = get_texture(data, side);
+
 
         int base = draw_start;
+        
+        
         while (++base != draw_end)
         {
             if (x < width && base < height && base > 0 && x > 0)
+            {
+                funcion_que_sirve_para_saber_que_pixel_coger();
+                color = get_texture_color(texture, data->wall.tex_x, data->wall.tex_num);
                 my_mlx_pixel_put(img, x, base, color, width, height);
+            }
         }
 
         int top = draw_end - 1;

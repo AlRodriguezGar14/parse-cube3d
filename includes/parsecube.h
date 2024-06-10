@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/05 02:27:49 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/08 12:04:28 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <stdbool.h>
 
 
-#define HEIGHT 600
-#define WIDTH 800
+#define HEIGHT 1080
+#define WIDTH 1920
 #define A 97
 #define D 100
 #define W 119
@@ -38,7 +38,7 @@
 # define TILE_SIZE 		66
 # define FOV 			66
 # define ROTATION_SPEED 0.020
-# define PLAYER_SPEED	10
+# define PLAYER_SPEED	0.05
 #ifndef M_PI
 # define M_PI			3.14159265358979323846
 #endif
@@ -97,7 +97,28 @@ typedef struct s_ray
 	double pos_y;
 	double dir_x;
 	double dir_y;
+	double ray_dir_x;
+	double ray_dir_y;
+	double perpwalldist;
 }	t_ray;
+
+typedef struct s_wall
+{
+	int side;
+	int draw_start;
+	int draw_end;
+	int tex_x;
+	int tex_num;
+	int line_h;
+	double wallx;
+	double step;
+	double texpos;
+	double step_y;
+	double step_x;
+	
+	
+}	t_wall;
+
 
 typedef struct s_cube_data {
 	char    *north_texture; // no
@@ -114,6 +135,7 @@ typedef struct s_cube_data {
 	t_image_info *textures;
 	t_ray 	r;
 	t_move move;
+	t_wall wall;
 }   t_cube_data;
 
 
@@ -170,8 +192,10 @@ int 	ray(void *arg);
 int 	routine(void *d);
 void	get_plyr_pos(t_cube_data *data);
 // Path: game_2.c
-void	print_ray(t_cube_data *data, int draw[2], int x, int side);
-void	init_ray(t_cube_data *data);
+t_image_info *get_texture(t_cube_data *data, int side);
+int get_texture_color(t_image_info *texture, int x, int y);
+
+
 // Path: game_3.c
 int get_pixel_color(int x, int y, t_image_info *img);
 double	get_pixel_pos(t_image_info	*texture, t_cube_data *data);

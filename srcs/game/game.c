@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:12:58 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/09 00:01:14 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:47:04 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ int ray(void *arg)
 
         double delta_dist_x = fabs(1 / ray_dir_x);
         double delta_dist_y = fabs(1 / ray_dir_y);
-         
-        double perp_wall_dist;
+       
 
         int step_x;
         int step_y;
@@ -112,14 +111,14 @@ int ray(void *arg)
         }
 
         if (side == 0)
-            perp_wall_dist = (map_x - data->r.pos_x + (1 - step_x) / 2) / ray_dir_x;
+            data->r.perpwalldist = (map_x - data->r.pos_x + (1 - step_x) / 2) / ray_dir_x;
         else
-            perp_wall_dist = (map_y - data->r.pos_y + (1 - step_y) / 2) / ray_dir_y;
+            data->r.perpwalldist = (map_y - data->r.pos_y + (1 - step_y) / 2) / ray_dir_y;
 
-        if (perp_wall_dist == 0.0)
-            perp_wall_dist = 0.1;
+        if (data->r.perpwalldist == 0.0)
+            data->r.perpwalldist = 0.1;
 
-         data->wall.line_h = (int)(HEIGHT / perp_wall_dist);
+         data->wall.line_h = (int)(HEIGHT / data->r.perpwalldist);
 
          data->wall.draw_start = -data->wall.line_h / 2 + HEIGHT / 2;
         if (data->wall.draw_start < 0) data->wall.draw_start = 0;
@@ -127,24 +126,37 @@ int ray(void *arg)
         data->wall.draw_end = data->wall.line_h / 2 + HEIGHT / 2;
         if (data->wall.draw_end >= HEIGHT) data->wall.draw_end = HEIGHT - 1;
 
-        t_image_info *texture;
-        
-        texture = get_texture(data, side);
+        t_image_info *texture = get_texture(data, side);
 
+        double wall_x;
+        if (side == 0)
+            wall_x = data->r.pos_y + data->r.perpwalldist * ray_dir_y;
+        else
+            wall_x = data->r.pos_x + data->r.perpwalldist * ray_dir_x;
+        wall_x -= floor(wall_x);
 
-        int base = data->wall.draw_start;
-        
-        
-        while (++base != data->wall.draw_end)
+        int tex_x = (int)(wall_x * (double)(300));
+        if (side == 0 && ray_dir_x > 0) tex_x = 300 - tex_x - 1;
+        if (side == 1 && ray_dir_y < 0) tex_x = 300 - tex_x - 1;
+        int y = data->wall.draw_start - 1;
+        while (++y < data->wall.draw_end)
         {
-            if (x < width && base < height && base > 0 && x > 0)
-            {
-                //funcion_que_sirve_para_saber_que_pixel_coger();
-                color = get_texture_color(texture, data->wall.tex_x, data->wall.tex_num);
-                my_mlx_pixel_put(img, x, base, color, width, height);
-            }
-        }
+            // Calculo de la posición en la textura
+            int d = y * 256 - HEIGHT * 128 + data->wall.line_h * 128;
+            int tex_y = ((d * 300) / data->wall.line_h) / 256;
 
+            // Asegurarnos de que tex_y esté dentro de los límites de la textura
+            if (tex_y < 0) tex_y = 0;
+            if (tex_y >= 300) tex_y = 299;
+
+            // Obtener el color de la textura
+            color = get_texture_color(texture, tex_x, tex_y);
+
+            // Dibujar el pixel en la imagen
+            my_mlx_pixel_put(img, x, y, color, width, height);
+
+           
+        }
         int top = data->wall.draw_end - 1;
         while (++top != HEIGHT)
             my_mlx_pixel_put(img, x, top, rgb(255, 255, 0), width, height);

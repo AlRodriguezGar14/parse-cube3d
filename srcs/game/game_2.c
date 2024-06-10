@@ -6,25 +6,11 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:55:36 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/08 23:48:27 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:49:23 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsecube.h"
-
-/* void put_wall(t_cube_data *data, int draw_end, int draw_start , t_image_info *texture)
-{
-	int color;
-	double step;
-	int tex_pos;
-	int color;
-	int y;
-	int texy;
-
-
-	step = 1.0 * 300 / texture->line_s;
-
-} */
 
 t_image_info *get_texture(t_cube_data *data, int side)
 {
@@ -48,12 +34,14 @@ t_image_info *get_texture(t_cube_data *data, int side)
 }
 
 // function that returns the color of the pixel in the texture
-int get_texture_color(t_image_info *texture, int x, int y)
+int get_texture_color(t_image_info *texture, int tex_x, int tex_y) 
 {
-	if (x < 0 || y < 0 || x >= texture->line_s || y >= texture->line_s)
-		return (0);
-	char *dst;
-
-	dst = texture->addres + (y * texture->line_s + x * (texture->bpp / 8));
-	return (*(unsigned int *)dst);
+    if (tex_x < 0 || tex_x >= 300 || tex_y < 0 || tex_y >= 300)
+        return 0; // Devuelve un color por defecto o de error si las coordenadas están fuera de rango
+    int bytes_per_pixel = texture->bpp / 8;
+    int offset = (tex_y * texture->line_s) + (tex_x * bytes_per_pixel);
+    unsigned char *pixel = (unsigned char *)(texture->addres + offset);
+    int color = (pixel[2] << 16) | (pixel[1] << 8) | pixel[0]; // Asume formato RGB
+    return color;
 }
+

@@ -49,10 +49,10 @@ int ray(void *arg)
     while (++x < WIDTH)
     {
         double camera_x = 2 * x / (double)width - 1;
-        double ray_dir_x = dir_x + plane_x * camera_x;
-        double ray_dir_y = dir_y + plane_y * camera_x;
+         data->r.ray_dir_x = dir_x + plane_x * camera_x;
+        data->r.ray_dir_y = dir_y + plane_y * camera_x;
 
-        if (ray_dir_y == 0.0 || ray_dir_x == 0.0)
+        if (data->r.ray_dir_y == 0.0 || data->r.ray_dir_x == 0.0)
             return 1;
 
         int map_x = (int)data->r.pos_x;
@@ -61,8 +61,8 @@ int ray(void *arg)
         double side_dist_x;
         double side_dist_y;
 
-        double delta_dist_x = fabs(1 / ray_dir_x);
-        double delta_dist_y = fabs(1 / ray_dir_y);
+        double delta_dist_x = fabs(1 / data->r.ray_dir_x);
+        double delta_dist_y = fabs(1 / data->r.ray_dir_y);
        
 
         int step_x;
@@ -71,7 +71,7 @@ int ray(void *arg)
         bool hit = false;
         int side;
 
-        if (ray_dir_x < 0)
+        if (data->r.ray_dir_x < 0)
         {
             step_x = -1;
             side_dist_x = (data->r.pos_x - map_x) * delta_dist_x;
@@ -81,7 +81,7 @@ int ray(void *arg)
             step_x = 1;
             side_dist_x = (map_x + 1.0 - data->r.pos_x) * delta_dist_x;
         }
-        if (ray_dir_y < 0)
+        if (data->r.ray_dir_y < 0)
         {
             step_y = -1;
             side_dist_y = (data->r.pos_y - map_y) * delta_dist_y;
@@ -111,9 +111,9 @@ int ray(void *arg)
         }
 
         if (side == 0)
-            data->r.perpwalldist = (map_x - data->r.pos_x + (1 - step_x) / 2) / ray_dir_x;
+            data->r.perpwalldist = (map_x - data->r.pos_x + (1 - step_x) / 2) / data->r.ray_dir_x;
         else
-            data->r.perpwalldist = (map_y - data->r.pos_y + (1 - step_y) / 2) / ray_dir_y;
+            data->r.perpwalldist = (map_y - data->r.pos_y + (1 - step_y) / 2) / data->r.ray_dir_y;
 
         if (data->r.perpwalldist == 0.0)
             data->r.perpwalldist = 0.1;
@@ -130,14 +130,14 @@ int ray(void *arg)
 
         double wall_x;
         if (side == 0)
-            wall_x = data->r.pos_y + data->r.perpwalldist * ray_dir_y;
+            wall_x = data->r.pos_y + data->r.perpwalldist * data->r.ray_dir_y;
         else
-            wall_x = data->r.pos_x + data->r.perpwalldist * ray_dir_x;
+            wall_x = data->r.pos_x + data->r.perpwalldist * data->r.ray_dir_x;
         wall_x -= floor(wall_x);
 
         int tex_x = (int)(wall_x * (double)(300));
-        if (side == 0 && ray_dir_x > 0) tex_x = 300 - tex_x - 1;
-        if (side == 1 && ray_dir_y < 0) tex_x = 300 - tex_x - 1;
+        if (side == 0 && data->r.ray_dir_x > 0) tex_x = 300 - tex_x - 1;
+        if (side == 1 && data->r.ray_dir_y < 0) tex_x = 300 - tex_x - 1;
         int y = data->wall.draw_start - 1;
         while (++y < data->wall.draw_end)
         {

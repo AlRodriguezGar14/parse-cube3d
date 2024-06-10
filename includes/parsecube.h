@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecube.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/08 12:04:28 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/10 23:35:41 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ double	get_pixel_pos(t_image_info	*texture, t_cube_data *data);
 int		rgb(int r, int g, int b);
 void	print_c_f(t_cube_data *data);
 //void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
-void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color, int width, int height);
+void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
 t_image_info *renew_image(t_cube_data *data);
 
 // Key pressed

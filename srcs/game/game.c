@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:12:58 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/10 12:47:04 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/10 23:35:59 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,16 +150,16 @@ int ray(void *arg)
             color = get_texture_color(texture, tex_x, tex_y);
 
             // Dibujar el pixel en la imagen
-            my_mlx_pixel_put(img, x, y, color, WIDTH, HEIGHT);
+            my_mlx_pixel_put(img, x, y, color);
 
            
         }
         int top = data->wall.draw_end - 1;
         while (++top != HEIGHT)
-            my_mlx_pixel_put(img, x, top, rgb(255, 255, 0), WIDTH, HEIGHT);
+            my_mlx_pixel_put(img, x, top, rgb(255, 255, 0));
         int bottom = data->wall.draw_start + 1;
         while (--bottom != -1)
-            my_mlx_pixel_put(img, x, bottom, rgb(255, 0, 255), WIDTH, HEIGHT);
+            my_mlx_pixel_put(img, x, bottom, rgb(255, 0, 255));
     }
 
     mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, img->image_charge, 0, 0);

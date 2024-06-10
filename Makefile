@@ -22,7 +22,6 @@ SRC_FILES	= main \
 			game/game \
 			game/game_2 \
 			game/game_3 \
-			game/get_inter \
 			game/keys \
 			game/textures \
 			game/minimap \

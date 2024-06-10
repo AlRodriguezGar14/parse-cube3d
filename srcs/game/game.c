@@ -19,9 +19,6 @@ int ray(void *arg)
     data = (t_cube_data *)arg;
     moves(data);
 
-    int size = TILE_SIZE;
-    int width = WIDTH;
-    int height = HEIGHT;
     t_image_info *img;
 
     img = renew_image(data);
@@ -32,8 +29,8 @@ int ray(void *arg)
     
     if(!data->r.pos_x && !data->r.pos_y)
     {
-        data->r.pos_x = data->player_position->pos_x / size;
-        data->r.pos_y = data->player_position->pos_y / size;
+        data->r.pos_x = (data->player_position->pos_x / TILE_SIZE) + 0.5;
+        data->r.pos_y = (data->player_position->pos_y / TILE_SIZE) + 0.5;
     }
 
     double angle = data->player_position->angle;
@@ -48,7 +45,7 @@ int ray(void *arg)
     int x = -1;
     while (++x < WIDTH)
     {
-        double camera_x = 2 * x / (double)width - 1;
+        double camera_x = 2 * x / (double)WIDTH - 1;
          data->r.ray_dir_x = dir_x + plane_x * camera_x;
         data->r.ray_dir_y = dir_y + plane_y * camera_x;
 
@@ -153,16 +150,16 @@ int ray(void *arg)
             color = get_texture_color(texture, tex_x, tex_y);
 
             // Dibujar el pixel en la imagen
-            my_mlx_pixel_put(img, x, y, color, width, height);
+            my_mlx_pixel_put(img, x, y, color, WIDTH, HEIGHT);
 
            
         }
         int top = data->wall.draw_end - 1;
         while (++top != HEIGHT)
-            my_mlx_pixel_put(img, x, top, rgb(255, 255, 0), width, height);
+            my_mlx_pixel_put(img, x, top, rgb(255, 255, 0), WIDTH, HEIGHT);
         int bottom = data->wall.draw_start + 1;
         while (--bottom != -1)
-            my_mlx_pixel_put(img, x, bottom, rgb(255, 0, 255), width, height);
+            my_mlx_pixel_put(img, x, bottom, rgb(255, 0, 255), WIDTH, HEIGHT);
     }
 
     mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, img->image_charge, 0, 0);
@@ -189,8 +186,8 @@ void init_player(t_cube_data *data)
         data->player_position->angle = 0;
     if(c == 'W')
         data->player_position->angle = M_PI;
-    data->player_position->pos_x = (p_x *TILE_SIZE) + TILE_SIZE / 2;
-    data->player_position->pos_y = (p_y *TILE_SIZE) + TILE_SIZE / 2;
+    data->player_position->pos_x = (p_x) + 0.5;
+    data->player_position->pos_y = (p_y) + 0.5;
     data->player_position->fov = (FOV *M_PI/180);
     
 }

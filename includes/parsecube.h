@@ -37,7 +37,7 @@
 // # define TILE_SIZE 		100
 # define TILE_SIZE 		66
 # define FOV 			66
-# define ROTATION_SPEED 0.020
+# define ROTATION_SPEED 0.042
 # define PLAYER_SPEED	0.05
 #ifndef M_PI
 # define M_PI			3.14159265358979323846
@@ -100,7 +100,38 @@ typedef struct s_ray
 	double ray_dir_x;
 	double ray_dir_y;
 	double perpwalldist;
+
+
+
 }	t_ray;
+
+
+typedef struct s_raycaster {
+	double angle;
+	double dir_x;
+	double dir_y;
+	double plane_x;
+	double plane_y;
+	double camera_x;
+
+	double side_dist_x;
+	double side_dist_y;
+	double delta_dist_x;
+	double delta_dist_y;
+
+	double end_x;
+	double end_y;
+	int color;
+	int side;
+
+	int map_x;
+	int map_y;
+
+
+	int step_x;
+	int step_y;
+	double wall_x;
+}	t_raycaster;
 
 typedef struct s_wall
 {

@@ -40,13 +40,13 @@ void	move_player(t_cube_data *data, double move_x, double move_y)
 	double module_y = new_pos_y - (int)new_pos_y;
 	printf("module_x: %f\n", module_x);
 	printf("module_y: %f\n", module_y);
-	if (data->map[(int)new_pos_y - 1][(int)new_pos_x] == '1' && module_y < 0.10)
+	if (data->map[(int)new_pos_y - 1][(int)new_pos_x] == '1' && module_y < 0.15)
 		return ;
-	if (data->map[(int)new_pos_y + 1][(int)new_pos_x] == '1' && module_y > 0.90)
+	if (data->map[(int)new_pos_y + 1][(int)new_pos_x] == '1' && module_y > 0.85)
 		return ;
-	if (data->map[(int)new_pos_y][(int)new_pos_x - 1] == '1' && module_x < 0.10)
+	if (data->map[(int)new_pos_y][(int)new_pos_x - 1] == '1' && module_x < 0.15)
 		return ;
-	if (data->map[(int)new_pos_y][(int)new_pos_x + 1] == '1' && module_x > 0.90)
+	if (data->map[(int)new_pos_y][(int)new_pos_x + 1] == '1' && module_x > 0.85)
 		return ;
 	if (new_pos_x >= 0 && new_pos_x < data->max_x &&
 		new_pos_y >= 0 && new_pos_y < data->max_y)

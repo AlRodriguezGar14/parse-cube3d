@@ -31,8 +31,9 @@ int    parse_colors(char *line, int color[3])
 	color[1] = ft_atoi(colors[1]);
 	color[2] = ft_atoi(colors[2]);
 	idx = -1;
-	while (color[++idx])
+	while (++idx < 3)
 	{
+		printf("color[%d]: %d\n", idx, color[idx]);
 		if (color[idx] < 0 || color[idx] > 255)
 			return (free_double_pointer(colors), 1);
 	}

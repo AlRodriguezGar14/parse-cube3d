@@ -13,159 +13,191 @@
 
 #include "../../includes/parsecube.h"
 
-int ray(void *arg)
+void    set_position(t_cube_data *data)
 {
-    t_cube_data *data;
-    data = (t_cube_data *)arg;
-    moves(data);
-
-    t_image_info *img;
-
-    img = renew_image(data);
-
-    double end_x;
-    double end_y;
-    int color;
-    
     if(!data->r.pos_x && !data->r.pos_y)
     {
         data->r.pos_x = (data->player_position->pos_x / TILE_SIZE) + 0.5;
         data->r.pos_y = (data->player_position->pos_y / TILE_SIZE) + 0.5;
     }
+}
 
-    double angle = data->player_position->angle;
-    double dir_x = cos(angle); 
-    double dir_y = sin(angle); 
+void set_coordinates(t_raycaster *rc, t_cube_data *data)
+{
+    rc->angle = data->player_position->angle;
+    rc->dir_x = cos(data->player_position->angle);
+    rc->dir_y = sin(data->player_position->angle);
+    rc->plane_x = 0.66 * rc->dir_y;
+    rc->plane_y = -0.66 * rc->dir_x;
+}
 
-    double plane_x = 0.66 * dir_y;
-    double plane_y = -0.66 * dir_x;
+int set_camera_and_rays(t_raycaster *rc, int x, t_cube_data *data)
+{
+    rc->camera_x = 2 * x / (double)WIDTH - 1;
+    data->r.ray_dir_x = rc->dir_x + rc->plane_x * rc->camera_x;
+    data->r.ray_dir_y = rc->dir_y + rc->plane_y * rc->camera_x;
+    if (data->r.ray_dir_y == 0.0 || data->r.ray_dir_x == 0.0)
+        return (1);
+    rc->map_x = (int)data->r.pos_x;
+    rc->map_y = (int)data->r.pos_y;
+    rc->delta_dist_x = fabs(1 / data->r.ray_dir_x);
+    rc->delta_dist_y = fabs(1 / data->r.ray_dir_y);
+    return (0);
+}
 
-    color = rgb(255, 0, 255);
+void set_step_and_dist(t_raycaster *rc, t_cube_data *data)
+{
+    if (data->r.ray_dir_x < 0)
+    {
+        rc->step_x = -1;
+        rc->side_dist_x = (data->r.pos_x - rc->map_x) * rc->delta_dist_x;
+    }
+    else 
+    {
+        rc->step_x = 1;
+        rc->side_dist_x = (rc->map_x + 1.0 - data->r.pos_x) * rc->delta_dist_x;
+    }
+    if (data->r.ray_dir_y < 0)
+    {
+        rc->step_y = -1;
+        rc->side_dist_y = (data->r.pos_y - rc->map_y) * rc->delta_dist_y;
+    }
+    else 
+    {
+        rc->step_y = 1;
+        rc->side_dist_y = (rc->map_y + 1.0 - data->r.pos_y) * rc->delta_dist_y;
+    }
 
+}
+
+void    set_walldist(t_raycaster *rc, t_cube_data *data)
+{
+    if (rc->side == 0)
+        data->r.perpwalldist = (rc->map_x - data->r.pos_x + (1 - rc->step_x) / 2) / data->r.ray_dir_x;
+    else
+        data->r.perpwalldist = (rc->map_y - data->r.pos_y + (1 - rc->step_y) / 2) / data->r.ray_dir_y;
+
+    if (data->r.perpwalldist == 0.0)
+        data->r.perpwalldist = 0.1;
+}
+
+void dda_algorithm(t_raycaster *rc, t_cube_data *data)
+{
+    bool hit = false;
+    while (hit == false)
+    {
+        if (rc->side_dist_x < rc->side_dist_y)
+        {
+            rc->side_dist_x += rc->delta_dist_x;
+            rc->map_x += rc->step_x;
+            rc->side = 0;
+        }
+        else
+        {
+            rc->side_dist_y += rc->delta_dist_y;
+            rc->map_y += rc->step_y;
+            rc->side = 1;
+        }
+        if (data->map[rc->map_y][rc->map_x] == '1')
+            hit = true;
+    }
+    set_walldist(rc, data);
+}
+
+void calculate_wall_x(t_raycaster *rc, t_cube_data *data)
+{
+    if (rc->side == 0)
+        rc->wall_x = data->r.pos_y + data->r.perpwalldist * data->r.ray_dir_y;
+    else
+        rc->wall_x = data->r.pos_x + data->r.perpwalldist * data->r.ray_dir_x;
+    rc->wall_x -= floor(rc->wall_x);
+}
+
+void set_wall_dimensions(t_cube_data *data, t_raycaster *rc)
+{
+    data->wall.line_h = (int)(HEIGHT / data->r.perpwalldist);
+    data->wall.draw_start = -data->wall.line_h / 2 + HEIGHT / 2;
+    if (data->wall.draw_start < 0) data->wall.draw_start = 0;
+
+    data->wall.draw_end = data->wall.line_h / 2 + HEIGHT / 2;
+    if (data->wall.draw_end >= HEIGHT) data->wall.draw_end = HEIGHT - 1;
+}
+
+void draw_wall(t_cube_data *data, t_raycaster *rc, t_image_info *img, int x)
+{
+    t_image_info *texture;
+    int tex_x;
+    int y;
+    int d;
+    int tex_y;
+
+    texture = get_texture(data, rc->side);
+    calculate_wall_x(rc, data);
+    tex_x = (int)(rc->wall_x * (double)(300));
+    if ((rc->side == 0 && data->r.ray_dir_x > 0)
+        || rc->side == 1 && data->r.ray_dir_y < 0)
+        tex_x = 300 - tex_x - 1;
+    y = data->wall.draw_start - 1;
+    while (++y < data->wall.draw_end)
+    {
+        d = y * 256 - HEIGHT * 128 + data->wall.line_h * 128;
+        tex_y = ((d * 300) / data->wall.line_h) / 256;
+
+        if (tex_y < 0)
+            tex_y = 0;
+        if (tex_y >= 300)
+            tex_y = 300;
+        rc->color = get_texture_color(texture, tex_x, tex_y);
+        my_mlx_pixel_put(img, x, y, rc->color, WIDTH, HEIGHT);
+    }
+}
+
+void draw_floor_and_ceiling(t_cube_data *data, t_raycaster *rc, t_image_info *img, int x)
+{
+    int colors[2];
+    int ceiling;
+    int floor;
+    int top;
+
+    ceiling = 0;
+    floor = 1;
+    colors[ceiling] = rgb(data->ceiling_color[0], data->ceiling_color[1], data->ceiling_color[2]);
+    colors[floor] = rgb(data->floor_color[0], data->floor_color[1], data->floor_color[2]);
+    top = data->wall.draw_end;
+    while (++top != HEIGHT)
+        my_mlx_pixel_put(img, x, top, colors[floor], WIDTH, HEIGHT);
+    int bottom = data->wall.draw_start + 1;
+    while (--bottom != 0)
+        my_mlx_pixel_put(img, x, bottom, colors[ceiling], WIDTH, HEIGHT);
+}
+
+int ray(void *arg)
+{
+    t_cube_data *data;
+    t_image_info *img;
+    t_raycaster rc;
+
+    data = (t_cube_data *)arg;
+    moves(data);
+    img = renew_image(data);
+    set_position(data);
+    set_coordinates(&rc, data);
     int x = -1;
     while (++x < WIDTH)
     {
-        double camera_x = 2 * x / (double)WIDTH - 1;
-         data->r.ray_dir_x = dir_x + plane_x * camera_x;
-        data->r.ray_dir_y = dir_y + plane_y * camera_x;
+        if (set_camera_and_rays(&rc, x, data))
+            return (1);
+        set_step_and_dist(&rc, data);
+        dda_algorithm(&rc, data);
 
-        if (data->r.ray_dir_y == 0.0 || data->r.ray_dir_x == 0.0)
-            return 1;
-
-        int map_x = (int)data->r.pos_x;
-        int map_y = (int)data->r.pos_y;
-
-        double side_dist_x;
-        double side_dist_y;
-
-        double delta_dist_x = fabs(1 / data->r.ray_dir_x);
-        double delta_dist_y = fabs(1 / data->r.ray_dir_y);
-       
-
-        int step_x;
-        int step_y;
-
-        bool hit = false;
-        int side;
-
-        if (data->r.ray_dir_x < 0)
-        {
-            step_x = -1;
-            side_dist_x = (data->r.pos_x - map_x) * delta_dist_x;
-        }
-        else 
-        {
-            step_x = 1;
-            side_dist_x = (map_x + 1.0 - data->r.pos_x) * delta_dist_x;
-        }
-        if (data->r.ray_dir_y < 0)
-        {
-            step_y = -1;
-            side_dist_y = (data->r.pos_y - map_y) * delta_dist_y;
-        }
-        else 
-        {
-            step_y = 1;
-            side_dist_y = (map_y + 1.0 - data->r.pos_y) * delta_dist_y;
-        }
-
-        while (hit == false)
-        {
-            if (side_dist_x < side_dist_y)
-            {
-                side_dist_x += delta_dist_x;
-                map_x += step_x;
-                side = 0;
-            }
-            else
-            {
-                side_dist_y += delta_dist_y;
-                map_y += step_y;
-                side = 1;
-            }
-            if (data->map[map_y][map_x] == '1')
-                hit = true;
-        }
-
-        if (side == 0)
-            data->r.perpwalldist = (map_x - data->r.pos_x + (1 - step_x) / 2) / data->r.ray_dir_x;
-        else
-            data->r.perpwalldist = (map_y - data->r.pos_y + (1 - step_y) / 2) / data->r.ray_dir_y;
-
-        if (data->r.perpwalldist == 0.0)
-            data->r.perpwalldist = 0.1;
-
-         data->wall.line_h = (int)(HEIGHT / data->r.perpwalldist);
-
-         data->wall.draw_start = -data->wall.line_h / 2 + HEIGHT / 2;
-        if (data->wall.draw_start < 0) data->wall.draw_start = 0;
-
-        data->wall.draw_end = data->wall.line_h / 2 + HEIGHT / 2;
-        if (data->wall.draw_end >= HEIGHT) data->wall.draw_end = HEIGHT - 1;
-
-        t_image_info *texture = get_texture(data, side);
-
-        double wall_x;
-        if (side == 0)
-            wall_x = data->r.pos_y + data->r.perpwalldist * data->r.ray_dir_y;
-        else
-            wall_x = data->r.pos_x + data->r.perpwalldist * data->r.ray_dir_x;
-        wall_x -= floor(wall_x);
-
-        int tex_x = (int)(wall_x * (double)(300));
-        if (side == 0 && data->r.ray_dir_x > 0) tex_x = 300 - tex_x - 1;
-        if (side == 1 && data->r.ray_dir_y < 0) tex_x = 300 - tex_x - 1;
-        int y = data->wall.draw_start - 1;
-        while (++y < data->wall.draw_end)
-        {
-            // Calculo de la posición en la textura
-            int d = y * 256 - HEIGHT * 128 + data->wall.line_h * 128;
-            int tex_y = ((d * 300) / data->wall.line_h) / 256;
-
-            // Asegurarnos de que tex_y esté dentro de los límites de la textura
-            if (tex_y < 0) tex_y = 0;
-            if (tex_y >= 300) tex_y = 299;
-
-            // Obtener el color de la textura
-            color = get_texture_color(texture, tex_x, tex_y);
-
-            // Dibujar el pixel en la imagen
-            my_mlx_pixel_put(img, x, y, color, WIDTH, HEIGHT);
-
-           
-        }
-        int top = data->wall.draw_end - 1;
-        while (++top != HEIGHT)
-            my_mlx_pixel_put(img, x, top, rgb(255, 255, 0), WIDTH, HEIGHT);
-        int bottom = data->wall.draw_start + 1;
-        while (--bottom != -1)
-            my_mlx_pixel_put(img, x, bottom, rgb(255, 0, 255), WIDTH, HEIGHT);
+        set_wall_dimensions(data, &rc);
+        draw_wall(data, &rc, img, x);
+        draw_floor_and_ceiling(data, &rc, img, x);
     }
 
     mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, img->image_charge, 0, 0);
     mlx_destroy_image(data->mlx->mlx, img->image_charge);
 }
-
 
 void init_player(t_cube_data *data)
 {

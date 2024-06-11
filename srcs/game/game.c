@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:12:58 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/11 21:06:56 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/11 21:47:34 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ void	init_player(t_cube_data *data)
 	if (c == 'S')
 		data->player_position->angle = M_PI / 2;
 	if (c == 'E')
-		data->player_position->angle = 0;
+		data->player_position->angle = M_PI * 2;
 	if (c == 'W')
 		data->player_position->angle = M_PI;
 	data->player_position->pos_x = (p_x) + 0.5;

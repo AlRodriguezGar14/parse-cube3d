@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:06:20 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/12 18:10:05 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:33:55 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,13 @@ int read_file(char *file, t_cube_data *cube_data)
 	line = get_next_line(fd);
 	if (!line)
 		return (ft_printf("File is empty\n"), 1);
+	if (line[0] == '\n' || line[0] == '\0')
+		free(line);
+	else 
+	{
 	parse_line(line, cube_data);
 	free(line);
+	}
 	while (42)
 	{
 		line = get_next_line(fd);

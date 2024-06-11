@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.c                                             :+:      :+:    :+:   */
+/*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:12:58 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/11 16:42:38 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:40:59 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,26 +212,4 @@ int	ray(void *arg)
 	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, img->image_charge,
 		0, 0);
 	mlx_destroy_image(data->mlx->mlx, img->image_charge);
-}
-
-void	init_player(t_cube_data *data)
-{
-	char	c;
-	int		p_x;
-	int		p_y;
-
-	p_y = data->player_position->pos_y / TILE_SIZE;
-	p_x = data->player_position->pos_x / TILE_SIZE;
-	c = data->player_position->orientation;
-	if (c == 'N')
-		data->player_position->angle = 3 * M_PI / 2;
-	if (c == 'S')
-		data->player_position->angle = M_PI / 2;
-	if (c == 'E')
-		data->player_position->angle = 0;
-	if (c == 'W')
-		data->player_position->angle = M_PI;
-	data->player_position->pos_x = (p_x) + 0.5;
-	data->player_position->pos_y = (p_y) + 0.5;
-	data->player_position->fov = (FOV * M_PI / 180);
 }

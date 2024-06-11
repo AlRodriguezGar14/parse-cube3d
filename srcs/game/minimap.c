@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 03:23:16 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/05 01:33:23 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:41:45 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void ft_strlen_map(char **map , t_cube_data *data )
 	int i;
 	int x;
 
-	i = 1;
+	i = 0;
 	data->max_x = 0;
 	while (map[i])
 	{

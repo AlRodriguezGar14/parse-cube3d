@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:08:15 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/09 12:10:43 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:29:02 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,12 @@ void    parse_map(char *line, t_cube_data *cube_data)
 	if (cube_data->map != NULL)
 		map_size = double_pointer_len(cube_data->map);
 	else
+	{
+		printf("initial map size\n");
 		map_size = 0;
+	}
 
+	printf("line[%d]: %s\n", map_size, line);
 	cube_data->max_y = map_size;
 	tmp = ft_calloc(sizeof(char *), (map_size + 2));
 	idx = -1;

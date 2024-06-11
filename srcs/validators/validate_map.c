@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 04:52:25 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/09 12:09:58 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:37:08 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ int validate_map(t_cube_data *cube_data, t_player_position *player_position)
 	int max_y;
 
 	max_y = double_pointer_len(cube_data->map);
-	idx = 0;
 	if (max_y <= 0)
 		return (ft_printf("Invalid map y\n"), 1);
+	idx = -1;
 	while (cube_data->map[++idx])
 	{
 		if (ft_strlen(cube_data->map[idx]) <= 0)

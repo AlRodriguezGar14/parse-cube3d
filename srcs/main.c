@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/10 13:52:18 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:40:38 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void    print_map(t_cube_data *cube_data)
 	printf("EA: %s", cube_data->east_texture);
 	printf("F: %d, %d, %d\n", cube_data->floor_color[0], cube_data->floor_color[1], cube_data->floor_color[2]);
 	printf("C: %d, %d, %d\n", cube_data->ceiling_color[0], cube_data->ceiling_color[1], cube_data->ceiling_color[2]);
-	int idx = 0;
+	int idx = -1;
 	while (cube_data->map[++idx])
 		printf("%s\n", cube_data->map[idx]);
 
@@ -86,7 +86,7 @@ int	main(int argc, char **argv)
 	ft_bzero(&player_position, sizeof(t_player_position));
 	ft_bzero(&mlx, sizeof(t_mlx));
 	// TODO: IMPROVE THE PARSING WITH MORE EDGE CASES FOR INPUT ERRORS
-	if (read_file(argv[1], &cube_data))
+	if (read_file(argv[1], &cube_data) == 1)
 		return (1);
 	replace_tabs_with_spaces(&cube_data.map); // this is a way to "justify" the map and avoid spacing issues
 	if (validate_file(&cube_data))

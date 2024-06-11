@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:26:11 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/07 00:51:34 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:46:41 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,21 @@ void	move_player(t_cube_data *data, double move_x, double move_y)
 	double new_pos_x = data->r.pos_x + move_x;
 	double new_pos_y = data->r.pos_y + move_y;
 
-	// Verifica si la nueva posición está dentro de los límites del mapa.
-	// Si está dentro, actualiza la posición del jugador.
-	// Si está fuera, no realiza el movimiento.
+	if (new_pos_y < 0 || new_pos_y >= data->max_y || new_pos_x < 0 || new_pos_x >= data->max_x)
+		return ;
 	double module_x = new_pos_x - (int)new_pos_x;
 	double module_y = new_pos_y - (int)new_pos_y;
-	printf("module_x: %f\n", module_x);
-	printf("module_y: %f\n", module_y);
-	if (data->map[(int)new_pos_y - 1][(int)new_pos_x] == '1' && module_y < 0.15)
+	if (data->map[(int)new_pos_y - 1][(int)new_pos_x] &&
+		data->map[(int)new_pos_y - 1][(int)new_pos_x] == '1' && module_y < 0.15)
 		return ;
-	if (data->map[(int)new_pos_y + 1][(int)new_pos_x] == '1' && module_y > 0.85)
+	if (data->map[(int)new_pos_y + 1][(int)new_pos_x] &&
+		data->map[(int)new_pos_y + 1][(int)new_pos_x] == '1' && module_y > 0.85)
 		return ;
-	if (data->map[(int)new_pos_y][(int)new_pos_x - 1] == '1' && module_x < 0.15)
+	if (data->map[(int)new_pos_y][(int)new_pos_x - 1] &&
+		data->map[(int)new_pos_y][(int)new_pos_x - 1] == '1' && module_x < 0.15)
 		return ;
-	if (data->map[(int)new_pos_y][(int)new_pos_x + 1] == '1' && module_x > 0.85)
+	if (data->map[(int)new_pos_y][(int)new_pos_x + 1] &&
+		data->map[(int)new_pos_y][(int)new_pos_x + 1] == '1' && module_x > 0.85)
 		return ;
 	if (new_pos_x >= 0 && new_pos_x < data->max_x &&
 		new_pos_y >= 0 && new_pos_y < data->max_y)

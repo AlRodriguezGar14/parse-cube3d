@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecube.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/11 21:12:58 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 01:38:56 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,7 @@ typedef struct s_image_info
 	int		bpp;
 	int		line_s;
 	int		endian;
-	int		pxlc;
-	int		pxlf;
-	
-	
+	bool	created;
 } t_image_info;
 
 typedef struct s_ray

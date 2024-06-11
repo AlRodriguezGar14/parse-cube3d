@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:04:08 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/10 13:51:28 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/12 01:39:44 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,18 @@ bool load_textures_helper(t_cube_data *data, char *path, int i)
 	int width;
 	int height;
 	void *ic;
+	char *tmp;
 	
 	if(!path)
 	{
 		data->textures[i].image_charge = mlx_new_image(data->mlx->mlx,WIDTH,HEIGHT);
+		data->textures[i].created = true;
 		return (false);
 	}
-	data->textures[i].image_charge = mlx_xpm_file_to_image(data->mlx->mlx,ft_strtrim(path,"\n"),&(width), &(height));
+	tmp = ft_strtrim(path,"\n");
+	data->textures[i].image_charge = mlx_xpm_file_to_image(data->mlx->mlx,tmp,&(width), &(height));
+	data->textures[i].created = true;
+	free(tmp);
 	if (!data->textures[i].image_charge) 
 	{	
 		printf ("no se carga bien xpm a image\n");
@@ -68,9 +73,12 @@ void load_textures(t_cube_data *data)
 	//TODO: make a clean exit in true case ft_error or something
 		if (load_textures_helper(data, data->east_texture, 0))
 			return(exit(1));
-		load_textures_helper(data, data->south_texture, 1);
-		load_textures_helper(data, data->west_texture, 	2);
-		load_textures_helper(data, data->north_texture, 3);
+		if(load_textures_helper(data, data->south_texture, 1))
+			return(exit(1));
+		if(load_textures_helper(data, data->west_texture, 2))
+			return(exit(1));
+		if(load_textures_helper(data, data->north_texture, 3))
+			return(exit(1));
 		load_textures_helper(data,NULL,4);
 		get_addres_helper(data,0);
 	 	get_addres_helper(data,1);

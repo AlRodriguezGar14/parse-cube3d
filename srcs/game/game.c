@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:12:58 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/11 21:47:34 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/12 01:53:34 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,10 @@ void	dda_algorithm(t_raycaster *rc, t_cube_data *data)
 		}
 		if (rc->map_y < 0 || rc->map_x < 0 || rc->map_y >= data->max_y
 			|| rc->map_x >= data->max_x)
-			{
-			hit = true;	
+		{
+			hit = true;
 			break ;
-			}
+		}
 		if (data->map[rc->map_y][rc->map_x] == '1')
 			hit = true;
 	}
@@ -218,6 +218,7 @@ int	ray(void *arg)
 	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, img->image_charge,
 		0, 0);
 	mlx_destroy_image(data->mlx->mlx, img->image_charge);
+	data->textures[4].created = false;
 }
 
 void	init_player(t_cube_data *data)
@@ -229,6 +230,7 @@ void	init_player(t_cube_data *data)
 	p_y = data->player_position->y;
 	p_x = data->player_position->x;
 	c = data->player_position->orientation;
+	printf("c: %c\n", c);
 	if (c == 'N')
 		data->player_position->angle = 3 * M_PI / 2;
 	if (c == 'S')

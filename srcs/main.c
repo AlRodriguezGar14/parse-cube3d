@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/11 21:04:22 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 01:46:55 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int argc, char **argv)
 	t_cube_data         cube_data;
 	t_player_position	player_position;
 	t_mlx				mlx;
-
+	
 	printf("\e[1;1H\e[2J");
 	if (argc != 2 || validate_extension(argv[1]))
 		return (1);

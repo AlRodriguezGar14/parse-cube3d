@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 02:25:12 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/04 19:27:47 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/12 01:45:01 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int destroy_window(void *param)
 {
-	int idx = -1;
+	int idx ;
 	t_cube_data *cube_data;
 	cube_data = (t_cube_data *)param;
 	mlx_destroy_window(cube_data->mlx->mlx, cube_data->mlx->win);
@@ -23,7 +23,13 @@ int destroy_window(void *param)
 	free(cube_data->map);
 	idx = -1;
 	while (++idx < 5)
-		mlx_destroy_image(cube_data->mlx->mlx, cube_data->textures[idx].image_charge);
+	{
+		if (cube_data->textures[idx].created == true)
+		{
+			printf("destroying image %d\n",idx);
+			mlx_destroy_image(cube_data->mlx->mlx, cube_data->textures[idx].image_charge);	
+		}
+	}
 	exit(0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:12:58 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/11 16:42:38 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/11 21:06:56 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,12 @@ void	dda_algorithm(t_raycaster *rc, t_cube_data *data)
 			rc->map_y += rc->step_y;
 			rc->side = 1;
 		}
+		if (rc->map_y < 0 || rc->map_x < 0 || rc->map_y >= data->max_y
+			|| rc->map_x >= data->max_x)
+			{
+			hit = true;	
+			break ;
+			}
 		if (data->map[rc->map_y][rc->map_x] == '1')
 			hit = true;
 	}
@@ -220,8 +226,8 @@ void	init_player(t_cube_data *data)
 	int		p_x;
 	int		p_y;
 
-	p_y = data->player_position->pos_y / TILE_SIZE;
-	p_x = data->player_position->pos_x / TILE_SIZE;
+	p_y = data->player_position->y;
+	p_x = data->player_position->x;
 	c = data->player_position->orientation;
 	if (c == 'N')
 		data->player_position->angle = 3 * M_PI / 2;

@@ -1,7 +1,7 @@
 #Comandos
 DEL			=	rm -f
 CC			=	clang 
-CCFLAGS		=	-Wall -Wextra -Werror -g3 #-fsanitize=address
+CCFLAGS		=	-Wall -Wextra -Werror -g3 -fsanitize=address
 #MLX			=	-framework OpenGL -framework AppKit
  MLX			=	-lXext -lX11 -lm -lbsd 
 # -g3 -fsanitize=address

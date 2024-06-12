@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/12 18:40:51 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:38:27 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,15 @@ int	main(int argc, char **argv)
 		return (1);
 	replace_tabs_with_spaces(&cube_data.map); // this is a way to "justify" the map and avoid spacing issues
 	if (validate_file(&cube_data))
+	{
+		free_content(&cube_data);
 		return (printf("Invalid input. Cleanup and exit\n"), 1);
+	}
 	if (validate_map(&cube_data, &player_position))
+	{
+		free_content(&cube_data);
 		return (printf("Invalid map. Cleanup and exit\n"), 1);
+	}
  	 cube_data.textures=(t_image_info *)ft_calloc(sizeof(t_image_info),5);
     if(!cube_data.textures) {
 		destroy_window(&cube_data);

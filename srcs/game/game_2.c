@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:55:36 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/12 03:13:55 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:20:46 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	get_texture_color(t_image_info *texture, int tex_x, int tex_y)
 	unsigned char	*pixel;
 	int				color;
 
-	if (tex_x < 0 || tex_x >= 300 || tex_y < 0 || tex_y >= 300)
+	if (tex_x < 0 || tex_x >= 64 || tex_y < 0 || tex_y >= 64)
 		return (0);
 	bytes_per_pixel = texture->bpp / 8;
 	offset = (tex_y * texture->line_s) + (tex_x * bytes_per_pixel);

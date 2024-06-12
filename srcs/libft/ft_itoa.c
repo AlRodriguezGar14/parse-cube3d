@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:52:47 by alberrod          #+#    #+#             */
-/*   Updated: 2024/01/26 06:34:43 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:20:46 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*ft_itoa(int n)
 /* int	main(void) */
 /* { */
 /* 	/1* printf("charnum: %s\n", ft_itoa(8124)); *1/ */
-/* 	/1* printf("charnum: %s\n", ft_itoa(543000)); *1/ */
+/* 	/1* printf("charnum: %s\n", ft_itoa(54640)); *1/ */
 /* 	printf("charnum: %s\n", ft_itoa(0)); */
 /* 	/1* printf("charnum: %s\n", ft_itoa(-2147483648)); *1/ */
 /* 	return (0); */

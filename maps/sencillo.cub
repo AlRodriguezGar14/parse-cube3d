@@ -1,21 +1,21 @@
 
-NO textures/1.xpm
+NO textures/N.xpm
 
 
-SO textures/2.xpm
+SO textures/S.xpm
 
 
-EA textures/3.xpm
+EA textures/E.xpm
 
 
-WE textures/4.xpm
-
-
-
+WE textures/W.xpm
 
 
 
-F 255,0,255
+
+
+
+F 0,0,0
 
 
 C 228,20,0

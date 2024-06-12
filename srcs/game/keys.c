@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 02:25:12 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/12 03:15:19 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/12 03:50:26 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	destroy_window(void *param)
 	int			idx;
 	t_cube_data	*cube_data;
 
+	idx = -1;
 	cube_data = (t_cube_data *)param;
 	mlx_destroy_window(cube_data->mlx->mlx, cube_data->mlx->win);
 	while (cube_data->map[++idx])

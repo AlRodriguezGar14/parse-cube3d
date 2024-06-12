@@ -1,7 +1,7 @@
 #Comandos
 DEL			=	rm -f
 CC			=	clang 
-CCFLAGS		=	-Wall -Wextra -Werror -g3 -fsanitize=address
+CCFLAGS		=	-Wall -Wextra -Werror #-g3 -fsanitize=address
 #MLX			=	-framework OpenGL -framework AppKit
  MLX			=	-lXext -lX11 -lm -lbsd 
 # -g3 -fsanitize=address
@@ -50,7 +50,7 @@ all:	minilibx libft $(NAME)
 
 #Compilar 
 $(NAME):$(OBJ)
-		$(CC) $(OBJ) $(LIBS) -o $(NAME)
+		$(CC)  $(OBJ) $(LIBS) -o $(NAME)
 		@echo "$(GREEN)CUB3D HAS BEEN COMPILED!$(NC)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
@@ -61,7 +61,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)/game
 	
 	@echo "$(YELLOW)Compiling: $<$(NC)"
-	@$(CC) $(CFLAGS) -o $@ -c $< 
+	@$(CC) $(CCFLAGS) -o $@ -c $< 
 	@echo "$(YELLOW)Compiled!$(NC)"
 	
 # $@ : The file name of the target of the rule. If the target is an archive member, then ‘$@’ is the name of the archive file.

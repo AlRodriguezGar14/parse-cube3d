@@ -6,13 +6,13 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 02:30:09 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/12 03:31:03 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/12 03:51:18 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsecube.h"
 
-void	set_wall_dimensions(t_cube_data *data, t_raycaster *rc)
+void	set_wall_dimensions(t_cube_data *data)
 {
 	data->wall.line_h = (int)(HEIGHT / data->r.perpwalldist);
 	data->wall.draw_start = -data->wall.line_h / 2 + HEIGHT / 2;

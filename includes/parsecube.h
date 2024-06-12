@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/12 03:18:01 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/12 03:51:31 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ int						set_camera_and_rays(t_raycaster *rc, int x,
 							t_cube_data *data);
 void					set_step_and_dist(t_raycaster *rc, t_cube_data *data);
 // Path: wall.c
-void					set_wall_dimensions(t_cube_data *data, t_raycaster *rc);
+void					set_wall_dimensions(t_cube_data *data);
 void					calculate_wall_x(t_raycaster *rc, t_cube_data *data);
 void					dda_algorithm(t_raycaster *rc, t_cube_data *data);
 // textures.c

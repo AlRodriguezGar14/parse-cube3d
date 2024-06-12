@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 19:51:07 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/12 16:37:17 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:58:17 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,25 @@ void	free_content(t_cube_data *cube_data)
 
 	idx = -1;
 	if (cube_data->north_texture)
+	{
+		printf("freeing north texture\n");
 		free(cube_data->north_texture);
+	}
 	if (cube_data->south_texture)
+	{
+		printf("freeing south texture\n");
 		free(cube_data->south_texture);
+	}
 	if (cube_data->west_texture)
+	{
+		printf("freeing west texture\n");
 		free(cube_data->west_texture);
+	}
 	if (cube_data->east_texture)
+	{
+		printf("freeing east texture\n");
 		free(cube_data->east_texture);
+	}
 	if (cube_data->map)
 	{
 		while (cube_data->map[++idx])

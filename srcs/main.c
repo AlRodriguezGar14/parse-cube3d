@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/12 16:37:07 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:40:51 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,15 @@ void    print_map(t_cube_data *cube_data)
 void	print_game_terminal(t_cube_data *cube_data)
 {
 	printf("\e[1;1H\e[2J");
-	int ydx = -1;
-	int xdx = -1;
+	int ydx;
+	int xdx;
+	int crab_x;
+	int crab_y;
 
-	int crab_x = cube_data->r.pos_x;
-	int crab_y = cube_data->r.pos_y;
+	ydx = -1;
+	xdx = -1;
+	crab_x = cube_data->r.pos_x;
+	crab_y = cube_data->r.pos_y;
 
 	printf("Player position: %i, %i\n", crab_x, crab_y);
 	while (cube_data->map[++ydx])
@@ -99,10 +103,8 @@ int	main(int argc, char **argv)
 		return (printf("Invalid map. Cleanup and exit\n"), 1);
  	 cube_data.textures=(t_image_info *)ft_calloc(sizeof(t_image_info),5);
     if(!cube_data.textures) {
-		// TODO: Free the eleements of the cube_data struct
-		free_content(&cube_data);
-		free_mlx(&mlx);
-        exit(0);
+		destroy_window(&cube_data);
+        return (1);
 	}
 	cube_data.player_position = &player_position;
 	cube_data.mlx = &mlx;

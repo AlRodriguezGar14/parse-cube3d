@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 02:25:12 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/12 16:52:32 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:18:17 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	destroy_window(void *param)
 				cube_data->textures[idx].image_charge);
 		}
 	}
-	exit(0);
+	free(cube_data->textures);
+	
+	free(cube_data->mlx->mlx);
+	exit (1);
 }
 
 int	key_release(int keycode, void *param)
@@ -62,11 +65,6 @@ int	key_pressed(int keycode, void *param)
 	t_cube_data	*cube_data;
 
 	cube_data = (t_cube_data *)param;
-	if (keycode == ESC)
-	{
-		mlx_destroy_window(cube_data->mlx->mlx, cube_data->mlx->win);
-		exit(0);
-	}
 	if (keycode == D)
 		cube_data->move.mright = 1;
 	if (keycode == A)
@@ -79,5 +77,10 @@ int	key_pressed(int keycode, void *param)
 		cube_data->move.rright = 1;
 	if (keycode == RIGHT)
 		cube_data->move.rleft = 1;
+	if (keycode == ESC)
+	{
+		printf("ESC pressed\n");
+		return (destroy_window(cube_data));
+	}
 	return (0);
 }

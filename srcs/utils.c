@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:04:08 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/12 16:55:08 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:54:29 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,22 @@ bool load_textures_helper(t_cube_data *data, char *path, int i)
 	//TODO : ft_strtrim from path because \n its not clean
 	int width;
 	int height;
-	char *tmp;
+	// char *tmp;
 	
 	if(!path)
 	{
+		if (i != 4)
+			return (true);
+		if (data->textures[i].created == true)
+			return (false);
 		data->textures[i].image_charge = mlx_new_image(data->mlx->mlx,WIDTH,HEIGHT);
 		data->textures[i].created = true;
 		return (false);
 	}
-	tmp = ft_strtrim(path,"\n");
-	data->textures[i].image_charge = mlx_xpm_file_to_image(data->mlx->mlx,tmp,&(width), &(height));
+	// tmp = ft_strtrim(path,"\n");
+	data->textures[i].image_charge = mlx_xpm_file_to_image(data->mlx->mlx,path,&(width), &(height));
 	data->textures[i].created = true;
-	free(tmp);
+	// free(tmp);
 	if (!data->textures[i].image_charge) 
 	{	
 		printf ("Can't load the textures\n");

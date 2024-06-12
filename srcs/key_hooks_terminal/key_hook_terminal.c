@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook_terminal.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 02:10:15 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/09 12:14:33 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:10:29 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	key_hook_terminal(int keycode, t_cube_data *cube_data)
 		// TODO: FREE EVERYTHING, INCLUDING THE MLX
 		free_content(cube_data);
 		free_mlx(cube_data->mlx);
-		exit(0);
+		return (1);
 	}
 	// TODO: Build a hashmap or use a better logic
 //	char *keycode_str[14]; // macos

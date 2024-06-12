@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:55:36 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/12 16:00:42 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:14:08 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	get_texture_color(t_image_info *texture, int tex_x, int tex_y)
 	unsigned char	*pixel;
 	int				color;
 
-	if (tex_x < 0 || tex_x >= 64 || tex_y < 0 || tex_y >= 64)
+	if (tex_x < 0 || tex_x >= TEXT_SIZE || tex_y < 0 || tex_y >= TEXT_SIZE)
 		return (0);
 	bytes_per_pixel = texture->bpp / 8;
 	offset = (tex_y * texture->line_s) + (tex_x * bytes_per_pixel);

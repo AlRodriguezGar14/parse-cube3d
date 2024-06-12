@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"parsecube.h": "c",
-		"compare": "c"
+		"compare": "c",
+		"mlx.h": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:06:20 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/11 19:33:55 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:56:33 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 char    *line_content(char *line)
 {
 	int idx;
+	char *tmp;
+	char *content;
 
 	idx = 2;
 
@@ -24,7 +26,9 @@ char    *line_content(char *line)
 		if (!ft_isspace(line[idx]))
 			break;
 	}
-	return (ft_substr(line, idx, ft_strlen(line) - idx));
+	tmp = ft_substr(line, idx, ft_strlen(line) - idx);
+	content = ft_strtrim(tmp, "\n");
+	return (free(tmp), content);
 }
 
 int read_file(char *file, t_cube_data *cube_data)

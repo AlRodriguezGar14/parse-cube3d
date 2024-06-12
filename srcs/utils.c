@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:04:08 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/12 03:47:01 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:55:08 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ bool load_textures_helper(t_cube_data *data, char *path, int i)
 	free(tmp);
 	if (!data->textures[i].image_charge) 
 	{	
-		printf ("no se carga bien xpm a image\n");
-		printf("Hola soy el puntero de la mlx %p",data->mlx->mlx);
+		printf ("Can't load the textures\n");
 		return (true);
 	}
 	return (false);

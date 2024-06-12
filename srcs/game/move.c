@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:26:11 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/12 03:15:01 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:20:15 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ int	moves(t_cube_data *d)
 	if (d->move.rright)
 		m_rotate(d, true);
 	do_moves(d, move_x, move_y);
+	print_game_terminal(d);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_content.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 19:51:07 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/09 12:14:03 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:37:17 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void    free_mlx(t_mlx *mlx)
 {
 	mlx_destroy_image(mlx->mlx, mlx->img);
 	mlx_destroy_window(mlx->mlx, mlx->win);
-	// mlx_destroy_display(mlx->mlx);
 	free(mlx->mlx);
 }
 

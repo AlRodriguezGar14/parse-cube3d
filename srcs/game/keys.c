@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 02:25:12 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/12 18:18:17 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:19:49 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ int	destroy_window(void *param)
 	cube_data = (t_cube_data *)param;
 	mlx_destroy_window(cube_data->mlx->mlx, cube_data->mlx->win);
 	free_content(cube_data);
-	// while (cube_data->map[++idx])
-	// 	free(cube_data->map[idx]);
-	// free(cube_data->map);
 	idx = -1;
 	while (++idx < 5)
 	{
@@ -35,9 +32,8 @@ int	destroy_window(void *param)
 		}
 	}
 	free(cube_data->textures);
-	
 	free(cube_data->mlx->mlx);
-	exit (1);
+	exit(1);
 }
 
 int	key_release(int keycode, void *param)

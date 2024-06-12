@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:12:58 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/12 16:57:24 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:14:54 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	draw_wall(t_cube_data *data, t_raycaster *rc, t_image_info *img, int x)
 	calculate_wall_x(rc, data);
 	tex_x = (int)(rc->wall_x * (double)(TEXT_SIZE));
 	if ((rc->side == 0 && data->r.ray_dir_x > 0) || (rc->side == 1
-		&& data->r.ray_dir_y < 0))
+			&& data->r.ray_dir_y < 0))
 		tex_x = TEXT_SIZE - tex_x - 1;
 	y = data->wall.draw_start - 1;
 	while (++y < data->wall.draw_end)
@@ -66,6 +66,14 @@ void	draw_floor_and_ceiling(t_cube_data *data, t_image_info *img, int x)
 	}
 }
 
+static void	ray_to_img(t_cube_data *data, t_image_info *img)
+{
+	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, img->image_charge,
+		0, 0);
+	mlx_destroy_image(data->mlx->mlx, img->image_charge);
+	data->textures[4].created = false;
+}
+
 int	ray(void *arg)
 {
 	t_cube_data		*data;
@@ -89,9 +97,6 @@ int	ray(void *arg)
 		draw_wall(data, &rc, img, x);
 		draw_floor_and_ceiling(data, img, x);
 	}
-	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, img->image_charge,
-		0, 0);
-	mlx_destroy_image(data->mlx->mlx, img->image_charge);
-	data->textures[4].created = false;
+	ray_to_img(data, img);
 	return (0);
 }

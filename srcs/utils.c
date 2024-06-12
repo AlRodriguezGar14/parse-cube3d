@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:04:08 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/12 01:39:44 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/12 02:30:23 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int double_pointer_len(char **ptr)
 		len++;
 	return (len);
 }
-//Funcion que busca texturas si no estan las pone definidas por default
 void get_addres_helper(t_cube_data *data,int i)
 {
 	int *size;

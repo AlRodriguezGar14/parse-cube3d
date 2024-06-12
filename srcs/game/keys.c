@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 02:25:12 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/12 01:45:01 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/12 03:15:19 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsecube.h"
 
-int destroy_window(void *param)
+int	destroy_window(void *param)
 {
-	int idx ;
-	t_cube_data *cube_data;
+	int			idx;
+	t_cube_data	*cube_data;
+
 	cube_data = (t_cube_data *)param;
 	mlx_destroy_window(cube_data->mlx->mlx, cube_data->mlx->win);
 	while (cube_data->map[++idx])
@@ -26,16 +27,18 @@ int destroy_window(void *param)
 	{
 		if (cube_data->textures[idx].created == true)
 		{
-			printf("destroying image %d\n",idx);
-			mlx_destroy_image(cube_data->mlx->mlx, cube_data->textures[idx].image_charge);	
+			printf("destroying image %d\n", idx);
+			mlx_destroy_image(cube_data->mlx->mlx,
+				cube_data->textures[idx].image_charge);
 		}
 	}
 	exit(0);
 }
 
-int key_release( int keycode ,void *param)
+int	key_release(int keycode, void *param)
 {
-	t_cube_data *cube_data;
+	t_cube_data	*cube_data;
+
 	cube_data = (t_cube_data *)param;
 	if (keycode == D)
 		cube_data->move.mright = 0;
@@ -52,9 +55,10 @@ int key_release( int keycode ,void *param)
 	return (0);
 }
 
-int key_pressed( int keycode ,void *param)
+int	key_pressed(int keycode, void *param)
 {
-	t_cube_data *cube_data;
+	t_cube_data	*cube_data;
+
 	cube_data = (t_cube_data *)param;
 	if (keycode == ESC)
 	{
@@ -64,7 +68,7 @@ int key_pressed( int keycode ,void *param)
 	if (keycode == D)
 		cube_data->move.mright = 1;
 	if (keycode == A)
-		cube_data->move.mleft= 1;
+		cube_data->move.mleft = 1;
 	if (keycode == W)
 		cube_data->move.mup = 1;
 	if (keycode == S)

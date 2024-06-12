@@ -22,11 +22,14 @@ SRC_FILES	= main \
 			game/game \
 			game/game_2 \
 			game/game_3 \
-			game/get_inter \
 			game/keys \
 			game/textures \
 			game/minimap \
-			game/move 
+			game/init_ray \
+			game/wall \
+			game/move \
+			game/move_aux 
+			
 	
 
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -89,6 +92,10 @@ fclean_libft:
 # Eliminar temporales
 clean:
 	@$(RM) -rf $(OBJ_DIR)
+	@$(RM) -rf $(OBJ_DIR)/parser
+	@$(RM) -rf $(OBJ_DIR)/validators
+	@$(RM) -rf $(OBJ_DIR)/key_hooks_terminal
+	@$(RM) -rf $(OBJ_DIR)/game
 	@echo "$(RED)OBJS AND DIRECTORY CLEANED!$(NC)"
 
 

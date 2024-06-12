@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:12:58 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/12 14:20:46 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:06:11 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ void	draw_wall(t_cube_data *data, t_raycaster *rc, t_image_info *img, int x)
 
 	texture = get_texture(data, rc->side);
 	calculate_wall_x(rc, data);
-	tex_x = (int)(rc->wall_x * (double)(64));
+	tex_x = (int)(rc->wall_x * (double)(TEXT_SIZE));
 	if ((rc->side == 0 && data->r.ray_dir_x > 0) || (rc->side == 1
 		&& data->r.ray_dir_y < 0))
-		tex_x = 64 - tex_x - 1;
+		tex_x = TEXT_SIZE - tex_x - 1;
 	y = data->wall.draw_start - 1;
 	while (++y < data->wall.draw_end)
 	{
 		d = y * 256 - HEIGHT * 128 + data->wall.line_h * 128;
-		tex_y = ((d * 64) / data->wall.line_h) / 256;
+		tex_y = ((d * TEXT_SIZE) / data->wall.line_h) / 256;
 		if (tex_y < 0)
 			tex_y = 0;
-		if (tex_y >= 64)
-			tex_y = 64;
+		if (tex_y >= TEXT_SIZE)
+			tex_y = TEXT_SIZE;
 		rc->color = get_texture_color(texture, tex_x, tex_y);
 		my_mlx_pixel_put(img, x, y, rc->color);
 	}

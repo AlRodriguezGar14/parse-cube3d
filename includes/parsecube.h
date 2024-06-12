@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/12 14:15:30 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:11:39 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,11 @@
 # define D 100
 # define W 119
 # define S 115
-//# define LEFT 0 // macos
 # define LEFT 65361 // linux
-//# define RIGHT 2 // macos
 # define RIGHT 65363 // linux
-//# define UP  13 // macos
 # define UP 65362 // linux
-//# define DOWN 1 // macos
 # define DOWN 65364 // linux
 # define ESC 65307  // linux
-// # define TILE_SIZE 		100
 # define TILE_SIZE 66
 # define FOV 66
 # define ROTATION_SPEED 0.042
@@ -43,6 +38,11 @@
 # endif
 # define W_S 800
 # define H_S 600
+# define NORTH 1
+# define SOUTH 3
+# define EAST 0
+# define WEST 2
+# define TEXT_SIZE 64
 
 typedef struct s_mlx
 {

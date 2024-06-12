@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:55:36 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/12 14:20:46 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:54:11 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_image_info	*get_texture(t_cube_data *data, int side)
 	if (side == 0)
 	{
 		if (data->r.ray_dir_x > 0)
-			texture = &data->textures[2];
-		else
 			texture = &data->textures[0];
+		else
+			texture = &data->textures[2];
 	}
 	else
 	{

@@ -1,5 +1,5 @@
 DEL			=	rm -f
-CC			=	cc -g3  -O2 -Wuninitialized
+CC			=	cc -g3 -O2 -Wuninitialized
 CCFLAGS		=	-Wall -Wextra -Werror # -g3 -fsanitize=address
 #MLX			=	-framework OpenGL -framework AppKit
  MLX			=	-lXext -lX11 -lm -lbsd 

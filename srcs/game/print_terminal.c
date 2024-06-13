@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 03:33:22 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/13 13:57:25 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:06:35 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	print_game_terminal(t_cube_data *cube_data, int crab_x, int crab_y)
 	printf("\e[1;1H\e[2J");
 	ydx = -1;
 	xdx = -1;
-	printf("Player position: %i, %i\n", crab_x, crab_y);
 	while (cube_data->map[++ydx])
 	{
 		while (cube_data->map[ydx][++xdx])
@@ -55,4 +54,5 @@ void	print_game_terminal(t_cube_data *cube_data, int crab_x, int crab_y)
 		xdx = -1;
 		printf("\n");
 	}
+	printf("Player position: %i, %i\n", crab_x, crab_y);
 }

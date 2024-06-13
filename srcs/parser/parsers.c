@@ -3,22 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parsers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:08:15 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/09 12:10:43 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 01:54:06 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsecube.h"
 
-int    parse_colors(char *line, int color[3])
+void	error_free(char *line, t_cube_data *cube_data)
 {
-	char *tmp;
-	char **colors;
-	int idx;
+	printf("Error parsing; wrong content\n");
+	free(line);
+	free_content(cube_data);
+	exit(1);
+}
 
-	// TOOD: IMPROVE THE PARSING WITH MORE EDGE CASES FOR INPUT ERRORS
+int	parse_colors(char *line, int color[3])
+{
+	char	*tmp;
+	char	**colors;
+	int		idx;
+
 	tmp = ft_strtrim(line, " ");
 	colors = ft_split(tmp, ',');
 	free(tmp);
@@ -41,17 +48,20 @@ int    parse_colors(char *line, int color[3])
 	return (0);
 }
 
-void    parse_map(char *line, t_cube_data *cube_data)
+void	parse_map(char *line, t_cube_data *cube_data)
 {
-	int     map_size;
-	char    **tmp;
-	int     idx;
+	int		map_size;
+	char	**tmp;
+	int		idx;
 
 	if (cube_data->map != NULL)
 		map_size = double_pointer_len(cube_data->map);
 	else
+	{
+		printf("initial map size\n");
 		map_size = 0;
-
+	}
+	printf("line[%d]: %s\n", map_size, line);
 	cube_data->max_y = map_size;
 	tmp = ft_calloc(sizeof(char *), (map_size + 2));
 	idx = -1;
@@ -62,9 +72,9 @@ void    parse_map(char *line, t_cube_data *cube_data)
 	cube_data->map = tmp;
 }
 
-int parse_line(char *line, t_cube_data *cube_data)
+int	parse_line(char *line, t_cube_data *cube_data)
 {
-	int error;
+	int	error;
 
 	error = 0;
 	if (!line)
@@ -84,12 +94,6 @@ int parse_line(char *line, t_cube_data *cube_data)
 	else
 		parse_map(line, cube_data);
 	if (error)
-	{
-		printf("Error parsing; wrong content\n");
-		free(line);
-		free_content(cube_data);
-		exit(1);
-	}
-	// TODO: CHECK IF THE PATHS ARE VALID
+		error_free(line, cube_data);
 	return (0);
 }

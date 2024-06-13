@@ -3,27 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   free_content.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 19:51:07 by alberrod          #+#    #+#             */
-/*   Updated: 2024/05/09 12:14:03 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 02:09:43 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsecube.h"
 
-
-void    free_mlx(t_mlx *mlx)
+void	free_mlx(t_mlx *mlx)
 {
 	mlx_destroy_image(mlx->mlx, mlx->img);
 	mlx_destroy_window(mlx->mlx, mlx->win);
-	// mlx_destroy_display(mlx->mlx);
 	free(mlx->mlx);
 }
 
 void	free_content(t_cube_data *cube_data)
 {
-	int idx;
+	int	idx;
 
 	idx = -1;
 	if (cube_data->north_texture)

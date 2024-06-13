@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/13 16:10:46 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:26:42 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,13 +158,13 @@ typedef struct t_mouse
 }						t_mouse;
 typedef struct s_cube_data
 {
-	char *north_texture;  // no
-	char *south_texture;  // so
-	char *west_texture;   // we
-	char *east_texture;   // e
-	int floor_color[3];   // f
-	int ceiling_color[3]; // c
-	char **map;           // map
+	char				*north_texture;
+	char				*south_texture;
+	char				*west_texture;
+	char				*east_texture;
+	int					floor_color[3];
+	int					ceiling_color[3];
+	char				**map;
 	int					max_y;
 	int					max_x;
 	t_player_position	*player_position;

@@ -10,6 +10,7 @@ NAME		=	cub3d
 
 
 SRC_FILES	= main \
+			textures \
 			parser/parsers \
 			parser/parsing_utils \
 			utils \

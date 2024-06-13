@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 02:25:12 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/12 19:19:49 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 02:50:59 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	destroy_window(void *param)
 
 	idx = -1;
 	cube_data = (t_cube_data *)param;
-	mlx_destroy_window(cube_data->mlx->mlx, cube_data->mlx->win);
+	mlx_destroy_window(cube_data->mlx.mlx, cube_data->mlx.win);
 	free_content(cube_data);
 	idx = -1;
 	while (++idx < 5)
@@ -27,12 +27,12 @@ int	destroy_window(void *param)
 		if (cube_data->textures[idx].created == true)
 		{
 			printf("destroying image %d\n", idx);
-			mlx_destroy_image(cube_data->mlx->mlx,
+			mlx_destroy_image(cube_data->mlx.mlx,
 				cube_data->textures[idx].image_charge);
 		}
 	}
 	free(cube_data->textures);
-	free(cube_data->mlx->mlx);
+	free(cube_data->mlx.mlx);
 	exit(1);
 }
 

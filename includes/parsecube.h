@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecube.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/12 16:11:39 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/13 03:38:50 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ typedef struct s_cube_data
 	int					max_y;
 	int					max_x;
 	t_player_position	*player_position;
-	t_mlx				*mlx;
+	t_mlx				mlx;
 	t_image_info		*textures;
 	t_ray				r;
 	t_move				move;
@@ -173,6 +173,10 @@ typedef struct s_cube_data
 // Path: validate_map.c
 int						validate_map(t_cube_data *cube_data,
 							t_player_position *player_position);
+
+// setter.c
+void	set_initial_position(t_player_position *player_position, int x, int y,
+		char orientation);
 
 // Path: validate_file.c
 int						validate_file(t_cube_data *cube_data);
@@ -187,7 +191,7 @@ bool					load_textures_helper(t_cube_data *data, char *path,
 void					get_addres_helper(t_cube_data *data, int i);
 
 // Path: parsing_utils.c
-void					replace_tabs_with_spaces(char ***map);
+void					replace_tabs_with_spaces(char ***map, int idx);
 int						read_file(char *file, t_cube_data *cube_data);
 char					*line_content(char *line);
 void					free_double_pointer(char **ptr);
@@ -211,10 +215,9 @@ t_pos					calculate_new_position(t_cube_data *data, double move_x,
 // PATH key_hook_terminal.c
 int						key_hook_terminal(int keycode, t_cube_data *cube_data);
 
-// Path: main.c
+//Path: print_terminal.c
 void					print_map(t_cube_data *cube_data);
-void					print_game_terminal(t_cube_data *cube_data);
-
+void	print_game_terminal(t_cube_data *cube_data, int crab_x, int crab_y);
 // Path: free_content.c
 void					free_content(t_cube_data *cube_data);
 void					free_mlx(t_mlx *mlx);
@@ -225,13 +228,10 @@ void					init_player(t_cube_data *data);
 int						ray(void *arg);
 int						routine(void *d);
 void					get_plyr_pos(t_cube_data *data);
-// Path: game_2.c
+// Path: img_getters.c
 t_image_info			*get_texture(t_cube_data *data, int side);
 int						get_texture_color(t_image_info *texture, int x, int y);
-
-// Path: game_3.c
 int						get_pixel_color(int x, int y, t_image_info *img);
-double					get_pixel_pos(t_image_info *texture, t_cube_data *data);
 
 // Path: init_ray.c
 void					set_position(t_cube_data *data);

@@ -3,18 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 04:52:25 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/12 01:06:08 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 02:31:00 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsecube.h"
 
-int validate_top_bottom(char *line)
+void	perror_neighbour(char *line, char *neighbour)
 {
-	int idx;
+	printf("Invalid map line. Not closed:\n\t%s\n\t%s <-\n", line, neighbour);
+}
+
+int	validate_top_bottom(char *line)
+{
+	int	idx;
 
 	idx = -1;
 	while (line[++idx] && line[idx] != '\n')
@@ -25,46 +30,40 @@ int validate_top_bottom(char *line)
 	return (0);
 }
 
-void    set_initial_position(t_player_position *player_position, int x, int y, char orientation)
+int	validate_neighbors(char **map, int x, int y)
 {
-	player_position->x = x;
-	player_position->y = y;
-	player_position->orientation = orientation;
-	printf("Start position: %d, %d, %c\n", player_position->x, player_position->y, player_position->orientation);
-}
+	int	map_len;
+	int	line_len;
 
-int validate_neighbors(char **map, int x, int y)
-{
-	int map_len = double_pointer_len(map);
-	int line_len = (int)ft_strlen(map[y]);
-
+	map_len = double_pointer_len(map);
+	line_len = (int)ft_strlen(map[y]);
 	if (map[y][x] && ft_strchr("0NSWE", map[y][x]))
 	{
-		if (y > 0 && (int)ft_strlen(map[y-1]) - 1 < x)
-			return (printf("Invalid map line. Not closed:\n\t%s\n\t%s <-\n", map[y - 1], map[y]), 1);
-		if (x > 0 && map[y][x-1] == '\0')
+		if (y > 0 && (int)ft_strlen(map[y - 1]) - 1 < x)
+			return (perror_neighbour(map[y - 1], map[y]), 1);
+		if (x > 0 && map[y][x - 1] == '\0')
 			return (printf("Invalid map line. Not closed:\n\t%s\n", map[y]), 1);
-		if (y < map_len - 1 && (int)ft_strlen(map[y+1]) - 1 < x)
-			return (printf("Invalid map line. Not closed:\n\t%s <-\n\t%s\n", map[y], map[y+1]), 1);
-		if (x < line_len - 1 && map[y][x+1] == '\0')
+		if (y < map_len - 1 && (int)ft_strlen(map[y + 1]) - 1 < x)
+			return (perror_neighbour(map[y], map[y + 1]), 1);
+		if (x < line_len - 1 && map[y][x + 1] == '\0')
 			return (printf("Invalid map line: %s\n", map[y]), 1);
-		if (y > 0 && map[y-1][x] && map[y-1][x] == ' ')
-			return (printf("Invalid map line. Not closed:\n\t%s\n\t%s <-\n", map[y - 1], map[y]), 1);
-		if (x > 0 && map[y][x-1] && map[y][x-1] == ' ')
+		if (y > 0 && map[y - 1][x] && map[y - 1][x] == ' ')
+			return (perror_neighbour(map[y - 1], map[y]), 1);
+		if (x > 0 && map[y][x - 1] && map[y][x - 1] == ' ')
 			return (printf("Invalid map line. Not closed:\n\t%s\n", map[y]), 1);
-		if (y < map_len - 1 && map[y+1][x] && map[y+1][x] == ' ')
-			return (printf("Invalid map line. Not closed:\n\t%s <-\n\t%s\n", map[y], map[y+1]), 1);
-		if (x < line_len - 1 && map[y][x+1] && map[y][x+1] == ' ')
+		if (y < map_len - 1 && map[y + 1][x] && map[y + 1][x] == ' ')
+			return (perror_neighbour(map[y], map[y + 1]), 1);
+		if (x < line_len - 1 && map[y][x + 1] && map[y][x + 1] == ' ')
 			return (printf("Invalid map line: %s\n", map[y]), 1);
 	}
 	return (0);
 }
-int validate_line(char **map, int y, t_player_position *player_position)
-{
-	int x;
-	char *line;
 
-	x = -1;
+static int	validate_line(char **map, int x, int y,
+		t_player_position *player_position)
+{
+	char	*line;
+
 	line = map[y];
 	while (line[++x] && ft_isspace(line[x]))
 		;
@@ -89,10 +88,10 @@ int validate_line(char **map, int y, t_player_position *player_position)
 	return (0);
 }
 
-int validate_map(t_cube_data *cube_data, t_player_position *player_position)
+int	validate_map(t_cube_data *cube_data, t_player_position *player_position)
 {
-	int idx;
-	int max_y;
+	int	idx;
+	int	max_y;
 
 	max_y = double_pointer_len(cube_data->map);
 	player_position->x = -1;
@@ -103,10 +102,12 @@ int validate_map(t_cube_data *cube_data, t_player_position *player_position)
 	while (cube_data->map[++idx])
 	{
 		if (ft_strlen(cube_data->map[idx]) <= 0)
-			return (ft_printf("Invalid map x\n Cube data map[%s] with idex %d",cube_data->map[idx],idx),1);
-		if ((idx == 0 || idx == max_y - 1) && validate_top_bottom(cube_data->map[idx]))
+			return (ft_printf("Invalid map x\n Cube data map[%s] with idex %d",
+					cube_data->map[idx], idx), 1);
+		if ((idx == 0 || idx == max_y - 1)
+			&& validate_top_bottom(cube_data->map[idx]))
 			return (1);
-		if (validate_line(cube_data->map, idx, player_position))
+		if (validate_line(cube_data->map, -1, idx, player_position))
 			return (1);
 	}
 	if (player_position->x == -1 || player_position->y == -1)

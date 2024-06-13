@@ -1,12 +1,12 @@
-//* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 22:17:45 by alberrod          #+#    #+#             */
-/*   Updated: 2024/01/28 00:05:49 by alberrod         ###   ########.fr       */
+/*   Created: 2024/06/13 02:28:58 by dgomez-m          #+#    #+#             */
+/*   Updated: 2024/06/13 02:29:26 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 #  define BUFFER_SIZE 42
 # endif
 
+# include <fcntl.h>
 # include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <fcntl.h>
 
 # define FD_STDOUT 1
 # define FD_STDERR 2
@@ -96,8 +96,8 @@ int					ft_printf(const char *fmt, ...);
 int					ft_printstr(char *s);
 int					ft_printnbr(long nbr, int base, char *nbr_formatter);
 int					ft_printchar(int c);
-int					ft_print_addr(unsigned long nbr,
-						int base, char *nbr_formatter);
+int					ft_print_addr(unsigned long nbr, int base,
+						char *nbr_formatter);
 
 // fd_printf && fd_printf utils
 int					ft_fd_printf(int fd, const char *fmt, ...);
@@ -105,10 +105,10 @@ int					ft_fd_printstr(int fd, char *s);
 int					ft_fd_printnbr(int fd, long nbr, int base,
 						char *nbr_formatter);
 int					ft_fd_printchar(int fd, int c);
-int					ft_fd_print_addr(int fd, unsigned long nbr,
-						int base, char *nbr_formatter);
+int					ft_fd_print_addr(int fd, unsigned long nbr, int base,
+						char *nbr_formatter);
 
-// Get next line 
+// Get next line
 char				*get_next_line(int fd);
 
 #endif

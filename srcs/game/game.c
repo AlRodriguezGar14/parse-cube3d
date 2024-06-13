@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:12:58 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/12 20:14:54 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 02:49:59 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	draw_floor_and_ceiling(t_cube_data *data, t_image_info *img, int x)
 
 static void	ray_to_img(t_cube_data *data, t_image_info *img)
 {
-	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, img->image_charge,
+	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, img->image_charge,
 		0, 0);
-	mlx_destroy_image(data->mlx->mlx, img->image_charge);
+	mlx_destroy_image(data->mlx.mlx, img->image_charge);
 	data->textures[4].created = false;
 }
 

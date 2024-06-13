@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:04:08 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/13 13:57:25 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:56:16 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,17 @@ bool	load_textures_helper(t_cube_data *data, char *path, int i)
 	}
 	data->textures[i].image_charge = mlx_xpm_file_to_image(data->mlx.mlx, path,
 			&(width), &(height));
+	if (width != TEXT_SIZE || height != TEXT_SIZE)
+	{
+		printf("Textures must be %dx%d\n", TEXT_SIZE, TEXT_SIZE);
+		data->textures[i].created = false;
+		return (true);
+	}
 	data->textures[i].created = true;
 	if (!data->textures[i].image_charge)
 	{
 		printf("Can't load the textures\n");
+		data->textures[i].created = false;
 		return (true);
 	}
 	return (false);

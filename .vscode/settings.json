@@ -1,6 +1,6 @@
 {
 	"files.associations": {
-		"parsecube.h": "c",
+		"cube3d.h": "c",
 		"compare": "c",
 		"mlx.h": "c"
 	}

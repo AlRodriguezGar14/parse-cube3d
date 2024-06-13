@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print_terminal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 03:33:22 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/13 03:36:36 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:57:25 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsecube.h"
+#include "../../includes/cube3d.h"
 
 void	print_map(t_cube_data *cube_data)
 {

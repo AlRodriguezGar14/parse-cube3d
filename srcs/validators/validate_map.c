@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 04:52:25 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/13 02:31:00 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:57:25 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsecube.h"
+#include "../../includes/cube3d.h"
 
 void	perror_neighbour(char *line, char *neighbour)
 {

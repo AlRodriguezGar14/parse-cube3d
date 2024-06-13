@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:26:11 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/13 03:23:22 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:57:25 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsecube.h"
+#include "../../includes/cube3d.h"
 
 void	m_rotate(t_cube_data *d, bool flag)
 {

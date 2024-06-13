@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:04:08 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/13 02:43:58 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:56:16 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsecube.h"
+#include "../includes/cube3d.h"
 
 int	ft_isspace(char c)
 {
@@ -60,10 +60,17 @@ bool	load_textures_helper(t_cube_data *data, char *path, int i)
 	}
 	data->textures[i].image_charge = mlx_xpm_file_to_image(data->mlx.mlx, path,
 			&(width), &(height));
+	if (width != TEXT_SIZE || height != TEXT_SIZE)
+	{
+		printf("Textures must be %dx%d\n", TEXT_SIZE, TEXT_SIZE);
+		data->textures[i].created = false;
+		return (true);
+	}
 	data->textures[i].created = true;
 	if (!data->textures[i].image_charge)
 	{
 		printf("Can't load the textures\n");
+		data->textures[i].created = false;
 		return (true);
 	}
 	return (false);

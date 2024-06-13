@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsecube.h                                        :+:      :+:    :+:   */
+/*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/13 03:38:50 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:56:27 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSECUBE_H
-# define PARSECUBE_H
+#ifndef CUBE3D_H
+# define CUBE3D_H
 
 # include "../mlx/mlx.h"
 # include "libft.h"
 # include <math.h>
 # include <stdbool.h>
 
-# define HEIGHT 1200
-# define WIDTH 1804
+# define WIDTH 1280
+# define HEIGHT 720
 # define A 97
 # define D 100
 # define W 119
 # define S 115
-# define LEFT 65361 // linux
+# define LEFT 65361  // linux
 # define RIGHT 65363 // linux
-# define UP 65362 // linux
-# define DOWN 65364 // linux
-# define ESC 65307  // linux
+# define UP 65362    // linux
+# define DOWN 65364  // linux
+# define ESC 65307   // linux
 # define TILE_SIZE 66
 # define FOV 66
 # define ROTATION_SPEED 0.042
@@ -149,6 +149,13 @@ typedef struct s_pos
 	double				y;
 }						t_pos;
 
+typedef struct t_mouse
+{
+	int					x;
+	int					y;
+	int					prev_x;
+	int					prev_y;
+}						t_mouse;
 typedef struct s_cube_data
 {
 	char *north_texture;  // no
@@ -166,6 +173,7 @@ typedef struct s_cube_data
 	t_ray				r;
 	t_move				move;
 	t_wall				wall;
+	t_mouse				mouse;
 }						t_cube_data;
 
 #endif
@@ -175,8 +183,8 @@ int						validate_map(t_cube_data *cube_data,
 							t_player_position *player_position);
 
 // setter.c
-void	set_initial_position(t_player_position *player_position, int x, int y,
-		char orientation);
+void					set_initial_position(t_player_position *player_position,
+							int x, int y, char orientation);
 
 // Path: validate_file.c
 int						validate_file(t_cube_data *cube_data);
@@ -215,9 +223,10 @@ t_pos					calculate_new_position(t_cube_data *data, double move_x,
 // PATH key_hook_terminal.c
 int						key_hook_terminal(int keycode, t_cube_data *cube_data);
 
-//Path: print_terminal.c
+// Path: print_terminal.c
 void					print_map(t_cube_data *cube_data);
-void	print_game_terminal(t_cube_data *cube_data, int crab_x, int crab_y);
+void					print_game_terminal(t_cube_data *cube_data, int crab_x,
+							int crab_y);
 // Path: free_content.c
 void					free_content(t_cube_data *cube_data);
 void					free_mlx(t_mlx *mlx);
@@ -246,7 +255,6 @@ void					dda_algorithm(t_raycaster *rc, t_cube_data *data);
 // textures.c
 int						rgb(int r, int g, int b);
 void					print_c_f(t_cube_data *data);
-// void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
 void					my_mlx_pixel_put(t_image_info *data, int x, int y,
 							int color);
 t_image_info			*renew_image(t_cube_data *data);
@@ -258,3 +266,6 @@ int						destroy_window(void *param);
 // mini map
 void					paint_map(t_cube_data *data);
 void					ft_strlen_map(char **map, t_cube_data *data);
+// mouse move
+int						mouse_move(int x, int y, t_cube_data *game);
+void					m_rotate(t_cube_data *d, bool flag);

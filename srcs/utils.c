@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 05:04:08 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/13 14:56:16 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:11:12 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ void	get_addres_helper(t_cube_data *data, int i)
 	data->textures[i].addres = mlx_get_data_addr(ic, bpp, size, endian);
 }
 
+bool texture_is_valid(int width, int height)
+{
+	if (width != TEXT_SIZE || height != TEXT_SIZE)
+	{
+		printf("Textures must be %dx%d\n", TEXT_SIZE, TEXT_SIZE);
+		return (false);
+	}
+	return (true);
+}
+
 bool	load_textures_helper(t_cube_data *data, char *path, int i)
 {
 	int	width;
@@ -60,32 +70,27 @@ bool	load_textures_helper(t_cube_data *data, char *path, int i)
 	}
 	data->textures[i].image_charge = mlx_xpm_file_to_image(data->mlx.mlx, path,
 			&(width), &(height));
-	if (width != TEXT_SIZE || height != TEXT_SIZE)
-	{
-		printf("Textures must be %dx%d\n", TEXT_SIZE, TEXT_SIZE);
-		data->textures[i].created = false;
-		return (true);
-	}
 	data->textures[i].created = true;
 	if (!data->textures[i].image_charge)
 	{
 		printf("Can't load the textures\n");
-		data->textures[i].created = false;
-		return (true);
+		return (data->textures[i].created = false, true);
 	}
+	if (!texture_is_valid(width, height))
+		return (true);
 	return (false);
 }
 
 void	load_textures(t_cube_data *data)
 {
 	if (load_textures_helper(data, data->east_texture, 0))
-		return (exit(1));
+		return ((void)destroy_window(data));
 	if (load_textures_helper(data, data->south_texture, 1))
-		return (exit(1));
+		return ((void)destroy_window(data));
 	if (load_textures_helper(data, data->west_texture, 2))
-		return (exit(1));
+		return ((void)destroy_window(data));
 	if (load_textures_helper(data, data->north_texture, 3))
-		return (exit(1));
+		return ((void)destroy_window(data));
 	load_textures_helper(data, NULL, 4);
 	get_addres_helper(data, 0);
 	get_addres_helper(data, 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/13 15:11:58 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:10:46 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,8 +176,6 @@ typedef struct s_cube_data
 	t_mouse				mouse;
 }						t_cube_data;
 
-#endif
-
 // Path: validate_map.c
 int						validate_map(t_cube_data *cube_data,
 							t_player_position *player_position);
@@ -269,3 +267,5 @@ void					ft_strlen_map(char **map, t_cube_data *data);
 // mouse move
 int						mouse_move(int x, int y, t_cube_data *game);
 void					m_rotate(t_cube_data *d, bool flag);
+
+#endif

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsecube.h                                        :+:      :+:    :+:   */
+/*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/13 12:23:44 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:24:21 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSECUBE_H
-# define PARSECUBE_H
+#ifndef CUBE3D_H
+# define CUBE3D_H
 
 # include "../mlx/mlx.h"
 # include "libft.h"
 # include <math.h>
 # include <stdbool.h>
 
-# define HEIGHT 1200
-# define WIDTH 1804
+# define WIDTH 1280
+# define HEIGHT 720
 # define A 97
 # define D 100
 # define W 119
@@ -255,7 +255,6 @@ void					dda_algorithm(t_raycaster *rc, t_cube_data *data);
 // textures.c
 int						rgb(int r, int g, int b);
 void					print_c_f(t_cube_data *data);
-// void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
 void					my_mlx_pixel_put(t_image_info *data, int x, int y,
 							int color);
 t_image_info			*renew_image(t_cube_data *data);

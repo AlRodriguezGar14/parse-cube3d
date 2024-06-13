@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:04:25 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/13 13:35:58 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:57:25 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsecube.h"
+#include "../../includes/cube3d.h"
 
 int	mouse_move(int x, int y, t_cube_data *game)
 {

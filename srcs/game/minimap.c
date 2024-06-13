@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 03:23:16 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/06/12 03:50:59 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:57:25 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsecube.h"
+#include "../../includes/cube3d.h"
 
 void	get_plyr_pos(t_cube_data *data)
 {

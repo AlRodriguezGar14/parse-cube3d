@@ -26,7 +26,8 @@ SRC_FILES	= main \
 			game/wall \
 			game/move \
 			game/move_aux \
-			game/print_terminal
+			game/print_terminal \
+			game/mouse
 			
 	
 

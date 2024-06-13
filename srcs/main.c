@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:23:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/13 03:36:18 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 10:11:16 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ void	hooks(t_cube_data *game)
 {
 	mlx_hook(game->mlx.win, 2, 1L << 0, key_pressed, game);
 	mlx_hook(game->mlx.win, 3, 1L << 1, key_release, game);
+	mlx_hook(game->mlx.win, 6, 1L << 6, mouse_move, game);
+	//mouse_move is a function that will be called when the mouse is moved
+	// mouse_exit is a function that will be called when the mouse exits the window
+	mlx_hook(game->mlx.win, 12, 1L << 15, mouse_exit, game);
 	mlx_hook(game->mlx.win, 17, 1L << 17, destroy_window, game);
 }
 

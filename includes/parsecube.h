@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:21:10 by alberrod          #+#    #+#             */
-/*   Updated: 2024/06/13 10:27:35 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/06/13 10:42:00 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,5 +269,4 @@ void					paint_map(t_cube_data *data);
 void					ft_strlen_map(char **map, t_cube_data *data);
 // mouse move
 int						mouse_move(int x, int y, t_cube_data *game);
-int						mouse_exit(int keycode, void *game);
 void					m_rotate(t_cube_data *d, bool flag);
